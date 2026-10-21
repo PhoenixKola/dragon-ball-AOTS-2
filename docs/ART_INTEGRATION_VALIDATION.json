@@ -1,0 +1,252 @@
+{
+ "checked": 424,
+ "errors": [],
+ "warnings": [
+  "ui/panel_focused.png: almost no transparency"
+ ],
+ "rejected": [],
+ "overworld": {
+  "goku_base/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_base/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_base/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_base/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "gohan_namek/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "gohan_namek/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "gohan_namek/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "gohan_namek/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "krillin/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "krillin/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "krillin/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "krillin/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "vegeta/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "vegeta/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "vegeta/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "vegeta/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo_fused/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo_fused/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo_fused/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "piccolo_fused/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_ssj_test/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_ssj_test/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_ssj_test/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "goku_ssj_test/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "bulma/down": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 4
+  },
+  "bulma/up": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 4
+  },
+  "bulma/right": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  },
+  "bulma/left": {
+   "idle": 1,
+   "walk": 4,
+   "distinctWalk": 3
+  }
+ },
+ "vfx": {
+  "blue_beam": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "yellow_beam": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "purple_beam": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "green_beam": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "red_beam": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "ki_charge": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "gold_aura": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "purple_aura": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "guard_ring": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "punch_impact": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "energy_burst": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "healing_spark": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "transformation_flash": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "death_beam": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "destructo_disc": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "explosion": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "solar_flare": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "shockwave": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "dust_impact": {
+   "frames": 8,
+   "distinct": 8
+  },
+  "purple_orbs": {
+   "frames": 8,
+   "distinct": 8
+  }
+ }
+}

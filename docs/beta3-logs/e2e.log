@@ -1,0 +1,63 @@
+
+Running 37 tests using 1 worker
+
+  ok  1 tests\e2e\flows.spec.ts:22:1 › defeat screen: Retry restores the fight, Load latest save returns to the last save and the game stays playable, Return to title works (50.1s)
+  ok  2 tests\e2e\flows.spec.ts:75:1 › save at a chapter boundary, reload the page, load the slot: the game is identical and the story continues (41.7s)
+  ok  3 tests\e2e\flows.spec.ts:96:1 › old saves: a prototype (v2) save and an Alpha 3f-shaped save file both import and continue; a damaged file is refused without breaking the title (2.6m)
+  ok  4 tests\e2e\porunga.spec.ts:38:1 › Porunga: all balls, three wishes with a cancel and a reload in between; Trunks, Hidden Potential and the Dragon Crest are granted exactly once (4.1m)
+  ok  5 tests\e2e\porunga.spec.ts:103:1 › Porunga: with a Dragon Ball still missing the shrine explains it, the Last Ground can be revisited to collect it, and only then the ceremony opens (2.6m)
+  ok  6 tests\e2e\smoke.spec.ts:37:1 › boots to the title screen without errors and Continue is disabled with no saves (3.0s)
+  ok  7 tests\e2e\smoke.spec.ts:45:1 › new game -> intro -> exploration -> first scripted fight played with real input -> results -> save -> reload -> continue (1.8m)
+  ok  8 tests\e2e\smoke.spec.ts:97:1 › hostile or malformed saves are rejected without crashing; legacy v2 save imports as a checkpoint (2.4s)
+  ok  9 tests\e2e\smoke.spec.ts:123:1 › menu opens, all tabs render, pause freezes battle clock (34.8s)
+  ok 10 tests\e2e\smoke.spec.ts:141:1 › Super Saiyan cinematic scene runs to completion (4.8s)
+cycle [33m0[39m encounter {"mode":"battle","busy":1,"x":23.04999999999999,"y":14,"active":["battle"]}
+cycle [33m1[39m encounter {"mode":"battle","busy":1,"x":22.97499999999999,"y":14,"active":["battle"]}
+cycle [33m2[39m encounter {"mode":"battle","busy":1,"x":23.04999999999999,"y":14,"active":["battle"]}
+cycle [33m3[39m encounter {"mode":"battle","busy":1,"x":22.97499999999999,"y":14,"active":["battle"]}
+cycle [33m4[39m foe {"mode":"battle","busy":1,"x":29.3,"y":17,"active":["battle"]}
+cycle [33m5[39m encounter {"mode":"battle","busy":1,"x":22.97499999999999,"y":14,"active":["battle"]}
+cycle [33m6[39m encounter {"mode":"battle","busy":1,"x":23.04999999999999,"y":14,"active":["battle"]}
+cycle [33m7[39m encounter {"mode":"battle","busy":1,"x":22.97499999999999,"y":14,"active":["battle"]}
+cycle [33m8[39m encounter {"mode":"battle","busy":1,"x":22.97499999999999,"y":14,"active":["battle"]}
+cycle [33m9[39m encounter {"mode":"battle","busy":1,"x":23.04999999999999,"y":14,"active":["battle"]}
+  ok 11 tests\e2e\smoke.spec.ts:176:1 › world -> battle -> results -> world is stable across random encounters and foe contact (10 cycles, no JS errors, scene/mode agree) (1.6m)
+  ok 12 tests\e2e\smoke.spec.ts:210:1 › overworld: all five heroes show the right set, the right facing for up/down/left/right, and a real walk cycle (no mirroring) (30.0s)
+  ok 13 tests\e2e\smoke.spec.ts:243:1 › Goku forms in real battles: base before the unlock, Kaioken only when used, Super Saiyan only after the unlock; allies face right and enemies face left (20.2s)
+  ok 14 tests\e2e\smoke.spec.ts:300:1 › Ball 7 on the last ground: real interact picks the seven-star ball (count 6 -> 7) and does not start the fight; replay is impossible (7.4s)
+  ok 15 tests\e2e\smoke.spec.ts:314:1 › Ball 7 first pickup plays the pickup SFX and shows the Seven-Star toast; a replay does neither (13.4s)
+  ok 16 tests\e2e\smoke.spec.ts:339:1 › Final battle is enterable with only some balls (no trap on the last ground), and the ending is not gated on the count (6.3s)
+  ok 17 tests\e2e\smoke.spec.ts:351:1 › battle command menu is fully visible and unclipped at 1024x600, 1280x720 and 1920x1080 (39.3s)
+  ok 18 tests\e2e\smoke.spec.ts:375:1 › loading screen is shown in the stage while assets load, then the title appears; game canvas fills the stage (5.2s)
+  ok 19 tests\e2e\smoke.spec.ts:385:1 › window resized while the game is still starting (e.g. going full screen at launch): canvas and camera still fill the stage (4.6s)
+  ok 20 tests\e2e\ui.spec.ts:4:1 › menus, journal and quest tracker stay fully visible and unclipped at 1024x600, 1280x720 and 1920x1080 (8.4m)
+  ok 21 tests\e2e\ui.spec.ts:33:1 › journal content: only met quests and unlocked Dragon Ball hints are shown (no spoilers), statuses are distinct (1.1m)
+  ok 22 tests\e2e\ui.spec.ts:47:1 › gamepad bridge (mocked pad, no hardware): D-pad moves the battle menu, A confirms, B backs out, X guards; Start opens the world menu (8.2s)
+  ok 23 tests\e2e\ui.spec.ts:63:1 › gamepad bridge in the overworld menu: Start opens it, D-pad moves focus, A presses, B closes (mocked pad) (1.3m)
+  ok 24 tests\e2e\ui.spec.ts:79:1 › title, save, load and resume: altar save, reload, Load slot, corrupt main file falls back to the backup, export/import file (4.2m)
+  ok 25 tests\e2e\ui.spec.ts:118:1 › keyboard only: the title, Load and Settings screens can be driven with arrows, Enter and Esc; the world menu moves focus with arrows (43.5s)
+  ok 26 tests\e2e\v5.spec.ts:6:1 › Loadout: four slots, equip / swap / unequip persist through a reload; X and Backspace close the menu (Esc is only a convenience) (1.9m)
+  ok 27 tests\e2e\v5.spec.ts:45:1 › Rage: the party card shows the meter, a full bar says MAX · READY and the one-time tip appears once; Sparking explains itself (4.8s)
+  ok 28 tests\e2e\v5.spec.ts:62:1 › the new stages and sprites load without errors: Cooler on the frozen stage, Super Saiyan Goku with his flame (4.7s)
+  ok 29 tests\e2e\v5.spec.ts:75:1 › credits lead into the postgame: Continue Adventure puts the party in the hub with everything kept; the Frozen Ruins load and the trail gates work (1.2m)
+  ok 30 tests\e2e\story.spec.ts:33:1 › browser [flow, natural levels]: Stolen Supplies quest chain (offer, patrol fight, sack, reward, journal) (51.9s)
+chapter 1-2: 0 defeat(s) retried, levels gohan9 krillin9 vegeta8
+  ok 31 tests\e2e\story.spec.ts:54:1 › browser [flow, natural levels, from a new game]: Chapter 1 and 2: intro, first contact, Dende, Vegeta joins, Cui, Dragon Ball 1 (2.1m)
+chapter 2-3: 0 defeat(s) retried
+  ok 32 tests\e2e\story.spec.ts:79:1 › browser [flow, BOOSTED levels 16]: Chapter 2 to 3: Dodoria, Medicine for the Elders (items), the Crystal Grotto, Zarbon, Guru’s gift (2.5m)
+chapter 4: 0 defeat(s) retried
+  ok 33 tests\e2e\story.spec.ts:113:1 › browser [flow, BOOSTED levels 28]: Chapter 4: Guldo, Recoome (survive, Goku arrives), Burter and Jeice, Ginyu (3.8m)
+chapters 5-7: 0 defeat(s) retried
+  ok 34 tests\e2e\story.spec.ts:134:1 › browser [flow, NATURAL levels]: Chapter 5 to 7 (point of no return, Frieza, Super Saiyan) and the INCOMPLETE ending (5.4m)
+  ok 35 tests\e2e\story.spec.ts:170:1 › browser [flow, NATURAL levels]: Chapter 7 with all seven Dragon Balls: the last ball does not start the fight, and the Porunga ending plays (1.5m)
+[natural] chapter 2-3: 0 defeat(s) retried, levels gohan11 krillin11 vegeta11
+  ok 36 tests\e2e\story.spec.ts:189:1 › browser [flow, NATURAL levels]: Chapter 2 to 3 at earned levels: altar, Dodoria, the Grotto, Zarbon, Guru (2.7m)
+[natural] chapter 4: 0 defeat(s) retried, levels gohan18 krillin17 vegeta18 goku18
+  ok 37 tests\e2e\story.spec.ts:211:1 › browser [flow, NATURAL levels]: Chapter 4 at earned levels: Guldo, Recoome, Burter and Jeice, Captain Ginyu (5.3m)
+
+  Slow test file: tests\e2e\story.spec.ts (24.1m)
+  Slow test file: tests\e2e\ui.spec.ts (15.9m)
+  Slow test file: tests\e2e\porunga.spec.ts (6.6m)
+  Slow test file: tests\e2e\smoke.spec.ts (6.3m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  37 passed (1.0h)

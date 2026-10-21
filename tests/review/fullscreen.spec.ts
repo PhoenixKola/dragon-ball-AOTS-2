@@ -1,0 +1,23 @@
+import { test, expect } from '@playwright/test';
+import { boot, continueFrom, fixture, type W } from '../e2e/support';
+test('fullscreenchange keeps the open menu and tab, does not re-enter or confirm', async ({ page }) => {
+  const errors: string[] = []; await boot(page, errors, { settings: { fullscreen: false } });
+  await continueFrom(page, fixture({ stopAt: 'ginyu' }));
+  await page.keyboard.press('Escape'); await page.waitForSelector('.menu-win');
+  await page.getByRole('tab', { name: 'Items' }).click();
+  await page.mouse.click(5, 5);
+  const entered = await page.evaluate(async () => { try { await document.documentElement.requestFullscreen(); return !!document.fullscreenElement; } catch { return false; } });
+  console.log('entered fullscreen', entered);
+  await page.waitForTimeout(800);
+  await page.evaluate(async () => { if (document.fullscreenElement) await document.exitFullscreen(); });
+  await page.waitForTimeout(1000);
+  expect(await page.evaluate(() => !!document.fullscreenElement)).toBe(false);
+  const st = await page.evaluate(() => { const o = (window as W).__session.overlay; return { kind: o?.kind, tab: o?.tab, mode: (window as W).__session.mode }; });
+  console.log(JSON.stringify(st));
+  expect(st).toEqual({ kind: 'menu', tab: 'items', mode: 'world' });
+  const r = await page.evaluate(() => { const c = document.querySelector('canvas')!.getBoundingClientRect(); return { w: c.width, h: c.height, iw: innerWidth, ih: innerHeight }; });
+  console.log(JSON.stringify(r));
+  await page.screenshot({ path: 'evidence/beta3/ui/after_fullscreen_exit.png' });
+  await page.keyboard.press('x'); await page.waitForFunction(() => !(window as W).__session.overlay);
+  expect(errors).toEqual([]);
+});

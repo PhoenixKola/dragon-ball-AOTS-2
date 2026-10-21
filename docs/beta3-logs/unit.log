@@ -1,0 +1,113 @@
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mE:/Programming/Projects/0. Extra/attack-of-the-saiyans-2-namek[39m
+
+ [32m✓[39m tests/unit/rage.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 508[2mms[22m[39m
+   [33m[2m✓[22m[39m Rage pacing (simulated naturally levelled parties; a model of play, not a human playthrough)[2m > [22ma story midboss lets an attentive or average guarder spend Rage in most fights; a quick random fight rarely reaches 100 [33m 428[2mms[22m[39m
+ [32m✓[39m tests/unit/story.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 1052[2mms[22m[39m
+   [33m[2m✓[22m[39m world collision: everything the player must touch is reachable on foot from the spawn[2m > [22marrival points of every exit can reach the way back [33m 432[2mms[22m[39m
+ [32m✓[39m tests/unit/trunks.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 566[2mms[22m[39m
+   [33m[2m✓[22m[39m Cooler with and without the wishes (simulated; not a human playthrough)[2m > [22mCooler stays beatable and fair without any wish, and wishes help but are not required [33m 376[2mms[22m[39m
+ [32m✓[39m tests/unit/combatRules.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+ [32m✓[39m tests/unit/art-v3.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 3148[2mms[22m[39m
+   [33m[2m✓[22m[39m overworld left/right frames keep their own art (never mirrored at runtime)[2m > [22mPiccolo trails his cape behind him: the folders are not swapped (left frames face left, right frames face right) [33m 355[2mms[22m[39m
+   [33m[2m✓[22m[39m overworld left/right frames keep their own art (never mirrored at runtime)[2m > [22mleft and right folders hold different pixels for every entity (dedicated art, not a flipped copy sharing a file) [33m 430[2mms[22m[39m
+   [33m[2m✓[22m[39m base Goku animation set (derived from the Kaioken frames, aura-free)[2m > [22mevery frame exists at the set canvas size, is a real body (not empty), has no red/pink glow and no yellow hair, and idle frames are pixel-distinct [33m 1868[2mms[22m[39m
+ [32m✓[39m tests/unit/postgame.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 2401[2mms[22m[39m
+   [33m[2m✓[22m[39m the postgame world (real collision data)[2m > [22mthe hub spawn is walkable and the hub NPC (Capsule Comm), altar, trader and exits are reachable from it [33m 370[2mms[22m[39m
+   [33m[2m✓[22m[39m the postgame world (real collision data)[2m > [22mCooler is reached by a real route: hub -> Highlands (east end, rift) -> Frozen Ruins -> arena [33m 1318[2mms[22m[39m
+   [33m[2m✓[22m[39m Cooler, rewards and the rematch[2m > [22mbalance at naturally earned postgame levels (simulated; a model of play, not a human playthrough) [33m 480[2mms[22m[39m
+ [32m✓[39m tests/unit/combat.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m tests/unit/loadout.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m tests/unit/dragonballs.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/unit/triggers.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/unit/backKey.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/unit/listWindow.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/unit/beta3World.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 715[2mms[22m[39m
+   [33m[2m✓[22m[39m Beta 3 world: Cooler field sprite[2m > [22mevery manifest frame exists on disk [33m 577[2mms[22m[39m
+ [32m✓[39m tests/unit/gamepad.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/unit/softlocks.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m tests/unit/art-integration.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 7590[2mms[22m[39m
+   [33m[2m✓[22m[39m validated art pack is fully wired[2m > [22mevery overworld frame exists, has the manifest canvas size and a real walk cycle [33m 4938[2mms[22m[39m
+   [33m[2m✓[22m[39m validated art pack is fully wired[2m > [22mevery skill has a validated icon and every item has an icon [33m 1425[2mms[22m[39m
+   [33m[2m✓[22m[39m Goku form state machine (base / Kaioken / Super Saiyan never overwrite each other)[2m > [22meach set provides every state the battle needs, and every frame file exists at the shared canvas size [33m 895[2mms[22m[39m
+ [32m✓[39m tests/unit/calibrate.test.ts [2m([22m[2m21 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[33m 8440[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mshore_scouts: beatable, takes real effort, rewards skill [33m 456[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mvillage_dende: beatable, takes real effort, rewards skill [33m 434[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mcui: beatable, takes real effort, rewards skill [33m 836[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mdodoria: beatable, takes real effort, rewards skill [33m 733[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mzarbon: beatable, takes real effort, rewards skill [33m 842[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mguldo: beatable, takes real effort, rewards skill [33m 478[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mrecoome_survive: beatable, takes real effort, rewards skill [33m 555[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mrecoome_goku: beatable, takes real effort, rewards skill [33m 394[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mginyu: beatable, takes real effort, rewards skill [33m 587[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mnail_vs_frieza: beatable, takes real effort, rewards skill [33m 380[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza1: beatable, takes real effort, rewards skill [33m 466[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza2: beatable, takes real effort, rewards skill [33m 338[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza3: beatable, takes real effort, rewards skill [33m 448[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza4: beatable, takes real effort, rewards skill [33m 330[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfinal: beatable, takes real effort, rewards skill [33m 434[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22msoldier encounters stay snappy and fair across the whole level range [33m 368[2mms[22m[39m
+ [32m✓[39m tests/unit/balance.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 8471[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mshore_scouts: beatable, takes real effort, rewards skill [33m 367[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mvillage_dende: beatable, takes real effort, rewards skill [33m 463[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mcui: beatable, takes real effort, rewards skill [33m 1199[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mdodoria: beatable, takes real effort, rewards skill [33m 742[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mzarbon: beatable, takes real effort, rewards skill [33m 427[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mguldo: beatable, takes real effort, rewards skill [33m 338[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mrecoome_survive: beatable, takes real effort, rewards skill [33m 765[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mrecoome_goku: beatable, takes real effort, rewards skill [33m 338[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mduo: beatable, takes real effort, rewards skill [33m 440[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mginyu: beatable, takes real effort, rewards skill [33m 841[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mnail_vs_frieza: beatable, takes real effort, rewards skill [33m 352[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza1: beatable, takes real effort, rewards skill [33m 467[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza2: beatable, takes real effort, rewards skill [33m 321[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfrieza3: beatable, takes real effort, rewards skill [33m 331[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22mfinal: beatable, takes real effort, rewards skill [33m 408[2mms[22m[39m
+   [33m[2m✓[22m[39m balance: every authored story battle (deterministic simulation, 60 seeds each)[2m > [22msoldier encounters stay snappy and fair across the whole level range [33m 342[2mms[22m[39m
+ [32m✓[39m tests/unit/director.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 13134[2mms[22m[39m
+   [33m[2m✓[22m[39m full simulated fights complete without stalls[2m > [22mscouts: reaches an outcome with sane state [33m 1239[2mms[22m[39m
+   [33m[2m✓[22m[39m full simulated fights complete without stalls[2m > [22mcui: reaches an outcome with sane state [33m 2531[2mms[22m[39m
+   [33m[2m✓[22m[39m full simulated fights complete without stalls[2m > [22mdodoria: reaches an outcome with sane state [33m 2991[2mms[22m[39m
+   [33m[2m✓[22m[39m full simulated fights complete without stalls[2m > [22mzarbon: reaches an outcome with sane state [33m 3264[2mms[22m[39m
+   [33m[2m✓[22m[39m full simulated fights complete without stalls[2m > [22mguldo: reaches an outcome with sane state [33m 1045[2mms[22m[39m
+   [33m[2m✓[22m[39m full simulated fights complete without stalls[2m > [22mginyu: reaches an outcome with sane state [33m 1987[2mms[22m[39m
+ [32m✓[39m tests/unit/progression.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 3312[2mms[22m[39m
+   [33m[2m✓[22m[39m story fights at the levels the route produces (real combat engine, 30 seeds per cell)[2m > [22mcritical path (no side quests), normal: every fight is winnable by a skilled player, and costs resources [33m 1267[2mms[22m[39m
+   [33m[2m✓[22m[39m story fights at the levels the route produces (real combat engine, 30 seeds per cell)[2m > [22mthe full route is comfortable for a skilled player and clearly easier than the bare critical path [33m 1128[2mms[22m[39m
+   [33m[2m✓[22m[39m story fights at the levels the route produces (real combat engine, 30 seeds per cell)[2m > [22measy mode critical path: every fight is comfortably winnable [33m 872[2mms[22m[39m
+ [32m✓[39m tests/unit/quests.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 23969[2mms[22m[39m
+   [33m[2m✓[22m[39m quests in play (real walking, real scripts)[2m > [22mStolen Supplies: locked -> offered -> active -> ready -> done, reward paid once [33m 1719[2mms[22m[39m
+   [33m[2m✓[22m[39m quests in play (real walking, real scripts)[2m > [22mMedicine for the Elders consumes exactly two Med Kits and only once; without kits it asks for them [33m 954[2mms[22m[39m
+   [33m[2m✓[22m[39m quests in play (real walking, real scripts)[2m > [22mFrieza’s Logbook only pays the training points once and only after the log was found [33m 9727[2mms[22m[39m
+   [33m[2m✓[22m[39m quests in play (real walking, real scripts)[2m > [22mevery quest reward is repeat-proof: start/complete twice and re-running every present NPC script changes nothing [33m 5771[2mms[22m[39m
+   [33m[2m✓[22m[39m quests in play (real walking, real scripts)[2m > [22mDragon Ball pickups are idempotent through the real scripts [33m 5676[2mms[22m[39m
+ [32m✓[39m tests/unit/saveCompat.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 53009[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22mloads and round-trips unchanged: village after Dende [33m 1239[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22mloads and round-trips unchanged: Guru reached (mid chapter 3) [33m 4944[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22mloads and round-trips unchanged: before Frieza (party is the 3f lineup) [33m 9405[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22mloads and round-trips unchanged: on the last ground (3f left only Gohan in the party) [33m 7743[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22mloads and round-trips unchanged: finished game [33m 6161[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22mno retroactive rewards: patrol flags from an old save never complete or pay a quest by themselves [33m 3708[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22man Alpha 3f save from mid chapter 3 can be played to the ending (with and without the new side quests) [33m 9605[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22man Alpha 3f save from just before Frieza finishes, and the 3f party (Piccolo benched) is fixed by the story lineup steps [33m 2896[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22man Alpha 3f save made on the last ground with only Gohan in the party still reaches the ending [33m 2918[2mms[22m[39m
+   [33m[2m✓[22m[39m Alpha 3f saves keep working (SAVE_VERSION unchanged, quests live in flags)[2m > [22ma prototype (v2) import is a clean checkpoint without quest flags and continues to the ending [33m 4218[2mms[22m[39m
+ [32m✓[39m tests/unit/storyPath.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 117707[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mthe full game (all seven side quests, all Dragon Balls) reaches the true ending in story order [33m 12186[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mthe bare critical path (no side quests, only the story Dragon Balls) is completable and ends with the incomplete-collection epilogue [33m 3858[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mevery subset of the optional Dragon Balls works: only a complete set gives the Porunga ending [33m 35816[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mthe route completes on both difficulties and for many random-encounter seeds (encounters happen on the way, never inside scripts) [33m 44754[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mboss triggers are chronological: a trigger never fires before its prerequisite and never twice [33m 6274[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mthe point of no return asks first: Cancel changes nothing and returns the player to a safe spot; Continue then proceeds [33m 4056[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mDragon Ball 7 on the last ground is collectible without starting the final fight [33m 3922[2mms[22m[39m
+   [33m[2m✓[22m[39m story path: real walking on the collision grid, real trigger rules, chronological flags[2m > [22mestimated length of the complete route (a model of walking, dialogue and fights, not a measured playtime) [33m 6573[2mms[22m[39m
+ [32m✓[39m tests/unit/naturalPlaythrough.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 142619[2mms[22m[39m
+   [33m[2m✓[22m[39m natural fight odds (re-simulated from the exact state the player had when each scripted fight began)[2m > [22mNormal, bare critical path: every scripted fight is a fair fight for a player who guards, and retries work for one who does not [33m 1504[2mms[22m[39m
+   [33m[2m✓[22m[39m natural fight odds (re-simulated from the exact state the player had when each scripted fight began)[2m > [22mEasy, bare critical path: even a player who never guards wins every scripted fight in a few tries [33m 1350[2mms[22m[39m
+   [33m[2m✓[22m[39m natural fight odds (re-simulated from the exact state the player had when each scripted fight began)[2m > [22mwrites docs/NATURAL_PLAYTHROUGH.md from the real numbers [33m 1150[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m24 passed[39m[22m[90m (24)[39m
+[2m      Tests [22m [1m[32m354 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (356)[39m
+[2m   Start at [22m 20:46:31
+[2m   Duration [22m 149.81s[2m (transform 25.80s, setup 0ms, collect 72.18s, tests 386.91s, environment 9ms, prepare 25.21s)[22m
+

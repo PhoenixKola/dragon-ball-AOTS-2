@@ -1,0 +1,35 @@
+
+> attack-of-the-saiyans-2-namek-private-game@1.0.0-beta.3 build
+> tsc --noEmit && vite build
+
+[36mvite v6.3.5 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 100 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                                                    [39m[1m[2m    0.89 kB[22m[1m[22m[2m │ gzip:   0.45 kB[22m
+[2mdist/[22m[32massets/pixelify-sans-cyrillic-400-normal-DfOZNMlW.woff        [39m[1m[2m    4.41 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-cyrillic-600-normal-B3EuUOZG.woff        [39m[1m[2m    4.47 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-latin-ext-400-normal-B18ub5-k.woff      [39m[1m[2m    4.76 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-ext-400-normal-BhoR5rt5.woff2      [39m[1m[2m    5.38 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-ext-600-normal-C9k4j5fD.woff2      [39m[1m[2m    5.54 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-latin-400-normal-BKfmdmKK.woff          [39m[1m[2m    6.35 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-greek-400-normal-DUIT0YPZ.woff2         [39m[1m[2m    6.59 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-cyrillic-ext-400-normal-COIQET2s.woff2  [39m[1m[2m    6.72 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-cyrillic-400-normal-oElOGqNf.woff2      [39m[1m[2m    6.86 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-ext-400-normal-DPTXV1ga.woff       [39m[1m[2m    7.43 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-ext-600-normal-C7N2gaLx.woff       [39m[1m[2m    7.65 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-400-normal-NSWc6_3u.woff2          [39m[1m[2m    7.66 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-600-normal-3CrG1hjo.woff2          [39m[1m[2m    8.23 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-latin-ext-400-normal-DDIa4im3.woff2     [39m[1m[2m    9.65 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-400-normal-DObCLyZY.woff           [39m[1m[2m   10.26 kB[22m[1m[22m
+[2mdist/[22m[32massets/pixelify-sans-latin-600-normal-CcgOpmdR.woff           [39m[1m[2m   10.77 kB[22m[1m[22m
+[2mdist/[22m[32massets/press-start-2p-latin-400-normal-xj9lRvVs.woff2         [39m[1m[2m   12.48 kB[22m[1m[22m
+[2mdist/[22m[35massets/index-kG8AyWfZ.css                                     [39m[1m[2m   43.85 kB[22m[1m[22m[2m │ gzip:  21.67 kB[22m
+[2mdist/[22m[36massets/index-Bz1DC9uy.js                                      [39m[1m[33m2,052.27 kB[39m[22m[2m │ gzip: 518.27 kB[22m
+[33m
+(!) Some chunks are larger than 2000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 1m 1s[39m

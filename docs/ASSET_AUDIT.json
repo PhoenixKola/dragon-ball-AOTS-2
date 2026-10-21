@@ -1,0 +1,5786 @@
+{
+ "generated_by": "tools/audit_assets.py",
+ "image_count": 171,
+ "duplicate_groups": [
+  [
+   "actors/soldier_attack",
+   "actors/soldier_charge",
+   "actors/soldier_hurt",
+   "actors/soldier_idle"
+  ],
+  [
+   "portraits/frieza1",
+   "portraits/frieza4"
+  ]
+ ],
+ "characters": {
+  "burter": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    61,
+    128
+   ],
+   "bbox_w_range": [
+    87,
+    164
+   ],
+   "height_variance_ratio": 2.1,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "cui": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    99,
+    147
+   ],
+   "bbox_w_range": [
+    103,
+    147
+   ],
+   "height_variance_ratio": 1.48,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "dende": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    59,
+    123
+   ],
+   "bbox_w_range": [
+    50,
+    114
+   ],
+   "height_variance_ratio": 2.08,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "dodoria": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    99,
+    113
+   ],
+   "bbox_w_range": [
+    111,
+    134
+   ],
+   "height_variance_ratio": 1.14,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "frieza1": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    72,
+    135
+   ],
+   "bbox_w_range": [
+    108,
+    149
+   ],
+   "height_variance_ratio": 1.88,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "frieza2": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    119,
+    146
+   ],
+   "bbox_w_range": [
+    77,
+    141
+   ],
+   "height_variance_ratio": 1.23,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "frieza3": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    113,
+    137
+   ],
+   "bbox_w_range": [
+    97,
+    128
+   ],
+   "height_variance_ratio": 1.21,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "frieza4": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    103,
+    131
+   ],
+   "bbox_w_range": [
+    110,
+    164
+   ],
+   "height_variance_ratio": 1.27,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "frieza5": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    102,
+    164
+   ],
+   "bbox_w_range": [
+    82,
+    129
+   ],
+   "height_variance_ratio": 1.61,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "ginyu": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    104,
+    129
+   ],
+   "bbox_w_range": [
+    67,
+    132
+   ],
+   "height_variance_ratio": 1.24,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "gohan": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    70,
+    164
+   ],
+   "bbox_w_range": [
+    85,
+    134
+   ],
+   "height_variance_ratio": 2.34,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "goku": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    105,
+    161
+   ],
+   "bbox_w_range": [
+    98,
+    128
+   ],
+   "height_variance_ratio": 1.53,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "guldo": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    57,
+    100
+   ],
+   "bbox_w_range": [
+    85,
+    103
+   ],
+   "height_variance_ratio": 1.75,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "jeice": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    61,
+    145
+   ],
+   "bbox_w_range": [
+    89,
+    130
+   ],
+   "height_variance_ratio": 2.38,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "krillin": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    98,
+    115
+   ],
+   "bbox_w_range": [
+    94,
+    133
+   ],
+   "height_variance_ratio": 1.17,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "nail": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    117,
+    157
+   ],
+   "bbox_w_range": [
+    51,
+    144
+   ],
+   "height_variance_ratio": 1.34,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "piccolo": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    133,
+    157
+   ],
+   "bbox_w_range": [
+    74,
+    164
+   ],
+   "height_variance_ratio": 1.18,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "recoome": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    91,
+    129
+   ],
+   "bbox_w_range": [
+    94,
+    150
+   ],
+   "height_variance_ratio": 1.42,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "soldier": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    89,
+    89
+   ],
+   "bbox_w_range": [
+    56,
+    56
+   ],
+   "height_variance_ratio": 1.0,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "ssj_goku": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    105,
+    161
+   ],
+   "bbox_w_range": [
+    98,
+    128
+   ],
+   "height_variance_ratio": 1.53,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "vegeta": {
+   "states": [
+    "attack",
+    "charge",
+    "guard",
+    "hurt",
+    "idle",
+    "special",
+    "victory"
+   ],
+   "bbox_h_range": [
+    111,
+    164
+   ],
+   "bbox_w_range": [
+    76,
+    140
+   ],
+   "height_variance_ratio": 1.48,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "zarbon2": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    112,
+    145
+   ],
+   "bbox_w_range": [
+    115,
+    150
+   ],
+   "height_variance_ratio": 1.29,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  },
+  "zarbon": {
+   "states": [
+    "attack",
+    "charge",
+    "hurt",
+    "idle"
+   ],
+   "bbox_h_range": [
+    96,
+    134
+   ],
+   "bbox_w_range": [
+    94,
+    154
+   ],
+   "height_variance_ratio": 1.4,
+   "real_animation_frames": 1,
+   "verdict": "STILL-POSES-ONLY: not frame animation"
+  }
+ },
+ "audio": [
+  {
+   "file": "battle_theme.wav",
+   "seconds": 6.23,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "beam.wav",
+   "seconds": 1.1,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "boss_theme.wav",
+   "seconds": 5.96,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "cancel.wav",
+   "seconds": 0.14,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "charge.wav",
+   "seconds": 0.8,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "confirm.wav",
+   "seconds": 0.15,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "ending_theme.wav",
+   "seconds": 8.28,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "guard.wav",
+   "seconds": 0.28,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "heal.wav",
+   "seconds": 0.75,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "hit.wav",
+   "seconds": 0.24,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "namek_theme.wav",
+   "seconds": 7.27,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "step.wav",
+   "seconds": 0.07,
+   "channels": 1,
+   "rate": 22050
+  },
+  {
+   "file": "victory.wav",
+   "seconds": 0.8,
+   "channels": 1,
+   "rate": 22050
+  }
+ ],
+ "assets": [
+  {
+   "category": "actors",
+   "asset": "burter_attack",
+   "file": "art-sources/archive/public-unused/actors/burter_attack.png",
+   "character": "burter",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    26,
+    98,
+    149,
+    172
+   ],
+   "bbox_w": 123,
+   "bbox_h": 74,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 6838,
+   "opaque_px": 8,
+   "color_count_5bit": 1810,
+   "magenta_px": 3,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "burter_charge",
+   "file": "art-sources/archive/public-unused/actors/burter_charge.png",
+   "character": "burter",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    6,
+    102,
+    170,
+    172
+   ],
+   "bbox_w": 164,
+   "bbox_h": 70,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8355,
+   "opaque_px": 12,
+   "color_count_5bit": 1703,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "burter_hurt",
+   "file": "art-sources/archive/public-unused/actors/burter_hurt.png",
+   "character": "burter",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    44,
+    111,
+    131,
+    172
+   ],
+   "bbox_w": 87,
+   "bbox_h": 61,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 4726,
+   "opaque_px": 0,
+   "color_count_5bit": 404,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "burter_idle",
+   "file": "art-sources/archive/public-unused/actors/burter_idle.png",
+   "character": "burter",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    32,
+    44,
+    143,
+    172
+   ],
+   "bbox_w": 111,
+   "bbox_h": 128,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8940,
+   "opaque_px": 48,
+   "color_count_5bit": 1998,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "cui_attack",
+   "file": "art-sources/archive/public-unused/actors/cui_attack.png",
+   "character": "cui",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    27,
+    31,
+    148,
+    172
+   ],
+   "bbox_w": 121,
+   "bbox_h": 141,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8161,
+   "opaque_px": 28,
+   "color_count_5bit": 1516,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "cui_charge",
+   "file": "art-sources/archive/public-unused/actors/cui_charge.png",
+   "character": "cui",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    14,
+    25,
+    161,
+    172
+   ],
+   "bbox_w": 147,
+   "bbox_h": 147,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 15683,
+   "opaque_px": 0,
+   "color_count_5bit": 2156,
+   "magenta_px": 19,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "cui_hurt",
+   "file": "art-sources/archive/public-unused/actors/cui_hurt.png",
+   "character": "cui",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    36,
+    73,
+    139,
+    172
+   ],
+   "bbox_w": 103,
+   "bbox_h": 99,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 6283,
+   "opaque_px": 17,
+   "color_count_5bit": 1523,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "cui_idle",
+   "file": "art-sources/archive/public-unused/actors/cui_idle.png",
+   "character": "cui",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    35,
+    48,
+    140,
+    172
+   ],
+   "bbox_w": 105,
+   "bbox_h": 124,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8614,
+   "opaque_px": 23,
+   "color_count_5bit": 1629,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_attack",
+   "file": "art-sources/archive/public-unused/actors/dende_attack.png",
+   "character": "dende",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    31,
+    82,
+    145,
+    172
+   ],
+   "bbox_w": 114,
+   "bbox_h": 90,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 6934,
+   "opaque_px": 9,
+   "color_count_5bit": 2130,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_charge",
+   "file": "art-sources/archive/public-unused/actors/dende_charge.png",
+   "character": "dende",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    40,
+    49,
+    136,
+    172
+   ],
+   "bbox_w": 96,
+   "bbox_h": 123,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9694,
+   "opaque_px": 1,
+   "color_count_5bit": 2089,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_guard",
+   "file": "art-sources/archive/public-unused/actors/dende_guard.png",
+   "character": "dende",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    63,
+    62,
+    113,
+    172
+   ],
+   "bbox_w": 50,
+   "bbox_h": 110,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 4190,
+   "opaque_px": 0,
+   "color_count_5bit": 1150,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_hurt",
+   "file": "art-sources/archive/public-unused/actors/dende_hurt.png",
+   "character": "dende",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    41,
+    113,
+    135,
+    172
+   ],
+   "bbox_w": 94,
+   "bbox_h": 59,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 4487,
+   "opaque_px": 7,
+   "color_count_5bit": 1160,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_idle",
+   "file": "art-sources/archive/public-unused/actors/dende_idle.png",
+   "character": "dende",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    47,
+    60,
+    128,
+    172
+   ],
+   "bbox_w": 81,
+   "bbox_h": 112,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7168,
+   "opaque_px": 10,
+   "color_count_5bit": 1573,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_special",
+   "file": "art-sources/archive/public-unused/actors/dende_special.png",
+   "character": "dende",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    40,
+    97,
+    136,
+    172
+   ],
+   "bbox_w": 96,
+   "bbox_h": 75,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 5503,
+   "opaque_px": 3,
+   "color_count_5bit": 2080,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dende_victory",
+   "file": "art-sources/archive/public-unused/actors/dende_victory.png",
+   "character": "dende",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    42,
+    70,
+    133,
+    172
+   ],
+   "bbox_w": 91,
+   "bbox_h": 102,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 6275,
+   "opaque_px": 7,
+   "color_count_5bit": 1643,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dodoria_attack",
+   "file": "art-sources/archive/public-unused/actors/dodoria_attack.png",
+   "character": "dodoria",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    21,
+    59,
+    154,
+    172
+   ],
+   "bbox_w": 133,
+   "bbox_h": 113,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 9520,
+   "opaque_px": 19,
+   "color_count_5bit": 2248,
+   "magenta_px": 4,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dodoria_charge",
+   "file": "art-sources/archive/public-unused/actors/dodoria_charge.png",
+   "character": "dodoria",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    31,
+    69,
+    144,
+    172
+   ],
+   "bbox_w": 113,
+   "bbox_h": 103,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7476,
+   "opaque_px": 3,
+   "color_count_5bit": 2165,
+   "magenta_px": 11,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dodoria_hurt",
+   "file": "art-sources/archive/public-unused/actors/dodoria_hurt.png",
+   "character": "dodoria",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    32,
+    73,
+    143,
+    172
+   ],
+   "bbox_w": 111,
+   "bbox_h": 99,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7713,
+   "opaque_px": 5,
+   "color_count_5bit": 2365,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "dodoria_idle",
+   "file": "art-sources/archive/public-unused/actors/dodoria_idle.png",
+   "character": "dodoria",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    21,
+    61,
+    155,
+    172
+   ],
+   "bbox_w": 134,
+   "bbox_h": 111,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 10429,
+   "opaque_px": 27,
+   "color_count_5bit": 2215,
+   "magenta_px": 4,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza1_attack",
+   "file": "art-sources/archive/public-unused/actors/frieza1_attack.png",
+   "character": "frieza1",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    34,
+    50,
+    142,
+    172
+   ],
+   "bbox_w": 108,
+   "bbox_h": 122,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9139,
+   "opaque_px": 15,
+   "color_count_5bit": 3226,
+   "magenta_px": 4,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza1_charge",
+   "file": "art-sources/archive/public-unused/actors/frieza1_charge.png",
+   "character": "frieza1",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    26,
+    37,
+    150,
+    172
+   ],
+   "bbox_w": 124,
+   "bbox_h": 135,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12957,
+   "opaque_px": 27,
+   "color_count_5bit": 3428,
+   "magenta_px": 2856,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza1_hurt",
+   "file": "art-sources/archive/public-unused/actors/frieza1_hurt.png",
+   "character": "frieza1",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    28,
+    100,
+    148,
+    172
+   ],
+   "bbox_w": 120,
+   "bbox_h": 72,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 6309,
+   "opaque_px": 2,
+   "color_count_5bit": 2757,
+   "magenta_px": 4,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza1_idle",
+   "file": "art-sources/archive/public-unused/actors/frieza1_idle.png",
+   "character": "frieza1",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    13,
+    54,
+    162,
+    172
+   ],
+   "bbox_w": 149,
+   "bbox_h": 118,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 10471,
+   "opaque_px": 28,
+   "color_count_5bit": 3190,
+   "magenta_px": 8,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza2_attack",
+   "file": "art-sources/archive/public-unused/actors/frieza2_attack.png",
+   "character": "frieza2",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    24,
+    37,
+    151,
+    172
+   ],
+   "bbox_w": 127,
+   "bbox_h": 135,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 10953,
+   "opaque_px": 18,
+   "color_count_5bit": 3298,
+   "magenta_px": 6,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza2_charge",
+   "file": "art-sources/archive/public-unused/actors/frieza2_charge.png",
+   "character": "frieza2",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    36,
+    53,
+    139,
+    172
+   ],
+   "bbox_w": 103,
+   "bbox_h": 119,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 10972,
+   "opaque_px": 19,
+   "color_count_5bit": 3182,
+   "magenta_px": 1315,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza2_hurt",
+   "file": "art-sources/archive/public-unused/actors/frieza2_hurt.png",
+   "character": "frieza2",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    49,
+    34,
+    126,
+    172
+   ],
+   "bbox_w": 77,
+   "bbox_h": 138,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7441,
+   "opaque_px": 16,
+   "color_count_5bit": 2614,
+   "magenta_px": 16,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza2_idle",
+   "file": "art-sources/archive/public-unused/actors/frieza2_idle.png",
+   "character": "frieza2",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    17,
+    26,
+    158,
+    172
+   ],
+   "bbox_w": 141,
+   "bbox_h": 146,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 13368,
+   "opaque_px": 35,
+   "color_count_5bit": 3775,
+   "magenta_px": 12,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza3_attack",
+   "file": "art-sources/archive/public-unused/actors/frieza3_attack.png",
+   "character": "frieza3",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    31,
+    49,
+    145,
+    172
+   ],
+   "bbox_w": 114,
+   "bbox_h": 123,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8317,
+   "opaque_px": 32,
+   "color_count_5bit": 2907,
+   "magenta_px": 4,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza3_charge",
+   "file": "art-sources/archive/public-unused/actors/frieza3_charge.png",
+   "character": "frieza3",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    24,
+    56,
+    152,
+    172
+   ],
+   "bbox_w": 128,
+   "bbox_h": 116,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11739,
+   "opaque_px": 9,
+   "color_count_5bit": 3118,
+   "magenta_px": 2273,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza3_hurt",
+   "file": "art-sources/archive/public-unused/actors/frieza3_hurt.png",
+   "character": "frieza3",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    59,
+    136,
+    172
+   ],
+   "bbox_w": 97,
+   "bbox_h": 113,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7293,
+   "opaque_px": 9,
+   "color_count_5bit": 1967,
+   "magenta_px": 21,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza3_idle",
+   "file": "art-sources/archive/public-unused/actors/frieza3_idle.png",
+   "character": "frieza3",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    29,
+    35,
+    147,
+    172
+   ],
+   "bbox_w": 118,
+   "bbox_h": 137,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 10677,
+   "opaque_px": 21,
+   "color_count_5bit": 3476,
+   "magenta_px": 30,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza4_attack",
+   "file": "art-sources/archive/public-unused/actors/frieza4_attack.png",
+   "character": "frieza4",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    32,
+    53,
+    143,
+    172
+   ],
+   "bbox_w": 111,
+   "bbox_h": 119,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7735,
+   "opaque_px": 20,
+   "color_count_5bit": 1785,
+   "magenta_px": 32,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza4_charge",
+   "file": "art-sources/archive/public-unused/actors/frieza4_charge.png",
+   "character": "frieza4",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    6,
+    69,
+    170,
+    172
+   ],
+   "bbox_w": 164,
+   "bbox_h": 103,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 14187,
+   "opaque_px": 59,
+   "color_count_5bit": 3279,
+   "magenta_px": 1705,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza4_hurt",
+   "file": "art-sources/archive/public-unused/actors/frieza4_hurt.png",
+   "character": "frieza4",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    32,
+    67,
+    143,
+    172
+   ],
+   "bbox_w": 111,
+   "bbox_h": 105,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8070,
+   "opaque_px": 16,
+   "color_count_5bit": 2073,
+   "magenta_px": 530,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza4_idle",
+   "file": "art-sources/archive/public-unused/actors/frieza4_idle.png",
+   "character": "frieza4",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    33,
+    41,
+    143,
+    172
+   ],
+   "bbox_w": 110,
+   "bbox_h": 131,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 10063,
+   "opaque_px": 17,
+   "color_count_5bit": 1753,
+   "magenta_px": 30,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza5_attack",
+   "file": "art-sources/archive/public-unused/actors/frieza5_attack.png",
+   "character": "frieza5",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    29,
+    59,
+    146,
+    172
+   ],
+   "bbox_w": 117,
+   "bbox_h": 113,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 9042,
+   "opaque_px": 6,
+   "color_count_5bit": 2172,
+   "magenta_px": 16,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza5_charge",
+   "file": "art-sources/archive/public-unused/actors/frieza5_charge.png",
+   "character": "frieza5",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    23,
+    70,
+    152,
+    172
+   ],
+   "bbox_w": 129,
+   "bbox_h": 102,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 11452,
+   "opaque_px": 8,
+   "color_count_5bit": 2708,
+   "magenta_px": 1654,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza5_hurt",
+   "file": "art-sources/archive/public-unused/actors/frieza5_hurt.png",
+   "character": "frieza5",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    47,
+    69,
+    129,
+    172
+   ],
+   "bbox_w": 82,
+   "bbox_h": 103,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 7325,
+   "opaque_px": 7,
+   "color_count_5bit": 2545,
+   "magenta_px": 82,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "frieza5_idle",
+   "file": "art-sources/archive/public-unused/actors/frieza5_idle.png",
+   "character": "frieza5",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    25,
+    8,
+    150,
+    172
+   ],
+   "bbox_w": 125,
+   "bbox_h": 164,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 17581,
+   "opaque_px": 29,
+   "color_count_5bit": 3363,
+   "magenta_px": 1554,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ginyu_attack",
+   "file": "art-sources/archive/public-unused/actors/ginyu_attack.png",
+   "character": "ginyu",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    30,
+    64,
+    146,
+    172
+   ],
+   "bbox_w": 116,
+   "bbox_h": 108,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 7962,
+   "opaque_px": 44,
+   "color_count_5bit": 2107,
+   "magenta_px": 19,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ginyu_charge",
+   "file": "art-sources/archive/public-unused/actors/ginyu_charge.png",
+   "character": "ginyu",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    22,
+    68,
+    154,
+    172
+   ],
+   "bbox_w": 132,
+   "bbox_h": 104,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11399,
+   "opaque_px": 2,
+   "color_count_5bit": 2285,
+   "magenta_px": 235,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ginyu_hurt",
+   "file": "art-sources/archive/public-unused/actors/ginyu_hurt.png",
+   "character": "ginyu",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    54,
+    43,
+    121,
+    172
+   ],
+   "bbox_w": 67,
+   "bbox_h": 129,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 5876,
+   "opaque_px": 13,
+   "color_count_5bit": 1891,
+   "magenta_px": 4,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ginyu_idle",
+   "file": "art-sources/archive/public-unused/actors/ginyu_idle.png",
+   "character": "ginyu",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    27,
+    46,
+    148,
+    172
+   ],
+   "bbox_w": 121,
+   "bbox_h": 126,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 10081,
+   "opaque_px": 37,
+   "color_count_5bit": 2176,
+   "magenta_px": 19,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_attack",
+   "file": "art-sources/archive/public-unused/actors/gohan_attack.png",
+   "character": "gohan",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    29,
+    43,
+    147,
+    172
+   ],
+   "bbox_w": 118,
+   "bbox_h": 129,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9295,
+   "opaque_px": 22,
+   "color_count_5bit": 2077,
+   "magenta_px": 3,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_charge",
+   "file": "art-sources/archive/public-unused/actors/gohan_charge.png",
+   "character": "gohan",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    32,
+    8,
+    143,
+    172
+   ],
+   "bbox_w": 111,
+   "bbox_h": 164,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 14758,
+   "opaque_px": 3,
+   "color_count_5bit": 2426,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_guard",
+   "file": "art-sources/archive/public-unused/actors/gohan_guard.png",
+   "character": "gohan",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    45,
+    57,
+    130,
+    172
+   ],
+   "bbox_w": 85,
+   "bbox_h": 115,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7472,
+   "opaque_px": 5,
+   "color_count_5bit": 1661,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_hurt",
+   "file": "art-sources/archive/public-unused/actors/gohan_hurt.png",
+   "character": "gohan",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    38,
+    66,
+    138,
+    172
+   ],
+   "bbox_w": 100,
+   "bbox_h": 106,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8330,
+   "opaque_px": 3,
+   "color_count_5bit": 1738,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_idle",
+   "file": "art-sources/archive/public-unused/actors/gohan_idle.png",
+   "character": "gohan",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    40,
+    34,
+    136,
+    172
+   ],
+   "bbox_w": 96,
+   "bbox_h": 138,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9563,
+   "opaque_px": 22,
+   "color_count_5bit": 1808,
+   "magenta_px": 8,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_special",
+   "file": "art-sources/archive/public-unused/actors/gohan_special.png",
+   "character": "gohan",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    21,
+    54,
+    155,
+    172
+   ],
+   "bbox_w": 134,
+   "bbox_h": 118,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 10622,
+   "opaque_px": 10,
+   "color_count_5bit": 2100,
+   "magenta_px": 6,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "gohan_victory",
+   "file": "art-sources/archive/public-unused/actors/gohan_victory.png",
+   "character": "gohan",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    23,
+    102,
+    152,
+    172
+   ],
+   "bbox_w": 129,
+   "bbox_h": 70,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 6698,
+   "opaque_px": 21,
+   "color_count_5bit": 1413,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_attack",
+   "file": "art-sources/archive/public-unused/actors/goku_attack.png",
+   "character": "goku",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    25,
+    28,
+    150,
+    172
+   ],
+   "bbox_w": 125,
+   "bbox_h": 144,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 11450,
+   "opaque_px": 18,
+   "color_count_5bit": 1977,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_charge",
+   "file": "art-sources/archive/public-unused/actors/goku_charge.png",
+   "character": "goku",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    12,
+    137,
+    172
+   ],
+   "bbox_w": 98,
+   "bbox_h": 160,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12347,
+   "opaque_px": 4,
+   "color_count_5bit": 2282,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_guard",
+   "file": "art-sources/archive/public-unused/actors/goku_guard.png",
+   "character": "goku",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    36,
+    30,
+    140,
+    172
+   ],
+   "bbox_w": 104,
+   "bbox_h": 142,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9398,
+   "opaque_px": 8,
+   "color_count_5bit": 1786,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_hurt",
+   "file": "art-sources/archive/public-unused/actors/goku_hurt.png",
+   "character": "goku",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    67,
+    137,
+    172
+   ],
+   "bbox_w": 98,
+   "bbox_h": 105,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 7922,
+   "opaque_px": 7,
+   "color_count_5bit": 1983,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_idle",
+   "file": "art-sources/archive/public-unused/actors/goku_idle.png",
+   "character": "goku",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    29,
+    13,
+    147,
+    172
+   ],
+   "bbox_w": 118,
+   "bbox_h": 159,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 14341,
+   "opaque_px": 12,
+   "color_count_5bit": 1976,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_special",
+   "file": "art-sources/archive/public-unused/actors/goku_special.png",
+   "character": "goku",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    24,
+    22,
+    152,
+    172
+   ],
+   "bbox_w": 128,
+   "bbox_h": 150,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12207,
+   "opaque_px": 15,
+   "color_count_5bit": 2513,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "goku_victory",
+   "file": "art-sources/archive/public-unused/actors/goku_victory.png",
+   "character": "goku",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    24,
+    11,
+    152,
+    172
+   ],
+   "bbox_w": 128,
+   "bbox_h": 161,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12876,
+   "opaque_px": 21,
+   "color_count_5bit": 1878,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "guldo_attack",
+   "file": "art-sources/archive/public-unused/actors/guldo_attack.png",
+   "character": "guldo",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    45,
+    72,
+    130,
+    172
+   ],
+   "bbox_w": 85,
+   "bbox_h": 100,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 5863,
+   "opaque_px": 20,
+   "color_count_5bit": 1704,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "guldo_charge",
+   "file": "art-sources/archive/public-unused/actors/guldo_charge.png",
+   "character": "guldo",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    94,
+    137,
+    172
+   ],
+   "bbox_w": 98,
+   "bbox_h": 78,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 5352,
+   "opaque_px": 0,
+   "color_count_5bit": 695,
+   "magenta_px": 6,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "guldo_hurt",
+   "file": "art-sources/archive/public-unused/actors/guldo_hurt.png",
+   "character": "guldo",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    42,
+    115,
+    134,
+    172
+   ],
+   "bbox_w": 92,
+   "bbox_h": 57,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 4250,
+   "opaque_px": 6,
+   "color_count_5bit": 1349,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "guldo_idle",
+   "file": "art-sources/archive/public-unused/actors/guldo_idle.png",
+   "character": "guldo",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    36,
+    83,
+    139,
+    172
+   ],
+   "bbox_w": 103,
+   "bbox_h": 89,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 6448,
+   "opaque_px": 2,
+   "color_count_5bit": 1839,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "jeice_attack",
+   "file": "art-sources/archive/public-unused/actors/jeice_attack.png",
+   "character": "jeice",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    23,
+    49,
+    153,
+    172
+   ],
+   "bbox_w": 130,
+   "bbox_h": 123,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8288,
+   "opaque_px": 16,
+   "color_count_5bit": 2356,
+   "magenta_px": 14,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "jeice_charge",
+   "file": "art-sources/archive/public-unused/actors/jeice_charge.png",
+   "character": "jeice",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    43,
+    27,
+    132,
+    172
+   ],
+   "bbox_w": 89,
+   "bbox_h": 145,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 9662,
+   "opaque_px": 15,
+   "color_count_5bit": 1927,
+   "magenta_px": 3,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "jeice_hurt",
+   "file": "art-sources/archive/public-unused/actors/jeice_hurt.png",
+   "character": "jeice",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    111,
+    137,
+    172
+   ],
+   "bbox_w": 98,
+   "bbox_h": 61,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 4440,
+   "opaque_px": 9,
+   "color_count_5bit": 1335,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "jeice_idle",
+   "file": "art-sources/archive/public-unused/actors/jeice_idle.png",
+   "character": "jeice",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    37,
+    41,
+    139,
+    172
+   ],
+   "bbox_w": 102,
+   "bbox_h": 131,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9325,
+   "opaque_px": 1,
+   "color_count_5bit": 1825,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_attack",
+   "file": "art-sources/archive/public-unused/actors/krillin_attack.png",
+   "character": "krillin",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    31,
+    63,
+    145,
+    172
+   ],
+   "bbox_w": 114,
+   "bbox_h": 109,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8202,
+   "opaque_px": 11,
+   "color_count_5bit": 1676,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_charge",
+   "file": "art-sources/archive/public-unused/actors/krillin_charge.png",
+   "character": "krillin",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    21,
+    60,
+    154,
+    172
+   ],
+   "bbox_w": 133,
+   "bbox_h": 112,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 11769,
+   "opaque_px": 26,
+   "color_count_5bit": 2381,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_guard",
+   "file": "art-sources/archive/public-unused/actors/krillin_guard.png",
+   "character": "krillin",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    40,
+    74,
+    135,
+    172
+   ],
+   "bbox_w": 95,
+   "bbox_h": 98,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 6549,
+   "opaque_px": 10,
+   "color_count_5bit": 1579,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_hurt",
+   "file": "art-sources/archive/public-unused/actors/krillin_hurt.png",
+   "character": "krillin",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    41,
+    74,
+    135,
+    172
+   ],
+   "bbox_w": 94,
+   "bbox_h": 98,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 7586,
+   "opaque_px": 3,
+   "color_count_5bit": 1449,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_idle",
+   "file": "art-sources/archive/public-unused/actors/krillin_idle.png",
+   "character": "krillin",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    37,
+    59,
+    138,
+    172
+   ],
+   "bbox_w": 101,
+   "bbox_h": 113,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8100,
+   "opaque_px": 19,
+   "color_count_5bit": 1758,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_special",
+   "file": "art-sources/archive/public-unused/actors/krillin_special.png",
+   "character": "krillin",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    35,
+    65,
+    141,
+    172
+   ],
+   "bbox_w": 106,
+   "bbox_h": 107,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 7372,
+   "opaque_px": 6,
+   "color_count_5bit": 1621,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "krillin_victory",
+   "file": "art-sources/archive/public-unused/actors/krillin_victory.png",
+   "character": "krillin",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    40,
+    57,
+    135,
+    172
+   ],
+   "bbox_w": 95,
+   "bbox_h": 115,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8150,
+   "opaque_px": 25,
+   "color_count_5bit": 1757,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_attack",
+   "file": "art-sources/archive/public-unused/actors/nail_attack.png",
+   "character": "nail",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    36,
+    42,
+    139,
+    172
+   ],
+   "bbox_w": 103,
+   "bbox_h": 130,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 9554,
+   "opaque_px": 12,
+   "color_count_5bit": 2171,
+   "magenta_px": 3,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_charge",
+   "file": "art-sources/archive/public-unused/actors/nail_charge.png",
+   "character": "nail",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    33,
+    46,
+    143,
+    172
+   ],
+   "bbox_w": 110,
+   "bbox_h": 126,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12087,
+   "opaque_px": 2,
+   "color_count_5bit": 2513,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_guard",
+   "file": "art-sources/archive/public-unused/actors/nail_guard.png",
+   "character": "nail",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    18,
+    136,
+    172
+   ],
+   "bbox_w": 97,
+   "bbox_h": 154,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 10242,
+   "opaque_px": 2,
+   "color_count_5bit": 1748,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_hurt",
+   "file": "art-sources/archive/public-unused/actors/nail_hurt.png",
+   "character": "nail",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    25,
+    34,
+    151,
+    172
+   ],
+   "bbox_w": 126,
+   "bbox_h": 138,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12916,
+   "opaque_px": 6,
+   "color_count_5bit": 2598,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_idle",
+   "file": "art-sources/archive/public-unused/actors/nail_idle.png",
+   "character": "nail",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    25,
+    15,
+    151,
+    172
+   ],
+   "bbox_w": 126,
+   "bbox_h": 157,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 14513,
+   "opaque_px": 29,
+   "color_count_5bit": 1671,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_special",
+   "file": "art-sources/archive/public-unused/actors/nail_special.png",
+   "character": "nail",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    16,
+    55,
+    160,
+    172
+   ],
+   "bbox_w": 144,
+   "bbox_h": 117,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11798,
+   "opaque_px": 16,
+   "color_count_5bit": 2501,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "nail_victory",
+   "file": "art-sources/archive/public-unused/actors/nail_victory.png",
+   "character": "nail",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    62,
+    35,
+    113,
+    172
+   ],
+   "bbox_w": 51,
+   "bbox_h": 137,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 5210,
+   "opaque_px": 1,
+   "color_count_5bit": 1234,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_attack",
+   "file": "art-sources/archive/public-unused/actors/piccolo_attack.png",
+   "character": "piccolo",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    51,
+    31,
+    125,
+    172
+   ],
+   "bbox_w": 74,
+   "bbox_h": 141,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8519,
+   "opaque_px": 12,
+   "color_count_5bit": 2212,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_charge",
+   "file": "art-sources/archive/public-unused/actors/piccolo_charge.png",
+   "character": "piccolo",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    27,
+    29,
+    149,
+    172
+   ],
+   "bbox_w": 122,
+   "bbox_h": 143,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 13281,
+   "opaque_px": 4,
+   "color_count_5bit": 2734,
+   "magenta_px": 6,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_guard",
+   "file": "art-sources/archive/public-unused/actors/piccolo_guard.png",
+   "character": "piccolo",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    40,
+    27,
+    135,
+    172
+   ],
+   "bbox_w": 95,
+   "bbox_h": 145,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7622,
+   "opaque_px": 21,
+   "color_count_5bit": 2012,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_hurt",
+   "file": "art-sources/archive/public-unused/actors/piccolo_hurt.png",
+   "character": "piccolo",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    6,
+    36,
+    170,
+    172
+   ],
+   "bbox_w": 164,
+   "bbox_h": 136,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11518,
+   "opaque_px": 14,
+   "color_count_5bit": 1801,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_idle",
+   "file": "art-sources/archive/public-unused/actors/piccolo_idle.png",
+   "character": "piccolo",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    18,
+    24,
+    158,
+    172
+   ],
+   "bbox_w": 140,
+   "bbox_h": 148,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 16916,
+   "opaque_px": 17,
+   "color_count_5bit": 2420,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_special",
+   "file": "art-sources/archive/public-unused/actors/piccolo_special.png",
+   "character": "piccolo",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    19,
+    15,
+    157,
+    172
+   ],
+   "bbox_w": 138,
+   "bbox_h": 157,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 16639,
+   "opaque_px": 8,
+   "color_count_5bit": 3261,
+   "magenta_px": 3,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "piccolo_victory",
+   "file": "art-sources/archive/public-unused/actors/piccolo_victory.png",
+   "character": "piccolo",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    27,
+    39,
+    148,
+    172
+   ],
+   "bbox_w": 121,
+   "bbox_h": 133,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 11163,
+   "opaque_px": 28,
+   "color_count_5bit": 2214,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "recoome_attack",
+   "file": "art-sources/archive/public-unused/actors/recoome_attack.png",
+   "character": "recoome",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    41,
+    45,
+    135,
+    172
+   ],
+   "bbox_w": 94,
+   "bbox_h": 127,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9503,
+   "opaque_px": 12,
+   "color_count_5bit": 2191,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "recoome_charge",
+   "file": "art-sources/archive/public-unused/actors/recoome_charge.png",
+   "character": "recoome",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    13,
+    43,
+    163,
+    172
+   ],
+   "bbox_w": 150,
+   "bbox_h": 129,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 13729,
+   "opaque_px": 6,
+   "color_count_5bit": 2834,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "recoome_hurt",
+   "file": "art-sources/archive/public-unused/actors/recoome_hurt.png",
+   "character": "recoome",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    28,
+    81,
+    147,
+    172
+   ],
+   "bbox_w": 119,
+   "bbox_h": 91,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7736,
+   "opaque_px": 1,
+   "color_count_5bit": 1817,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "recoome_idle",
+   "file": "art-sources/archive/public-unused/actors/recoome_idle.png",
+   "character": "recoome",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    28,
+    67,
+    147,
+    172
+   ],
+   "bbox_w": 119,
+   "bbox_h": 105,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8278,
+   "opaque_px": 7,
+   "color_count_5bit": 2123,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "soldier_attack",
+   "file": "art-sources/archive/public-unused/actors/soldier_attack.png",
+   "character": "soldier",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "duplicate-of:actors/soldier_charge,actors/soldier_hurt,actors/soldier_idle"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    60,
+    81,
+    116,
+    170
+   ],
+   "bbox_w": 56,
+   "bbox_h": 89,
+   "feet_y": 170,
+   "center_x": 88.0,
+   "semi_alpha_px": 4597,
+   "opaque_px": 5,
+   "color_count_5bit": 1662,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "soldier_charge",
+   "file": "art-sources/archive/public-unused/actors/soldier_charge.png",
+   "character": "soldier",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "duplicate-of:actors/soldier_attack,actors/soldier_hurt,actors/soldier_idle"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    60,
+    81,
+    116,
+    170
+   ],
+   "bbox_w": 56,
+   "bbox_h": 89,
+   "feet_y": 170,
+   "center_x": 88.0,
+   "semi_alpha_px": 4597,
+   "opaque_px": 5,
+   "color_count_5bit": 1662,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "soldier_hurt",
+   "file": "art-sources/archive/public-unused/actors/soldier_hurt.png",
+   "character": "soldier",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "duplicate-of:actors/soldier_attack,actors/soldier_charge,actors/soldier_idle"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    60,
+    81,
+    116,
+    170
+   ],
+   "bbox_w": 56,
+   "bbox_h": 89,
+   "feet_y": 170,
+   "center_x": 88.0,
+   "semi_alpha_px": 4597,
+   "opaque_px": 5,
+   "color_count_5bit": 1662,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "soldier_idle",
+   "file": "art-sources/archive/public-unused/actors/soldier_idle.png",
+   "character": "soldier",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "duplicate-of:actors/soldier_attack,actors/soldier_charge,actors/soldier_hurt"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    60,
+    81,
+    116,
+    170
+   ],
+   "bbox_w": 56,
+   "bbox_h": 89,
+   "feet_y": 170,
+   "center_x": 88.0,
+   "semi_alpha_px": 4597,
+   "opaque_px": 5,
+   "color_count_5bit": 1662,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_attack",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_attack.png",
+   "character": "ssj_goku",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    25,
+    28,
+    150,
+    172
+   ],
+   "bbox_w": 125,
+   "bbox_h": 144,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 11450,
+   "opaque_px": 18,
+   "color_count_5bit": 2500,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_charge",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_charge.png",
+   "character": "ssj_goku",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    12,
+    137,
+    172
+   ],
+   "bbox_w": 98,
+   "bbox_h": 160,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12347,
+   "opaque_px": 4,
+   "color_count_5bit": 2668,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_guard",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_guard.png",
+   "character": "ssj_goku",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    36,
+    30,
+    140,
+    172
+   ],
+   "bbox_w": 104,
+   "bbox_h": 142,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9398,
+   "opaque_px": 8,
+   "color_count_5bit": 2268,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_hurt",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_hurt.png",
+   "character": "ssj_goku",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    39,
+    67,
+    137,
+    172
+   ],
+   "bbox_w": 98,
+   "bbox_h": 105,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 7922,
+   "opaque_px": 7,
+   "color_count_5bit": 2065,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_idle",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_idle.png",
+   "character": "ssj_goku",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    29,
+    13,
+    147,
+    172
+   ],
+   "bbox_w": 118,
+   "bbox_h": 159,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 14341,
+   "opaque_px": 12,
+   "color_count_5bit": 2585,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_special",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_special.png",
+   "character": "ssj_goku",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    24,
+    22,
+    152,
+    172
+   ],
+   "bbox_w": 128,
+   "bbox_h": 150,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12207,
+   "opaque_px": 15,
+   "color_count_5bit": 3017,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "ssj_goku_victory",
+   "file": "art-sources/archive/public-unused/actors/ssj_goku_victory.png",
+   "character": "ssj_goku",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    24,
+    11,
+    152,
+    172
+   ],
+   "bbox_w": 128,
+   "bbox_h": 161,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12876,
+   "opaque_px": 21,
+   "color_count_5bit": 2544,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_attack",
+   "file": "art-sources/archive/public-unused/actors/vegeta_attack.png",
+   "character": "vegeta",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    30,
+    38,
+    146,
+    172
+   ],
+   "bbox_w": 116,
+   "bbox_h": 134,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9870,
+   "opaque_px": 28,
+   "color_count_5bit": 1812,
+   "magenta_px": 43,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_charge",
+   "file": "art-sources/archive/public-unused/actors/vegeta_charge.png",
+   "character": "vegeta",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    38,
+    13,
+    138,
+    172
+   ],
+   "bbox_w": 100,
+   "bbox_h": 159,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11771,
+   "opaque_px": 4,
+   "color_count_5bit": 2266,
+   "magenta_px": 1678,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_guard",
+   "file": "art-sources/archive/public-unused/actors/vegeta_guard.png",
+   "character": "vegeta",
+   "animation_state": "guard",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    34,
+    14,
+    142,
+    172
+   ],
+   "bbox_w": 108,
+   "bbox_h": 158,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11661,
+   "opaque_px": 27,
+   "color_count_5bit": 1529,
+   "magenta_px": 333,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_hurt",
+   "file": "art-sources/archive/public-unused/actors/vegeta_hurt.png",
+   "character": "vegeta",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    34,
+    61,
+    141,
+    172
+   ],
+   "bbox_w": 107,
+   "bbox_h": 111,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 8535,
+   "opaque_px": 11,
+   "color_count_5bit": 1452,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_idle",
+   "file": "art-sources/archive/public-unused/actors/vegeta_idle.png",
+   "character": "vegeta",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    35,
+    8,
+    141,
+    172
+   ],
+   "bbox_w": 106,
+   "bbox_h": 164,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11692,
+   "opaque_px": 18,
+   "color_count_5bit": 1816,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_special",
+   "file": "art-sources/archive/public-unused/actors/vegeta_special.png",
+   "character": "vegeta",
+   "animation_state": "special",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    18,
+    21,
+    158,
+    172
+   ],
+   "bbox_w": 140,
+   "bbox_h": 151,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 11359,
+   "opaque_px": 14,
+   "color_count_5bit": 1792,
+   "magenta_px": 7,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "vegeta_victory",
+   "file": "art-sources/archive/public-unused/actors/vegeta_victory.png",
+   "character": "vegeta",
+   "animation_state": "victory",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    50,
+    15,
+    126,
+    172
+   ],
+   "bbox_w": 76,
+   "bbox_h": 157,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 8540,
+   "opaque_px": 23,
+   "color_count_5bit": 1369,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon2_attack",
+   "file": "art-sources/archive/public-unused/actors/zarbon2_attack.png",
+   "character": "zarbon2",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    14,
+    51,
+    162,
+    172
+   ],
+   "bbox_w": 148,
+   "bbox_h": 121,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 12632,
+   "opaque_px": 11,
+   "color_count_5bit": 2697,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon2_charge",
+   "file": "art-sources/archive/public-unused/actors/zarbon2_charge.png",
+   "character": "zarbon2",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    30,
+    27,
+    145,
+    172
+   ],
+   "bbox_w": 115,
+   "bbox_h": 145,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 13436,
+   "opaque_px": 0,
+   "color_count_5bit": 3063,
+   "magenta_px": 3,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon2_hurt",
+   "file": "art-sources/archive/public-unused/actors/zarbon2_hurt.png",
+   "character": "zarbon2",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)",
+    "wide-aspect(likely effect fragment, not a body pose)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    19,
+    60,
+    157,
+    172
+   ],
+   "bbox_w": 138,
+   "bbox_h": 112,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9947,
+   "opaque_px": 8,
+   "color_count_5bit": 2731,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon2_idle",
+   "file": "art-sources/archive/public-unused/actors/zarbon2_idle.png",
+   "character": "zarbon2",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    13,
+    30,
+    163,
+    172
+   ],
+   "bbox_w": 150,
+   "bbox_h": 142,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 14782,
+   "opaque_px": 13,
+   "color_count_5bit": 2630,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon_attack",
+   "file": "art-sources/archive/public-unused/actors/zarbon_attack.png",
+   "character": "zarbon",
+   "animation_state": "attack",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    30,
+    57,
+    145,
+    172
+   ],
+   "bbox_w": 115,
+   "bbox_h": 115,
+   "feet_y": 172,
+   "center_x": 87.5,
+   "semi_alpha_px": 7748,
+   "opaque_px": 13,
+   "color_count_5bit": 2331,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon_charge",
+   "file": "art-sources/archive/public-unused/actors/zarbon_charge.png",
+   "character": "zarbon",
+   "animation_state": "charge",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    11,
+    38,
+    165,
+    172
+   ],
+   "bbox_w": 154,
+   "bbox_h": 134,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 16368,
+   "opaque_px": 1,
+   "color_count_5bit": 3340,
+   "magenta_px": 2,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon_hurt",
+   "file": "art-sources/archive/public-unused/actors/zarbon_hurt.png",
+   "character": "zarbon",
+   "animation_state": "hurt",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    41,
+    76,
+    135,
+    172
+   ],
+   "bbox_w": 94,
+   "bbox_h": 96,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 6146,
+   "opaque_px": 5,
+   "color_count_5bit": 2049,
+   "magenta_px": 0,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "actors",
+   "asset": "zarbon_idle",
+   "file": "art-sources/archive/public-unused/actors/zarbon_idle.png",
+   "character": "zarbon",
+   "animation_state": "idle",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": false,
+   "width": 176,
+   "height": 176,
+   "bbox": [
+    30,
+    50,
+    146,
+    172
+   ],
+   "bbox_w": 116,
+   "bbox_h": 122,
+   "feet_y": 172,
+   "center_x": 88.0,
+   "semi_alpha_px": 9391,
+   "opaque_px": 15,
+   "color_count_5bit": 2474,
+   "magenta_px": 1,
+   "touches_canvas_edge": false
+  },
+  {
+   "category": "portraits",
+   "asset": "bulma",
+   "file": "public/assets/portraits/bulma.png",
+   "character": "bulma",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    31,
+    0,
+    205,
+    210
+   ],
+   "bbox_w": 174,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 2681,
+   "opaque_px": 25000,
+   "color_count_5bit": 2185,
+   "magenta_px": 2,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "burter",
+   "file": "public/assets/portraits/burter.png",
+   "character": "burter",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 218,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    218,
+    210
+   ],
+   "bbox_w": 218,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 109.0,
+   "semi_alpha_px": 25480,
+   "opaque_px": 20,
+   "color_count_5bit": 2442,
+   "magenta_px": 3,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "cooler",
+   "file": "public/assets/portraits/cooler.png",
+   "character": "cooler",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    13,
+    0,
+    222,
+    210
+   ],
+   "bbox_w": 209,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 117.5,
+   "semi_alpha_px": 2303,
+   "opaque_px": 30603,
+   "color_count_5bit": 792,
+   "magenta_px": 1,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "cui",
+   "file": "public/assets/portraits/cui.png",
+   "character": "cui",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    12,
+    0,
+    223,
+    210
+   ],
+   "bbox_w": 211,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 117.5,
+   "semi_alpha_px": 2488,
+   "opaque_px": 29518,
+   "color_count_5bit": 1306,
+   "magenta_px": 1,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "dende",
+   "file": "public/assets/portraits/dende.png",
+   "character": "dende",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    0,
+    7,
+    236,
+    210
+   ],
+   "bbox_w": 236,
+   "bbox_h": 203,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 2838,
+   "opaque_px": 29611,
+   "color_count_5bit": 975,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "dodoria",
+   "file": "public/assets/portraits/dodoria.png",
+   "character": "dodoria",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 233,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    233,
+    210
+   ],
+   "bbox_w": 233,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 116.5,
+   "semi_alpha_px": 38177,
+   "opaque_px": 91,
+   "color_count_5bit": 2662,
+   "magenta_px": 33,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "frieza1",
+   "file": "public/assets/portraits/frieza1.png",
+   "character": "frieza1",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "duplicate-of:portraits/frieza4"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    0,
+    15,
+    236,
+    210
+   ],
+   "bbox_w": 236,
+   "bbox_h": 195,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 1678,
+   "opaque_px": 31505,
+   "color_count_5bit": 1233,
+   "magenta_px": 3,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "frieza4",
+   "file": "public/assets/portraits/frieza4.png",
+   "character": "frieza4",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "duplicate-of:portraits/frieza1"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    0,
+    15,
+    236,
+    210
+   ],
+   "bbox_w": 236,
+   "bbox_h": 195,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 1678,
+   "opaque_px": 31505,
+   "color_count_5bit": 1233,
+   "magenta_px": 3,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "ginyu",
+   "file": "public/assets/portraits/ginyu.png",
+   "character": "ginyu",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 240,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    240,
+    210
+   ],
+   "bbox_w": 240,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 120.0,
+   "semi_alpha_px": 29023,
+   "opaque_px": 26,
+   "color_count_5bit": 2428,
+   "magenta_px": 48,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "gohan",
+   "file": "public/assets/portraits/gohan.png",
+   "character": "gohan",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    5,
+    0,
+    231,
+    210
+   ],
+   "bbox_w": 226,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 2542,
+   "opaque_px": 34144,
+   "color_count_5bit": 1317,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "goku",
+   "file": "public/assets/portraits/goku.png",
+   "character": "goku",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    3,
+    0,
+    233,
+    210
+   ],
+   "bbox_w": 230,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 3108,
+   "opaque_px": 27391,
+   "color_count_5bit": 1497,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "guldo",
+   "file": "public/assets/portraits/guldo.png",
+   "character": "guldo",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 206,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    206,
+    210
+   ],
+   "bbox_w": 206,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 103.0,
+   "semi_alpha_px": 18423,
+   "opaque_px": 23,
+   "color_count_5bit": 1780,
+   "magenta_px": 1,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "jeice",
+   "file": "public/assets/portraits/jeice.png",
+   "character": "jeice",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 225,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    225,
+    210
+   ],
+   "bbox_w": 225,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 112.5,
+   "semi_alpha_px": 31643,
+   "opaque_px": 12,
+   "color_count_5bit": 1920,
+   "magenta_px": 2,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "krillin",
+   "file": "public/assets/portraits/krillin.png",
+   "character": "krillin",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    236,
+    210
+   ],
+   "bbox_w": 236,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 2595,
+   "opaque_px": 31469,
+   "color_count_5bit": 1810,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "nail",
+   "file": "public/assets/portraits/nail.png",
+   "character": "nail",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    26,
+    0,
+    209,
+    210
+   ],
+   "bbox_w": 183,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 117.5,
+   "semi_alpha_px": 2278,
+   "opaque_px": 27333,
+   "color_count_5bit": 979,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "piccolo",
+   "file": "public/assets/portraits/piccolo.png",
+   "character": "piccolo",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    235,
+    210
+   ],
+   "bbox_w": 235,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 117.5,
+   "semi_alpha_px": 2828,
+   "opaque_px": 39060,
+   "color_count_5bit": 2408,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "recoome",
+   "file": "public/assets/portraits/recoome.png",
+   "character": "recoome",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 194,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    194,
+    210
+   ],
+   "bbox_w": 194,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 97.0,
+   "semi_alpha_px": 27283,
+   "opaque_px": 80,
+   "color_count_5bit": 2320,
+   "magenta_px": 7,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "ssj_goku",
+   "file": "public/assets/portraits/ssj_goku.png",
+   "character": "ssj_goku",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 184,
+   "height": 210,
+   "bbox": [
+    0,
+    0,
+    184,
+    210
+   ],
+   "bbox_w": 184,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 92.0,
+   "semi_alpha_px": 24845,
+   "opaque_px": 157,
+   "color_count_5bit": 2117,
+   "magenta_px": 1,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "trunks",
+   "file": "public/assets/portraits/trunks.png",
+   "character": "trunks",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    7,
+    0,
+    229,
+    210
+   ],
+   "bbox_w": 222,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 1276,
+   "opaque_px": 35653,
+   "color_count_5bit": 2046,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "trunks_ssj",
+   "file": "public/assets/portraits/trunks_ssj.png",
+   "character": "trunks_ssj",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    7,
+    0,
+    229,
+    210
+   ],
+   "bbox_w": 222,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 1530,
+   "opaque_px": 32262,
+   "color_count_5bit": 2148,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "vegeta",
+   "file": "public/assets/portraits/vegeta.png",
+   "character": "vegeta",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 191,
+   "height": 210,
+   "bbox": [
+    8,
+    0,
+    191,
+    209
+   ],
+   "bbox_w": 183,
+   "bbox_h": 209,
+   "feet_y": 209,
+   "center_x": 99.5,
+   "semi_alpha_px": 23923,
+   "opaque_px": 211,
+   "color_count_5bit": 1371,
+   "magenta_px": 2,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "portraits",
+   "asset": "zarbon",
+   "file": "public/assets/portraits/zarbon.png",
+   "character": "zarbon",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 236,
+   "height": 210,
+   "bbox": [
+    10,
+    0,
+    226,
+    210
+   ],
+   "bbox_w": 216,
+   "bbox_h": 210,
+   "feet_y": 210,
+   "center_x": 118.0,
+   "semi_alpha_px": 1645,
+   "opaque_px": 33979,
+   "color_count_5bit": 1406,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "battle_plain",
+   "file": "art-sources/archive/public-unused/maps/battle_plain.png",
+   "character": "battle_plain",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": false,
+   "width": 338,
+   "height": 311,
+   "bbox": [
+    0,
+    0,
+    338,
+    311
+   ],
+   "bbox_w": 338,
+   "bbox_h": 311,
+   "feet_y": 311,
+   "center_x": 169.0,
+   "semi_alpha_px": 0,
+   "opaque_px": 105118,
+   "color_count_5bit": 5830,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "battle_ruins",
+   "file": "art-sources/archive/public-unused/maps/battle_ruins.png",
+   "character": "battle_ruins",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": false,
+   "width": 339,
+   "height": 311,
+   "bbox": [
+    0,
+    0,
+    339,
+    311
+   ],
+   "bbox_w": 339,
+   "bbox_h": 311,
+   "feet_y": 311,
+   "center_x": 169.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 105429,
+   "color_count_5bit": 5568,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "battle_ship",
+   "file": "art-sources/archive/public-unused/maps/battle_ship.png",
+   "character": "battle_ship",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 338,
+   "height": 313,
+   "bbox": [
+    0,
+    0,
+    338,
+    313
+   ],
+   "bbox_w": 338,
+   "bbox_h": 313,
+   "feet_y": 313,
+   "center_x": 169.0,
+   "semi_alpha_px": 0,
+   "opaque_px": 105794,
+   "color_count_5bit": 2792,
+   "magenta_px": 315,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "battle_water",
+   "file": "art-sources/archive/public-unused/maps/battle_water.png",
+   "character": "battle_water",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": false,
+   "width": 337,
+   "height": 312,
+   "bbox": [
+    0,
+    0,
+    337,
+    312
+   ],
+   "bbox_w": 337,
+   "bbox_h": 312,
+   "feet_y": 312,
+   "center_x": 168.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 105144,
+   "color_count_5bit": 5564,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "cave",
+   "file": "art-sources/archive/public-unused/maps/cave.png",
+   "character": "cave",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 511,
+   "height": 243,
+   "bbox": [
+    0,
+    0,
+    511,
+    243
+   ],
+   "bbox_w": 511,
+   "bbox_h": 243,
+   "feet_y": 243,
+   "center_x": 255.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 124173,
+   "color_count_5bit": 1958,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "coast",
+   "file": "art-sources/archive/public-unused/maps/coast.png",
+   "character": "coast",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": false,
+   "width": 271,
+   "height": 448,
+   "bbox": [
+    0,
+    0,
+    271,
+    448
+   ],
+   "bbox_w": 271,
+   "bbox_h": 448,
+   "feet_y": 448,
+   "center_x": 135.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 121408,
+   "color_count_5bit": 6834,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "corridor",
+   "file": "art-sources/archive/public-unused/maps/corridor.png",
+   "character": "corridor",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 431,
+   "height": 243,
+   "bbox": [
+    0,
+    0,
+    431,
+    243
+   ],
+   "bbox_w": 431,
+   "bbox_h": 243,
+   "feet_y": 243,
+   "center_x": 215.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 104733,
+   "color_count_5bit": 1496,
+   "magenta_px": 86,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "guru",
+   "file": "art-sources/archive/public-unused/maps/guru.png",
+   "character": "guru",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 270,
+   "height": 448,
+   "bbox": [
+    0,
+    0,
+    270,
+    448
+   ],
+   "bbox_w": 270,
+   "bbox_h": 448,
+   "feet_y": 448,
+   "center_x": 135.0,
+   "semi_alpha_px": 0,
+   "opaque_px": 120960,
+   "color_count_5bit": 7559,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "landing",
+   "file": "art-sources/archive/public-unused/maps/landing.png",
+   "character": "landing",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 266,
+   "height": 448,
+   "bbox": [
+    0,
+    0,
+    266,
+    448
+   ],
+   "bbox_w": 266,
+   "bbox_h": 448,
+   "feet_y": 448,
+   "center_x": 133.0,
+   "semi_alpha_px": 0,
+   "opaque_px": 119168,
+   "color_count_5bit": 6522,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "shipyard",
+   "file": "art-sources/archive/public-unused/maps/shipyard.png",
+   "character": "shipyard",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": false,
+   "width": 269,
+   "height": 448,
+   "bbox": [
+    0,
+    0,
+    269,
+    448
+   ],
+   "bbox_w": 269,
+   "bbox_h": 448,
+   "feet_y": 448,
+   "center_x": 134.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 120512,
+   "color_count_5bit": 7518,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "throne",
+   "file": "art-sources/archive/public-unused/maps/throne.png",
+   "character": "throne",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": false,
+   "width": 421,
+   "height": 242,
+   "bbox": [
+    0,
+    0,
+    421,
+    242
+   ],
+   "bbox_w": 421,
+   "bbox_h": 242,
+   "feet_y": 242,
+   "center_x": 210.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 101882,
+   "color_count_5bit": 2201,
+   "magenta_px": 459,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "maps",
+   "asset": "village",
+   "file": "art-sources/archive/public-unused/maps/village.png",
+   "character": "village",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)"
+   ],
+   "used_in_code": true,
+   "width": 267,
+   "height": 448,
+   "bbox": [
+    0,
+    0,
+    267,
+    448
+   ],
+   "bbox_w": 267,
+   "bbox_h": 448,
+   "feet_y": 448,
+   "center_x": 133.5,
+   "semi_alpha_px": 0,
+   "opaque_px": 119616,
+   "color_count_5bit": 7628,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "aura",
+   "file": "art-sources/archive/public-unused/vfx/aura.png",
+   "character": "aura",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 209,
+   "height": 220,
+   "bbox": [
+    0,
+    0,
+    209,
+    220
+   ],
+   "bbox_w": 209,
+   "bbox_h": 220,
+   "feet_y": 220,
+   "center_x": 104.5,
+   "semi_alpha_px": 35280,
+   "opaque_px": 23,
+   "color_count_5bit": 683,
+   "magenta_px": 4,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "blue",
+   "file": "art-sources/archive/public-unused/vfx/blue.png",
+   "character": "blue",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 314,
+   "height": 143,
+   "bbox": [
+    0,
+    0,
+    314,
+    143
+   ],
+   "bbox_w": 314,
+   "bbox_h": 143,
+   "feet_y": 143,
+   "center_x": 157.0,
+   "semi_alpha_px": 30055,
+   "opaque_px": 47,
+   "color_count_5bit": 590,
+   "magenta_px": 2,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "gold",
+   "file": "art-sources/archive/public-unused/vfx/gold.png",
+   "character": "gold",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 297,
+   "height": 129,
+   "bbox": [
+    0,
+    0,
+    297,
+    129
+   ],
+   "bbox_w": 297,
+   "bbox_h": 129,
+   "feet_y": 129,
+   "center_x": 148.5,
+   "semi_alpha_px": 25719,
+   "opaque_px": 12,
+   "color_count_5bit": 793,
+   "magenta_px": 234,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "green",
+   "file": "art-sources/archive/public-unused/vfx/green.png",
+   "character": "green",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 319,
+   "height": 150,
+   "bbox": [
+    0,
+    0,
+    319,
+    150
+   ],
+   "bbox_w": 319,
+   "bbox_h": 150,
+   "feet_y": 150,
+   "center_x": 159.5,
+   "semi_alpha_px": 36802,
+   "opaque_px": 2,
+   "color_count_5bit": 1401,
+   "magenta_px": 2,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "hit",
+   "file": "art-sources/archive/public-unused/vfx/hit.png",
+   "character": "hit",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 169,
+   "height": 190,
+   "bbox": [
+    0,
+    0,
+    169,
+    190
+   ],
+   "bbox_w": 169,
+   "bbox_h": 190,
+   "feet_y": 190,
+   "center_x": 84.5,
+   "semi_alpha_px": 10692,
+   "opaque_px": 1,
+   "color_count_5bit": 1098,
+   "magenta_px": 3,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "purple",
+   "file": "art-sources/archive/public-unused/vfx/purple.png",
+   "character": "purple",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 331,
+   "height": 137,
+   "bbox": [
+    0,
+    0,
+    331,
+    137
+   ],
+   "bbox_w": 331,
+   "bbox_h": 137,
+   "feet_y": 137,
+   "center_x": 165.5,
+   "semi_alpha_px": 32046,
+   "opaque_px": 0,
+   "color_count_5bit": 1107,
+   "magenta_px": 6226,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "vfx",
+   "asset": "red",
+   "file": "art-sources/archive/public-unused/vfx/red.png",
+   "character": "red",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 320,
+   "height": 156,
+   "bbox": [
+    0,
+    0,
+    320,
+    156
+   ],
+   "bbox_w": 320,
+   "bbox_h": 156,
+   "feet_y": 156,
+   "center_x": 160.0,
+   "semi_alpha_px": 43686,
+   "opaque_px": 5,
+   "color_count_5bit": 4094,
+   "magenta_px": 4250,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "attack",
+   "file": "public/assets/skill-icons/attack.png",
+   "character": "attack",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 65,
+   "bbox": [
+    0,
+    0,
+    70,
+    65
+   ],
+   "bbox_w": 70,
+   "bbox_h": 65,
+   "feet_y": 65,
+   "center_x": 35.0,
+   "semi_alpha_px": 3415,
+   "opaque_px": 2,
+   "color_count_5bit": 534,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "bodychange",
+   "file": "public/assets/skill-icons/bodychange.png",
+   "character": "bodychange",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 64,
+   "height": 70,
+   "bbox": [
+    0,
+    0,
+    64,
+    70
+   ],
+   "bbox_w": 64,
+   "bbox_h": 70,
+   "feet_y": 70,
+   "center_x": 32.0,
+   "semi_alpha_px": 3358,
+   "opaque_px": 0,
+   "color_count_5bit": 1085,
+   "magenta_px": 100,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "charge",
+   "file": "public/assets/skill-icons/charge.png",
+   "character": "charge",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 61,
+   "height": 70,
+   "bbox": [
+    0,
+    0,
+    61,
+    70
+   ],
+   "bbox_w": 61,
+   "bbox_h": 70,
+   "feet_y": 70,
+   "center_x": 30.5,
+   "semi_alpha_px": 3744,
+   "opaque_px": 0,
+   "color_count_5bit": 428,
+   "magenta_px": 4,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "combo",
+   "file": "public/assets/skill-icons/combo.png",
+   "character": "combo",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 61,
+   "height": 70,
+   "bbox": [
+    0,
+    0,
+    61,
+    70
+   ],
+   "bbox_w": 61,
+   "bbox_h": 70,
+   "feet_y": 70,
+   "center_x": 30.5,
+   "semi_alpha_px": 2931,
+   "opaque_px": 1,
+   "color_count_5bit": 560,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "defend",
+   "file": "public/assets/skill-icons/defend.png",
+   "character": "defend",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 67,
+   "bbox": [
+    0,
+    0,
+    70,
+    67
+   ],
+   "bbox_w": 70,
+   "bbox_h": 67,
+   "feet_y": 67,
+   "center_x": 35.0,
+   "semi_alpha_px": 2939,
+   "opaque_px": 13,
+   "color_count_5bit": 762,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "galick",
+   "file": "public/assets/skill-icons/galick.png",
+   "character": "galick",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 53,
+   "bbox": [
+    0,
+    0,
+    70,
+    53
+   ],
+   "bbox_w": 70,
+   "bbox_h": 53,
+   "feet_y": 53,
+   "center_x": 35.0,
+   "semi_alpha_px": 3047,
+   "opaque_px": 2,
+   "color_count_5bit": 401,
+   "magenta_px": 540,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "heal",
+   "file": "public/assets/skill-icons/heal.png",
+   "character": "heal",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 68,
+   "bbox": [
+    0,
+    0,
+    70,
+    68
+   ],
+   "bbox_w": 70,
+   "bbox_h": 68,
+   "feet_y": 68,
+   "center_x": 35.0,
+   "semi_alpha_px": 4170,
+   "opaque_px": 15,
+   "color_count_5bit": 404,
+   "magenta_px": 100,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "kamehameha",
+   "file": "public/assets/skill-icons/kamehameha.png",
+   "character": "kamehameha",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 54,
+   "bbox": [
+    5,
+    4,
+    70,
+    54
+   ],
+   "bbox_w": 65,
+   "bbox_h": 50,
+   "feet_y": 54,
+   "center_x": 37.5,
+   "semi_alpha_px": 2776,
+   "opaque_px": 9,
+   "color_count_5bit": 183,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "kienzan",
+   "file": "public/assets/skill-icons/kienzan.png",
+   "character": "kienzan",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 46,
+   "bbox": [
+    0,
+    7,
+    70,
+    46
+   ],
+   "bbox_w": 70,
+   "bbox_h": 39,
+   "feet_y": 46,
+   "center_x": 35.0,
+   "semi_alpha_px": 2351,
+   "opaque_px": 0,
+   "color_count_5bit": 332,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "masenko",
+   "file": "public/assets/skill-icons/masenko.png",
+   "character": "masenko",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 52,
+   "bbox": [
+    0,
+    3,
+    70,
+    52
+   ],
+   "bbox_w": 70,
+   "bbox_h": 49,
+   "feet_y": 52,
+   "center_x": 35.0,
+   "semi_alpha_px": 2875,
+   "opaque_px": 8,
+   "color_count_5bit": 231,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "power",
+   "file": "public/assets/skill-icons/power.png",
+   "character": "power",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 50,
+   "bbox": [
+    0,
+    0,
+    70,
+    50
+   ],
+   "bbox_w": 70,
+   "bbox_h": 50,
+   "feet_y": 50,
+   "center_x": 35.0,
+   "semi_alpha_px": 3064,
+   "opaque_px": 5,
+   "color_count_5bit": 252,
+   "magenta_px": 654,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "senzu",
+   "file": "public/assets/skill-icons/senzu.png",
+   "character": "senzu",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 63,
+   "bbox": [
+    0,
+    0,
+    70,
+    63
+   ],
+   "bbox_w": 70,
+   "bbox_h": 63,
+   "feet_y": 63,
+   "center_x": 35.0,
+   "semi_alpha_px": 2230,
+   "opaque_px": 5,
+   "color_count_5bit": 406,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "solar",
+   "file": "public/assets/skill-icons/solar.png",
+   "character": "solar",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)",
+    "magenta-fringe-suspect"
+   ],
+   "used_in_code": true,
+   "width": 69,
+   "height": 70,
+   "bbox": [
+    0,
+    0,
+    69,
+    70
+   ],
+   "bbox_w": 69,
+   "bbox_h": 70,
+   "feet_y": 70,
+   "center_x": 34.5,
+   "semi_alpha_px": 4154,
+   "opaque_px": 0,
+   "color_count_5bit": 555,
+   "magenta_px": 36,
+   "touches_canvas_edge": true
+  },
+  {
+   "category": "skill-icons",
+   "asset": "specialbeam",
+   "file": "public/assets/skill-icons/specialbeam.png",
+   "character": "specialbeam",
+   "animation_state": "",
+   "provenance": "AI-generated concept sheet crop (previous-generated-asset-pack.zip)",
+   "frame_count": 1,
+   "flags": [
+    "touches-canvas-edge(possible crop)",
+    "heavy-antialias(non-native pixels)"
+   ],
+   "used_in_code": true,
+   "width": 70,
+   "height": 53,
+   "bbox": [
+    0,
+    0,
+    70,
+    53
+   ],
+   "bbox_w": 70,
+   "bbox_h": 53,
+   "feet_y": 53,
+   "center_x": 35.0,
+   "semi_alpha_px": 2959,
+   "opaque_px": 3,
+   "color_count_5bit": 482,
+   "magenta_px": 0,
+   "touches_canvas_edge": true
+  }
+ ]
+}

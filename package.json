@@ -1,0 +1,34 @@
+{
+  "name": "attack-of-the-saiyans-2-namek-private-game",
+  "private": true,
+  "version": "1.0.0-beta.3",
+  "type": "module",
+  "description": "Offline single-player Namek Saga JRPG. React + TypeScript UI, Phaser 3 for battle/world rendering. Private fan project.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "start": "node tools/serve-dist.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "pretest:e2e": "npm run build",
+    "test:e2e": "playwright test",
+    "audit:assets": "python -I tools/audit_assets.py"
+  },
+  "dependencies": {
+    "@fontsource/pixelify-sans": "5.2.6",
+    "@fontsource/press-start-2p": "5.2.6",
+    "phaser": "3.90.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0",
+    "@types/node": "22.15.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "4.7.0",
+    "typescript": "5.9.2",
+    "vite": "6.3.5",
+    "vitest": "3.2.4"
+  }
+}

@@ -70,16 +70,29 @@ export class BattleScene extends Phaser.Scene implements Stage {
     this.events.once('shutdown', () => { this.scale.off('resize', this.onResize, this); this.bg.destroy(); this.vfx.clear(); });
     this.ctl.attachStage(this);
     (window as unknown as { __battle?: BattleScene }).__battle = this;
+    this.bindPointer();
     if (this.ctl.opts.tutorial) this.tutorialText = this.add.text(STAGE_W / 2, 150, '', { fontFamily: FONT, fontSize: '12px', color: '#fff7c0', stroke: '#101a40', strokeThickness: 4, align: 'center' }).setOrigin(0.5).setDepth(3800);
+  }
+
+  /** Fighter under the pointer: body box only (never the transparent sprite canvas), nearest centre wins when bodies overlap. */
+  private pickActor(p: Phaser.Input.Pointer): string | null {
+    let best: string | null = null, bd = Infinity;
+    for (const v of this.views.values()) {
+      if (v.downed && v.f.side === 'enemy') continue;
+      const f = v.feet, dx = Math.abs(p.worldX - f.x);
+      if (dx <= v.width * 0.42 && p.worldY <= f.y + 6 && p.worldY >= f.y - v.height && dx < bd) { bd = dx; best = v.f.uid; }
+    }
+    return best;
+  }
+  private bindPointer() {
+    this.input.on('pointermove', (p: Phaser.Input.Pointer) => { const u = this.pickActor(p); this.input.setDefaultCursor(u ? 'pointer' : 'default'); if (u) this.ctl.hoverTarget(u); });
+    this.input.on('pointerdown', (p: Phaser.Input.Pointer) => { const u = this.pickActor(p); if (u) this.ctl.onActorClick(u); });
   }
 
   private onResize() { this.applyCamera(0); }
 
   private addView(f: Fighter, home: Pt, bar: boolean, k: number) {
     const v = new ActorView(this, f, home, this.vfx, bar, k);
-    v.img.setInteractive({ useHandCursor: true });
-    v.img.on('pointerdown', () => this.ctl.onActorClick(f.uid));
-    v.img.on('pointerover', () => this.ctl.hoverTarget(f.uid));
     this.views.set(f.uid, v);
     return v;
   }

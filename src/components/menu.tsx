@@ -21,7 +21,7 @@ const STAT_LABEL: Record<keyof Stats, string> = { hp: 'HP', ki: 'KI', atk: 'ATK'
 
 export function MenuScreen({ tab }: { tab: string }) {
   const s = useSession();
-  useEffect(() => { const onKey = (e: KeyboardEvent) => { if (isBackKey(e)) { e.preventDefault(); session.closeOverlay(); } }; window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey); }, []);
+  useEffect(() => { const onKey = (e: KeyboardEvent) => { if (isBackKey(e) || e.key === 'Tab') { e.preventDefault(); session.closeOverlay(); } }; window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey); }, []);
   return (
     <div className="overlay-dim fade-in"><div className="win menu-win">
       <div className="menu-head"><span className="px">MENU</span><span className="dim">{chapterName(s.state.chapter)} · Zeni <b>{s.state.zeni}</b> · Dragon Balls <b>{s.state.balls}/7</b></span><button className="btn small" onClick={() => session.closeOverlay()} title={BACK_HINT}>Back (X)</button></div>

@@ -90,11 +90,11 @@ export function App() {
     return () => { window.removeEventListener('pointerdown', first); window.removeEventListener('keydown', onKey); };
   }, []);
 
-  // world-level keys: Esc opens the menu
+  // world-level keys: Esc / Tab / M open the menu
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (session.mode !== 'world' || session.overlay) return;
-      if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); session.openMenu(); }
+      if (e.key === 'Escape' || e.key === 'Tab' || e.key === 'm' || e.key === 'M') { e.preventDefault(); session.openMenu(); }
       if ((e.key === 'o' || e.key === 'O')) setShowObj((v) => !v);
     };
     window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey);

@@ -15,4 +15,5 @@ __pycache__/
 *.zip
 *.nds
 *.lnk
-.claude/
+.claude/*
+!.claude/skills/

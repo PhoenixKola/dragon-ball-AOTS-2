@@ -233,9 +233,11 @@ export class BattleDirector {
       const prevAt = this.lastMarkerAt.get(key);
       const inChain = prevAt !== undefined && this.time - prevAt < 330;
       this.lastMarkerAt.set(key, this.time);
-      // contact visuals happen at the marker; the outcome resolves after the hit-stop window for guarded hits
-      if (op && !op.quiet && op.vfx) this.stage.contact(step.targetId, op.vfx, step.last);
-      else if (!op) this.stage.contact(step.targetId, SKILLS[step.skillId]?.vfx === 'punch' ? 'impact' : 'impact', step.last);
+      // Contact plays at the marker; the outcome resolves later for guarded hits. Preplanned misses must not sound or look like impacts.
+      if (!this.engine.willMiss(plan, step)) {
+        if (op && !op.quiet && op.vfx) this.stage.contact(step.targetId, op.vfx, step.last);
+        else if (!op) this.stage.contact(step.targetId, 'impact', step.last);
+      }
       const resolveAt = guarded && !inChain ? this.time + this.opts.guard.lateMs : this.time;
       this.pending.push({ step, plan, resolveAt, chainFirst: !inChain, guarded });
     }

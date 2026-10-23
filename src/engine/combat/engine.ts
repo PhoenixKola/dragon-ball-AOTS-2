@@ -333,6 +333,11 @@ export class BattleEngine {
 
   participantsOf(planId: number): string[] { return this.participants.get(planId) ?? []; }
 
+  /** Misses decided during planning are safe to inspect before the hit marker plays contact feedback. */
+  willMiss(plan: ActionPlan, step: HitStep): boolean {
+    return SKILLS[step.skillId]?.kind === 'damage' && (!this.get(step.targetId).alive || !!this.missMap.get(plan.id)?.has(step.targetId));
+  }
+
   submit(cmd: Command, actorId: string): ActionPlan | PlanError {
     const p = this.plan(cmd, actorId);
     if (!isError(p)) this.begin(p);

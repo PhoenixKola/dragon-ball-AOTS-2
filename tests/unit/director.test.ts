@@ -89,6 +89,24 @@ describe('clip data integrity', () => {
 });
 
 describe('director synchronises animation and state', () => {
+  it('blind misses show MISS without contact impact or hit audio', () => {
+    let sawMiss = false;
+    for (let seed = 1; seed <= 20 && !sawMiss; seed++) {
+      const h = setup([['gohan', 5]], ['dodoria'], seed);
+      const actor = h.engine.get('a_gohan');
+      actor.stats.spd = 99;
+      actor.statuses.push({ kind: 'blind', turns: 2 });
+      h.director.start();
+      runUntil(h.director, () => h.director.isPlayerInput);
+      expect(h.director.submit({ kind: 'attack', target: h.engine.enemies()[0].uid }).ok).toBe(true);
+      h.director.flushPlan();
+      const results = h.stage.log.filter((x) => x.name === 'react').map((x) => (x.arg as { r: HitResult }).r);
+      sawMiss = results.some((r) => r.missed);
+      if (sawMiss) expect(h.stage.log.filter((x) => x.name === 'contact')).toHaveLength(results.filter((r) => !r.missed).length);
+    }
+    expect(sawMiss).toBe(true);
+  });
+
   it('Gohan attack: HP unchanged until the first hit marker, damage lands once per marker', () => {
     const h = setup([['gohan', 5]], ['dodoria'], 11);
     h.engine.get('a_gohan').stats.spd = 99;

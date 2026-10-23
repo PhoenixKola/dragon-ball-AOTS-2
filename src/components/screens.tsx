@@ -1,6 +1,6 @@
 import { toggleFullscreen } from './loading';
 import { isBackKey } from '../systems/backKey';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { session, chapterName, type ResultData } from '../app/session';
 import { SPEAKER_PORTRAIT } from '../data/scripts';
 import { HEROES, ITEMS } from '../data/heroes';
@@ -113,7 +113,8 @@ export function Dialogue() {
   const line = open ? open.lines[open.idx] : null;
   const text = line?.[1] ?? '';
   const idxKey = open ? `${open.idx}|${open.lines.length}|${text}` : '';
-  useEffect(() => { setShown(0); }, [idxKey]);
+  // Reset before the new line paints; a normal effect briefly displays it with the previous line's reveal count.
+  useLayoutEffect(() => { setShown(0); }, [idxKey]);
   useEffect(() => {
     if (!open) return;
     const iv = window.setInterval(() => setShown((n) => Math.min(text.length, n + 2)), 28);

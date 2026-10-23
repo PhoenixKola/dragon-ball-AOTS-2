@@ -12,6 +12,8 @@ Offline private React/TypeScript/Phaser JRPG for Windows. Do **not** move to God
 - Art is AI-derived stills, not animation. Do not fake motion; add missing frames to `docs/REQUIRED_MISSING_ASSETS.md`. Never claim art is verified; inspect images.
 
 ## Before changing things
+For game-development tasks, consult `.claude/skills/router/SKILL.md` and only the relevant installed skills. Treat them as supplemental references; this project's rules, Phaser 3.90 APIs, and existing behavior take precedence.
+
 1. `npm run typecheck && npm test`.
 2. If you touch enemies/skills/stats/XP/items: run `npm test`. `tests/unit/naturalPlaythrough.test.ts` walks the whole story and PLAYS every fight with the real engine from earned state (no boosts) and rewrites `docs/NATURAL_PLAYTHROUGH.md`; it is the balance contract (average guarder >= 55% per attempt, Easy finishable without guarding). Re-calibrate with `CALIBRATE=1 npx vitest run tests/unit/calibrate.test.ts` if soldier fights shift. Browser story tests that start from RAISED levels are named `BOOSTED` and prove flow only.
 3. Visual changes: `npm run dev`, then `node tools/shot.mjs <url> out.png`, `tools/capture_skill.mjs` (deterministic frame stepper via `window.__battle.debugStep`). Software GL is slow; use 960x540.

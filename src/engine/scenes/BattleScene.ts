@@ -12,7 +12,7 @@ import { isLyingHurt } from '../assets';
 import { GAME_SCALE } from '../gameScale';
 import { formSet, gokuForm, hasBakedAura } from '../animation/gokuForms';
 
-const ALLY_SLOTS: Pt[] = [{ x: 350, y: 372 }, { x: 255, y: 392 }, { x: 160, y: 366 }];
+const ALLY_SLOTS: Pt[] = [{ x: 410, y: 372 }, { x: 260, y: 392 }, { x: 110, y: 366 }];
 const ENEMY_SLOTS: Record<number, Pt[]> = {
   1: [{ x: 700, y: 380 }],
   2: [{ x: 650, y: 362 }, { x: 770, y: 392 }],

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { OVERWORLD, VFX_FAMILIES, SKILL_ICON_IDS, ITEM_ICON_IDS, UI_ASSETS, BEAM_PARTS } from '../../src/data/artManifest.generated';
 import { POWERUP_SETS, POWERUP_CANVAS } from '../../src/data/powerupSprites.generated';
@@ -112,7 +112,7 @@ describe('Goku form state machine (base / Kaioken / Super Saiyan never overwrite
 
   it('base Goku is the black-haired base form before the story unlock, whatever the battle state', () => {
     expect(gokuForm(goku())).toBe('base');
-    expect(formSet('base')).toBe('goku_base');   // aura-free set derived from the Kaioken frames (tools/make_base_goku.py)
+    expect(formSet('base')).toBeNull();   // base Goku is the goku_<pose>.png stills, not a frame set
     expect(gokuForm(goku(), 'kamehameha')).toBe('base');
     expect(gokuForm(goku(), 'spiritbomb')).toBe('base');
     expect(newGameState().roster.every((m) => !m.ssj)).toBe(true);
@@ -159,13 +159,28 @@ describe('Goku form state machine (base / Kaioken / Super Saiyan never overwrite
     const strikes = [0, 1, 2, 3].map((i) => formAnim('goku_ssj', 'attack', { attackIdx: i }).frames[0]);
     expect(new Set(strikes).size).toBeGreaterThanOrEqual(3);
     expect(formAnim('goku_kaioken', 'hurt', { holdMs: 200 }).frames[0]).not.toBe(formAnim('goku_kaioken', 'hurt', { holdMs: 420 }).frames[0]);
-    expect(formAnim('goku_ssj', 'ko').frames[0]).toContain('hurt');
+    expect(formAnim('goku_ssj', 'ko').frames[0]).toBe('goku_ssj_ko_01'); expect(formAnim('goku_kaioken', 'ko').frames[0]).toBe('goku_kaioken_ko_01');
     expect(formAnim('goku_kaioken', 'special').frames[0]).toContain('beam_03');
   });
 
   it('power-up frames are uniquely named and never reuse base-Goku files', () => {
-    for (const n of powerupFrameNames()) expect(n).toMatch(/^goku_(base|kaioken|ssj)_/);
+    for (const n of powerupFrameNames()) expect(n).toMatch(/^goku_(kaioken|ssj)_/);
     expect(new Set(powerupFrameNames()).size).toBe(powerupFrameNames().length);
+  });
+
+  it('no crossover: every form set only references its own prefix, and no Goku frame file is orphaned', () => {
+    const prefix = { goku_kaioken: 'goku_kaioken_', goku_ssj: 'goku_ssj_' } as const;
+    for (const [sid, s] of Object.entries(POWERUP_SETS)) for (const list of Object.values(s.anims)) for (const n of list) expect(n.startsWith(prefix[sid as keyof typeof prefix]), `${sid} -> ${n}`).toBe(true);
+    const live = new Set(powerupFrameNames());
+    const onDisk = readdirSync(join(root, 'assets/reviewed/actors')).filter((f) => /^goku_(base|kaioken|ssj)_.*\.png$/.test(f)).map((f) => f.slice(0, -4));
+    expect(onDisk.filter((n) => !live.has(n)), 'Goku form frames on disk that no animation table uses').toEqual([]);
+  });
+
+  it('Kaioken idle skips the wrong-costume source frame and loops as a clean ping-pong', () => {
+    const k = POWERUP_SETS.goku_kaioken;
+    expect(k.anims.idle).toEqual(['goku_kaioken_idle_01', 'goku_kaioken_idle_02', 'goku_kaioken_idle_03', 'goku_kaioken_idle_02']);
+    expect(existsSync(join(root, 'assets/reviewed/actors/goku_kaioken_idle_04.png'))).toBe(false);
+    const f = formAnim('goku_kaioken', 'idle'); expect(f.loop).toBe(true); expect(f.frames).toEqual(k.anims.idle);
   });
 });
 

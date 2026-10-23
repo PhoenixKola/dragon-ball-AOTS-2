@@ -85,7 +85,7 @@ export class ActorView {
   /** Body width on screen, independent of the active form so spacing and strike gaps never jump. */
   get width() { const b = idleSize(this.sprite); return (b.w * this.heightPx) / b.h; }
 
-  /** Swap the still-pose sprite (Goku base <-> Super Saiyan, both from the new sheets) without touching the multi-frame sets. */
+  /** Swap the still-pose sprite (base Goku and the non-Goku roster) without touching the multi-frame sets. */
   setStillSprite(name: string) {
     if (this.sprite === name && !this.formSet) { this.syncFlame(name); return; }
     this.setForm(null);
@@ -93,6 +93,14 @@ export class ActorView {
     this.shadow.setSize(idleSize(name).w * this.scaleK * 0.85, 16);
     this.setPose(this.pose, this.holdMs);
     this.syncFlame(name);
+  }
+  /** Super Saiyan Goku: the SSJ frame set (art-sources/goku-forms) over the persistent gold flame. Idempotent, called every frame. */
+  setSsjForm() {
+    if (this.sprite === 'ssj_goku' && this.formSet === 'goku_ssj') return;
+    this.sprite = 'ssj_goku';
+    this.setForm('goku_ssj');
+    this.shadow.setSize(idleSize('ssj_goku').w * this.scaleK * 0.85, 16);
+    this.syncFlame('ssj_goku');
   }
   /** Sparking: a calmer golden flame behind the fighter for as long as the status lasts (Super Saiyan Goku already has his own, stronger one). */
   setSparkFlame(on: boolean) { this.sparkOn = on; this.syncFlame(this.sprite); }

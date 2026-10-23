@@ -1,45 +1,30 @@
 {
  "folders": {
-  "assets": "NOT PRESENT",
-  "attack_of_the_saiyans_2_asset_pack": {
-   "files": 21,
-   "mb": 36.0
-  },
-  "source-art": {
-   "files": 1,
-   "mb": 34.9
+  "art-sources": {
+   "files": 3491,
+   "mb": 280.0
   },
   "legacy": {
    "files": 188,
    "mb": 9.0
   },
-  "archive": {
-   "files": 335,
-   "mb": 16.8
-  },
   "public/assets": {
-   "files": 721,
-   "mb": 10.0
+   "files": 951,
+   "mb": 30.8
   },
-  "aots2-master-art-pack-v2": {
-   "files": 436,
-   "mb": 4.0
-  },
-  "aots2-namek-validated-art-v1": "NOT PRESENT",
-  "aots2-goku-powerups-art-v2": "NOT PRESENT",
   "private": {
    "files": 0,
    "mb": 0.0
   },
   "dist": {
-   "files": 741,
-   "mb": 12.1
+   "files": 1020,
+   "mb": 34.3
   }
  },
- "duplicateGroups": 247,
+ "duplicateGroups": 91,
  "duplicatesBySignature": {
-  "archive+legacy+public": 30,
-  "public": 72,
-  "archive+legacy": 145
+  "legacy+public": 22,
+  "public": 68,
+  "legacy": 1
  }
 }

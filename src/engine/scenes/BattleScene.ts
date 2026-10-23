@@ -223,7 +223,7 @@ export class BattleScene extends Phaser.Scene implements Stage {
       if (f.side === 'ally') this.trackRage(f.uid, f.rage, f.alive);
       v.setSparkFlame(f.alive && f.statuses.some((s) => s.kind === 'sparking'));
       const curPlan = ctl.director?.currentPlan;
-      { const gf = f.defId === 'goku' ? gokuForm(f, curPlan && curPlan.actorId === f.uid ? curPlan.skillId : undefined) : 'base'; if (f.defId === 'trunks') v.setStillSprite(f.statuses.some((s) => s.kind === 'ssjform') ? 'trunks_ssj' : 'trunks'); else if (gf === 'kaioken') v.setForm(formSet(gf)); else if (f.defId === 'goku') v.setStillSprite(gf === 'ssj' ? 'ssj_goku' : 'goku'); else v.setForm(null); }   // base Goku uses the new-sheet stills; only Kaioken/SSJ use the multi-frame sets
+      { const gf = f.defId === 'goku' ? gokuForm(f, curPlan && curPlan.actorId === f.uid ? curPlan.skillId : undefined) : 'base'; if (f.defId === 'trunks') v.setStillSprite(f.statuses.some((s) => s.kind === 'ssjform') ? 'trunks_ssj' : 'trunks'); else if (gf === 'ssj') v.setSsjForm(); else if (gf === 'kaioken') v.setForm(formSet(gf)); else if (f.defId === 'goku') v.setStillSprite('goku'); else v.setForm(null); }   // base Goku = stills; Kaioken / SSJ = their own frame sets (formSet), never each other's
       v.update(scaled);
       // the red Kaioken aura already says it for base Goku; a Super Saiyan shows a gold aura, so the status gets a pip there (honest UI)
       v.drawPips(f.statuses.map((s) => s.kind).filter((k) => !['sparking', 'kaioken'].includes(k) || f.side === 'enemy' || (k === 'kaioken' && v.formSet === 'goku_ssj')));

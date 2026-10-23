@@ -1,8 +1,8 @@
-"""Builds release/AOTS2-Namek-Saga-beta3-final-art-polish.zip (single root folder, CRC-checked).
+"""Builds release/AOTS2-Namek-Saga-beta3-goku-forms-fix.zip (single root folder, CRC-checked).
 Excludes: node_modules, private (ROM area), earlier releases, legacy, raw art packs/archives, *.nds, *.zip. Includes src, public, dist, tests, docs, tools, evidence, lockfile, launcher."""
 import os, zipfile
 
-NAME = 'AOTS2-Namek-Saga-beta3-final-art-polish'
+NAME = 'AOTS2-Namek-Saga-beta3-goku-forms-fix'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'release', NAME + '.zip')
 SKIP = {'node_modules', 'private', 'release', 'test-results', '.git', 'legacy', '__pycache__'}

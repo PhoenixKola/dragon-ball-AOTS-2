@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { inflateSync } from 'node:zlib';
 import { SPRITE_BOXES } from '../../src/data/spriteManifest.generated';
 import { BLOCKED_POSES, HIRES_SPRITES, resolvePose, spriteBox, idleSize, texKey, allSprites } from '../../src/engine/assets';
 import { HEROES } from '../../src/data/heroes';
-import { gokuForm, formSet, hasBakedAura, formAnim, powerupFrameNames } from '../../src/engine/animation/gokuForms';
+import { gokuForm, formSet, hasBakedAura, powerupFrameNames } from '../../src/engine/animation/gokuForms';
 import { POWERUP_SETS, POWERUP_CANVAS } from '../../src/data/powerupSprites.generated';
 import { newMember, buildAlly } from '../../src/systems/party';
 
@@ -74,8 +74,8 @@ describe('base Goku stills (title/world fallbacks)', () => {
   it('form selection is unchanged: base before unlock, Kaioken only when active, SSJ only after the unlock', () => {
     const g = (o: { ssj?: boolean; kaioken?: boolean } = {}) => { const m = newMember('goku', 12); if (o.ssj) m.ssj = true; const a = buildAlly(m, 0); if (o.kaioken) a.statuses.push({ kind: 'kaioken', turns: 3 }); return a; };
     expect(gokuForm(g())).toBe('base'); expect(gokuForm(g({ kaioken: true }))).toBe('kaioken'); expect(gokuForm(g(), 'kaioken')).toBe('kaioken'); expect(gokuForm(g({ ssj: true, kaioken: true }))).toBe('ssj'); expect(gokuForm(g({ ssj: true }))).toBe('ssj');
-    expect(formSet('kaioken')).toBe('goku_kaioken'); expect(formSet('ssj')).toBe('goku_ssj');
-    expect(SPRITE_BOXES.ssj_goku).toBeDefined();
+    expect(formSet('kaioken')).toBe('goku_kaioken'); expect(formSet('ssj')).toBe('goku_ssj'); expect(formSet('base')).toBeNull();
+    expect(SPRITE_BOXES.ssj_goku).toBeDefined();   // still used as the SSJ fighter's size reference / world fallback, never drawn in battle
   });
 });
 
@@ -97,29 +97,31 @@ describe('overworld left/right frames keep their own art (never mirrored at runt
   });
 });
 
-describe('base Goku animation set (derived from the Kaioken frames, aura-free)', () => {
-  const set = POWERUP_SETS.goku_base, kai = POWERUP_SETS.goku_kaioken;
-  const rgbToHsv = (r: number, g: number, b: number) => { r /= 255; g /= 255; b /= 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn; let h = 0; if (d) { if (mx === r) h = ((g - b) / d + 6) % 6; else if (mx === g) h = (b - r) / d + 2; else h = (r - g) / d + 4; } return [h * 60, mx ? d / mx : 0, mx]; };
-  it('has the same animations and frame counts as the Kaioken set (minus its aura-only vfx), at the same render size', () => {
-    for (const k of Object.keys(set.anims)) expect(set.anims[k].length, k).toBe(kai.anims[k].length);
-    expect(Object.keys(set.anims).sort()).toEqual(Object.keys(kai.anims).filter((k) => k !== 'vfx').sort());
-    expect(set.refH).toBe(kai.refH);
+describe('base Goku is the goku_<pose>.png stills only (no frame set)', () => {
+  it('there is no base frame set, and the base form resolves to no set / no baked aura', () => {
+    expect(Object.keys(POWERUP_SETS).sort()).toEqual(['goku_kaioken', 'goku_ssj']);
+    expect(formSet('base')).toBeNull(); expect(formSet('kaioken')).toBe('goku_kaioken'); expect(formSet('ssj')).toBe('goku_ssj');
+    expect(hasBakedAura(null)).toBe(false); expect(hasBakedAura('goku_kaioken')).toBe(true); expect(hasBakedAura('goku_ssj')).toBe(true);
+    expect(powerupFrameNames().some((n) => n.startsWith('goku_base_'))).toBe(false);
+    expect(readdirSync(ACT).filter((f) => f.startsWith('goku_base_'))).toEqual([]);
   });
-  it('base form uses it for Goku, procedural auras stay available, Kaioken/SSJ keep their baked-aura sets', () => {
-    expect(formSet('base')).toBe('goku_base'); expect(formSet('kaioken')).toBe('goku_kaioken'); expect(formSet('ssj')).toBe('goku_ssj');
-    expect(hasBakedAura('goku_base')).toBe(false); expect(hasBakedAura('goku_kaioken')).toBe(true); expect(hasBakedAura('goku_ssj')).toBe(true); expect(hasBakedAura(null)).toBe(false);
-    expect(powerupFrameNames()).toContain('goku_base_idle_01');
-    expect(formAnim('goku_base', 'idle').frames).toEqual(set.anims.idle); expect(formAnim('goku_base', 'idle').frames.length).toBeGreaterThanOrEqual(4);
+});
+
+describe('Goku Kaioken / SSJ sheets (art-sources/goku-forms)', () => {
+  // wrong-costume source cell scores ~2000 on this measure; every real frame scores < 60
+  const hasPurpleTrousers = (name: string) => {
+    const img = decode(join(ACT, name + '.png')); let purple = 0;
+    for (let i = 0; i < img.px.length; i += 4) { if (img.px[i + 3] < 200) continue; const r = img.px[i], g = img.px[i + 1], b = img.px[i + 2]; if (b > 90 && r > 80 && g < 0.7 * r && b > g * 1.5 && Math.abs(r - b) < 70 && r + g + b > 200) purple++; }
+    return purple;
+  };
+  it('no exported Kaioken frame contains the purple trousers of the wrong-costume source frame', () => {
+    for (const names of Object.values(POWERUP_SETS.goku_kaioken.anims)) for (const n of names) expect(hasPurpleTrousers(n), n).toBeLessThan(300);
   });
-  it('every frame exists at the set canvas size, is a real body (not empty), has no red/pink glow and no yellow hair, and idle frames are pixel-distinct', () => {
-    const seen = new Set<string>();
-    for (const [anim, names] of Object.entries(set.anims)) for (const n of names) {
-      const img = decode(join(ACT, n + '.png')); expect([img.w, img.h], n).toEqual([POWERUP_CANVAS.w, POWERUP_CANVAS.h]);
-      let opaque = 0, red = 0, yellow = 0;
-      for (let i = 0; i < img.px.length; i += 4) { if (img.px[i + 3] < 128) continue; opaque++; const [h, sat, v] = rgbToHsv(img.px[i], img.px[i + 1], img.px[i + 2]);
-        if ((h < 9 || h > 335) && sat > 0.35 && v >= 0.55) red++; if (h > 40 && h < 65 && sat > 0.5 && v > 0.85) yellow++; }
-      expect(opaque, n).toBeGreaterThan(1500); expect(red / opaque, `${n} red glow`).toBeLessThan(0.01); expect(yellow / opaque, `${n} yellow`).toBeLessThan(0.01);
-      if (anim === 'idle') { const key = Buffer.from(img.px).toString('base64'); expect(seen.has(key), `${n} duplicates another idle frame`).toBe(false); seen.add(key); }
+  it('every Kaioken / SSJ frame is a real body at the shared canvas size and the pose tables are explicit', () => {
+    for (const sid of ['goku_kaioken', 'goku_ssj'] as const) {
+      const a = POWERUP_SETS[sid].anims;
+      expect(Object.keys(a).sort(), sid).toEqual(['attack', 'beam', 'guard', 'hurt', 'idle', 'ko', 'powerup', 'victory']);
+      for (const n of new Set(Object.values(a).flat())) { const img = decode(join(ACT, n + '.png')); expect([img.w, img.h], n).toEqual([POWERUP_CANVAS.w, POWERUP_CANVAS.h]); let o = 0; for (let i = 3; i < img.px.length; i += 4) if (img.px[i] > 200) o++; expect(o, n).toBeGreaterThan(1500); }
     }
   });
 });

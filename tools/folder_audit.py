@@ -4,8 +4,7 @@ Writes docs/ASSET_FOLDER_AUDIT.json. Usage: python -I tools/folder_audit.py
 import collections, hashlib, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FOLDERS = ['art-sources', 'legacy', 'public/assets',
-           'aots2-namek-validated-art-v1', 'aots2-goku-powerups-art-v2', 'private', 'dist']
+FOLDERS = ['art-sources', 'legacy', 'public/assets', 'private', 'dist']
 
 
 def walk(d):

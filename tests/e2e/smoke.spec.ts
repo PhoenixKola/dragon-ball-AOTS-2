@@ -270,11 +270,11 @@ test('Goku forms in real battles: base before the unlock, Kaioken only when used
   // 3) Super Saiyan only with the unlock flag
   await run('party=goku,gohan,vegeta&foes=zarbon&first=goku&lv=22&ssj=1', () => {});
   a = await actor('a_goku');
-  expect(a.form).toBeNull(); expect(a.texture).toMatch(/^a_ssj_goku_/);   // Super Saiyan Goku = new-sheet stills
+  expect(a.form).toBe('goku_ssj'); expect(a.texture).toMatch(/^pw_goku_ssj_/);   // Super Saiyan Goku = the SSJ frame set only
   await page.evaluate(() => (window as any).__ctl.director.submit({ kind: 'attack', target: (window as any).__ctl.engine.enemies()[0].uid }));
   const ssjTex = new Set<string>();
-  for (let i = 0; i < 30; i++) { await page.evaluate(() => (window as any).__battle.debugStep(100)); const g = await actor('a_goku'); ssjTex.add(g.texture); expect(g.flipX).toBe(false); }
-  expect([...ssjTex].every((t) => t.startsWith('a_ssj_goku_'))).toBe(true);
+  for (let i = 0; i < 30; i++) { await page.evaluate(() => (window as any).__battle.debugStep(100)); const g = await actor('a_goku'); ssjTex.add(g.texture); expect(g.form).toBe('goku_ssj'); expect(g.flipX).toBe(false); }
+  expect([...ssjTex].every((t) => t.startsWith('pw_goku_ssj_'))).toBe(true);
   expect([...ssjTex].some((t) => t.includes('attack'))).toBe(true);
 
   // 4) enemy that is drawn facing right is mirrored toward the party

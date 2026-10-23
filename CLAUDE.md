@@ -8,6 +8,7 @@ Offline private React/TypeScript/Phaser JRPG for Windows. Do **not** move to God
 - World: `src/data/maps.ts` + `src/data/scripts.ts` drive everything; entities are gated by flags. Add content there, not in UI code.
 - Saves: `src/systems/save.ts` (strict validation, backups, v2 migration). Bump `SAVE_VERSION` and write a migration if you change the shape.
 - Folders: `public/` is the only art the game loads; every art pack, archive and verification-only file lives under `art-sources/` (packs in `art-sources/packs/`, briefs in `docs/briefs/`; tools read from there). Briefs are in `docs/briefs/`.
+- Goku forms: base = `goku_<pose>.png` stills; Kaioken/SSJ = frame sets sliced by `tools/slice_goku_forms.py` from `art-sources/goku-forms/`. Routing, pose mapping and limitations: `docs/GOKU_FORMS.md`. Never re-slice from archived sheets.
 - Art is AI-derived stills, not animation. Do not fake motion; add missing frames to `docs/REQUIRED_MISSING_ASSETS.md`. Never claim art is verified; inspect images.
 
 ## Before changing things

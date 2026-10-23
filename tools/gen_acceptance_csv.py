@@ -48,9 +48,9 @@ for actor in sorted({os.path.basename(p).rsplit('_', 1)[0] for p in glob.glob(os
             d = ALL_DECISIONS.get(f'{actor}:{pose}')
             why = ('Beta 3 candidate ' + d[0] + ': ' + d[2]) if d else 'No matching pose on the supplied sheet; the engine uses the documented fallback (see src/engine/assets.ts)'
             add(f'{actor}:{pose}', 'battle pose', ('art-sources/packs/' + d[1]) if d else SHEET[actor], 'missing', '', '', '', '', why)
-for fam, st in (('goku_kaioken', 'retained-original'), ('goku_ssj', 'retained-original')):
+for fam, st in (('goku_kaioken', 'approved'), ('goku_ssj', 'approved')):
     n = len(glob.glob(os.path.join(PUB, 'reviewed', 'actors', fam + '_*.png')))
-    add(fam, '32-frame multi-pose battle set (idle / power-up / melee / beam / guard / hurt / victory)', 'aots2-master-art-pack-v2/goku-powerups', st, 'public/assets/reviewed/actors/' + fam + '_*.png', '288x272', 'feet (144,232)', '', f'{n} frames kept: richer than the 8 new key poses. Super Saiyan Goku now uses the new-sheet stills for the idle/attack states with the new gold flame; Kaioken keeps this set')
+    add(fam, 'multi-pose battle set (idle / power-up / melee / beam / guard / hurt / victory / ko)', 'art-sources/goku-forms/' + {'goku_kaioken': 'kaioken', 'goku_ssj': 'super_saiyan'}[fam] + '_goku_pixel_sprite_sheet.png', st, 'public/assets/reviewed/actors/' + fam + '_*.png', '288x272', 'feet (144,232)', '', f'{n} frames from tools/slice_goku_forms.py (see docs/GOKU_FORMS.md). Kaioken source cell 1 (wrong costume) is never exported; guard reuses the crouched ready stance; base Goku is the goku_<pose>.png stills')
 
 for ent in sorted(os.listdir(os.path.join(PUB, 'reviewed', 'overworld'))):
     for d in ('down', 'left', 'right', 'up'):

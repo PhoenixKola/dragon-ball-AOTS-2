@@ -108,7 +108,7 @@ function ListMenu({ ctl }: { ctl: BattleController }) {
     if (i !== m.cursor) { m.cursor = i; ctl.emit(); }
   };
   return (
-    <div className="win list-win fade-in" role="menu">
+    <div className="win list-win fade-in" role="menu" onWheel={(e) => { if (e.deltaY > 0 && m.cursor < rows.length - 1) ctl.nav('down'); else if (e.deltaY < 0 && m.cursor > 0) ctl.nav('up'); }}>
       <div className="win-title">{m.kind === 'skills' ? 'SKILLS' : m.kind === 'items' ? 'ITEMS' : 'COMBOS'}</div>
       <div className="list-col">
         {rows.length === 0 && <div style={{ padding: 8, color: '#9fb6e0' }}>Nothing available.</div>}

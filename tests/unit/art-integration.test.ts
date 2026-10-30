@@ -50,6 +50,13 @@ describe('validated art pack is fully wired', () => {
     for (const [fam, frames] of Object.entries(BEAM_PARTS)) for (const f of [3, 4, 5]) expect(frames[f].body[1] - frames[f].body[0], `${fam} body tileable`).toBeGreaterThanOrEqual(8);
   });
 
+  it('the generated buff cue has eight distinct transparent frames', () => {
+    const frames = Array.from({ length: 8 }, (_, i) => png(`assets/reviewed/vfx/buff_rise/${String(i).padStart(3, '0')}.png`));
+    expect(frames.map(dims)).toEqual(Array(8).fill(null).map(() => [96, 64]));
+    expect(new Set(frames.map((b) => b.toString('base64'))).size).toBe(8);
+    expect(frames.every((b) => b[25] === 6), 'RGBA color type').toBe(true);
+  });
+
   it('UI panels are present with 9-slice insets and the menu cursor exists', () => {
     for (const k of ['panel', 'panel_focused', 'panel_warning']) {
       expect(UI_ASSETS[k].insets).toEqual([7, 7, 7, 7]);
@@ -196,6 +203,18 @@ describe('saves stay valid with the new party/form data', () => {
 
 import { nativeFacing, shouldFlip, wantedFacing, POSE_FACING_TABLE } from '../../src/data/poseFacing';
 import { SPRITE_BOXES } from '../../src/data/spriteManifest.generated';
+import { resolvePose } from '../../src/engine/assets';
+
+describe('reviewed Frieza second-form victory pose', () => {
+  it('uses its own transparent 448px pose at the shared feet baseline', () => {
+    const pose = png('assets/reviewed/actors/frieza2_victory.png');
+    expect(dims(pose)).toEqual([448, 448]);
+    expect(pose[25]).toBe(6);
+    expect(SPRITE_BOXES.frieza2.victory[3]).toBe(438);
+    expect(resolvePose('frieza2', 'victory')).toBe('victory');
+    expect(pose.equals(png('assets/reviewed/actors/frieza2_idle.png'))).toBe(false);
+  });
+});
 import { ENEMIES } from '../../src/data/enemies';
 
 describe('facing: allies face right, enemies face left, whatever way the pose was drawn', () => {

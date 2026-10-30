@@ -1,10 +1,9 @@
 # Still-missing art (named blockers)
 
-Generated from `docs/FINAL_ART_ACCEPTANCE.csv` by `tools/gen_acceptance_csv.py`. Nothing below is faked: the engine uses a labelled fallback (see `src/engine/assets.ts`).
+The Beta 3 acceptance CSV is a historical snapshot. Frieza second-form victory now uses a separately generated candidate pose (see `docs/ASSET_WORKFLOW.md`). The entries below still use labelled fallbacks (see `src/engine/assets.ts`).
 
 | ID | What is missing | Why / fallback |
 |---|---|---|
-| `frieza2:victory` | battle pose | Beta 3 candidate retained-fallback: No genuine victory frame on the sheet (piece 7 is a roaring claw pose that duplicates charge); not relabelled. Idle is used (src/engine/assets.ts) |
 | `soldier:special` | battle pose | Beta 3 candidate retained-fallback: No distinct clean special frame: the only clean palm-thrust (piece 26) is already the attack, and every other cast frame carries baked crescents / beams / glows (pieces 20-24, 27-30 rejected). Falls back to attack |
 | `zarbon2:special` | battle pose | Beta 3 candidate rejected: Candidate set is a different design (no cape, purple shorts, orange boots, tail) from the installed monstrous Zarbon; mixing it would break the creature identity. Installed charge/attack fallback kept |
 

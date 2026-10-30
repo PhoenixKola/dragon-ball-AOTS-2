@@ -24,6 +24,7 @@ export const BEAM_FAMILY: Record<string, string> = { kame: 'blue_beam', kame_ssj
 export const IMPACT_FAMILY: Record<string, { fam: string; scale: number }> = {
   impact: { fam: 'punch_impact', scale: 2 }, impact_big: { fam: 'explosion', scale: 3 }, impact_red: { fam: 'energy_burst', scale: 2.4 },
   impact_gold: { fam: 'transformation_flash', scale: 2.4 }, heal: { fam: 'healing_spark', scale: 2.5 }, flare: { fam: 'solar_flare', scale: 3.4 },
+  buff: { fam: 'buff_rise', scale: 2 },
 };
 
 const easeOut = (t: number) => 1 - (1 - t) * (1 - t);

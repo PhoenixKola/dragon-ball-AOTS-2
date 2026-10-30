@@ -288,6 +288,12 @@ export const SPRITE_BOXES: Record<string, Record<string, Box>> = {
    439,
    438
   ],
+  "victory": [
+   61,
+   112,
+   388,
+   438
+  ],
   "ko": [
    9,
    294,

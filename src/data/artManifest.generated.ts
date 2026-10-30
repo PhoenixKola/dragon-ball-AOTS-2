@@ -865,6 +865,12 @@ export const OVERWORLD: Record<string, OverworldEntity> = {
  }
 } as never;
 export const VFX_FAMILIES: Record<string, VfxFamily> = {
+ "buff_rise": {
+  "frames": 8,
+  "ms": 65,
+  "canvas": [96, 64],
+  "anchor": [48, 32]
+ },
  "blue_beam": {
   "frames": 8,
   "ms": 65,

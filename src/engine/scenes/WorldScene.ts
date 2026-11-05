@@ -64,7 +64,8 @@ export class WorldScene extends Phaser.Scene {
     const ctx = this.ctx; this.map = ctx.map; const m = this.map;
     this.noEncounters = false; this.solids = []; this.ents = []; this.staticObjs = []; this.propMotion = []; this.waterTile = null; this.voidWater = null; this.yielded = false; this.inZone.clear(); this.t = 0; this.lastVersion = -1;
     const W = m.w * TILE, H = m.h * TILE;
-    this.cameras.main.setBackgroundColor(0x000000).setBounds(W >= LOGICAL_W ? 0 : -(LOGICAL_W - W) / 2, H >= LOGICAL_H ? 0 : -(LOGICAL_H - H) / 2, Math.max(W, LOGICAL_W), Math.max(H, LOGICAL_H));
+    const outsideTone = m.sky === 'cave' ? 0x111a30 : m.sky === 'ship' ? 0x15142b : m.sky === 'ice' ? 0x1b1a52 : m.sky === 'final' ? 0x170c16 : 0x173740;
+    this.cameras.main.setBackgroundColor(outsideTone).setBounds(W >= LOGICAL_W ? 0 : -(LOGICAL_W - W) / 2, H >= LOGICAL_H ? 0 : -(LOGICAL_H - H) / 2, Math.max(W, LOGICAL_W), Math.max(H, LOGICAL_H));
     this.paintTerrain();
     this.placeObjects();
     const s = ctx.getState();
@@ -92,10 +93,26 @@ export class WorldScene extends Phaser.Scene {
   private cell(x: number, y: number): string { const r = this.map.ground[y]; return r ? r[x] ?? 'x' : 'x'; }
   private keep<T extends Phaser.GameObjects.GameObject>(o: T): T { this.staticObjs.push(o); return o; }
 
-  private maskFor(pred: (c: string) => boolean, dy = 0): Phaser.Display.Masks.GeometryMask {
+  private maskFor(pred: (c: string) => boolean, dy = 0, wobble = 0): Phaser.Display.Masks.GeometryMask {
     const g = this.make.graphics({}, false);
     g.fillStyle(0xffffff, 1);
     const m = this.map;
+    if (wobble > 0) {
+      const mapSeed = [...m.id].reduce((n, c) => (Math.imul(n, 31) + c.charCodeAt(0)) | 0, 17);
+      const jitter = (x: number, y: number, side: number) => {
+        let h = Math.imul(x + mapSeed, 0x45d9f3b) ^ Math.imul(y + side * 17, 0x119de1f3);
+        h = Math.imul(h ^ (h >>> 16), 0x45d9f3b);
+        return ((h >>> 0) % (wobble * 2 + 1)) - wobble;
+      };
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (pred(this.cell(x, y))) {
+        const left = x * TILE + (pred(this.cell(x - 1, y)) ? 0 : jitter(x, y, 0));
+        const right = (x + 1) * TILE + (pred(this.cell(x + 1, y)) ? 0 : jitter(x, y, 1));
+        const top = y * TILE + (pred(this.cell(x, y - 1)) ? 0 : jitter(x, y, 2));
+        const bottom = (y + 1) * TILE + (pred(this.cell(x, y + 1)) ? 0 : jitter(x, y, 3));
+        g.fillRect(left, top + dy, right - left + 0.5, bottom - top + 0.5);
+      }
+      return g.createGeometryMask();
+    }
     for (let y = 0; y < m.h; y++) {
       let start = -1;
       const span = (end: number) => {
@@ -120,20 +137,15 @@ export class WorldScene extends Phaser.Scene {
     const voidTone = m.sky === 'cave' ? 0x111a30 : m.sky === 'ship' ? 0x15142b : m.sky === 'ice' ? 0x1b1a52 : m.sky === 'final' ? 0x170c16 : 0x173740;
     const bg = this.add.rectangle(0, 0, W, H, voidTone).setOrigin(0).setDepth(-1000); this.staticObjs.push(bg);
     if (m.sky === 'day') {
-      const grass = tex('t_grass_namek_v2') ? 't_grass_namek_v2' : 't_grass';
+      const grass = tex('t_grass_namek_v3') ? 't_grass_namek_v3' : tex('t_grass_namek_v2') ? 't_grass_namek_v2' : 't_grass';
       if (tex(grass)) {
-        const tileSize = this.textures.get(grass).getSourceImage().width;
-        const grassScale = grass === 't_grass_namek_v2' ? (TILE * 3.6) / tileSize : 0.9;
-        const base = grass !== 't_grass' && tex('t_grass') ? 't_grass' : grass;
-        this.keep(this.add.tileSprite(0, 0, W, H, base).setOrigin(0).setDepth(-900).setTileScale(base === 't_grass' ? 0.9 : grassScale));
-        if (grass !== base) {
-          // Overscan the second grass texture so its slower camera travel never exposes a seam
-          // at the map bounds. The tiny speed difference gives Namek's broad fields depth while
-          // keeping the walkable grid, collision and all foreground props locked to the camera.
-          const overscan = 96;
-          this.keep(this.add.tileSprite(-overscan, -overscan, W + overscan * 2, H + overscan * 2, grass)
-            .setOrigin(0).setDepth(-899.5).setTileScale(grassScale).setTint(0x9bbd98).setAlpha(0.3).setScrollFactor(0.94, 0.94));
-        }
+        const grassScale = grass === 't_grass_namek_v3' ? 0.18 : grass === 't_grass_namek_v2' ? 0.10 : 0.9;
+        const grassTint: Record<string, number> = { shore: 0xc6dcb6, village: 0xc2dcae, landing: 0xadb997, guru: 0xcde0b0, ridge: 0xb9d2af };
+        // Use the broad authored meadow texture as the actual field surface. The old
+        // 56px noise tile repeated every few steps and made the whole world look stamped.
+        const overscan = 160;
+        this.keep(this.add.tileSprite(-overscan, -overscan, W + overscan * 2, H + overscan * 2, grass)
+          .setOrigin(0).setDepth(-900).setTileScale(grassScale).setTint(grassTint[m.id] ?? 0xc5d9b6).setAlpha(0.96));
         // Low-contrast blade marks break up the repeated grass tile without competing with props.
         const detail = this.keep(this.add.graphics().setDepth(-899));
         let seed = m.w * 233 + m.h * 811 + 19; const rand = () => { seed = (seed * 48271) % 2147483647; return seed / 2147483647; };
@@ -147,13 +159,17 @@ export class WorldScene extends Phaser.Scene {
           if (i % 5 === 0) detail.fillStyle(0xb3da70, 0.18).fillCircle(px + 4, py + 3, 0.8);
         }
       }
-      if (tex('t_dirt')) { const d = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-880).setTileScale(0.85)); d.setMask(this.maskFor((c) => c === ',')); }
+      const pathMaterial: Record<string, string> = { shore: 'namek_sand', village: 'namek_sacred_stone', landing: 'frieza_camp_earth', guru: 'namek_sacred_stone', ridge: 'namek_ridge_gravel' };
+      const pathTint: Record<string, number> = { shore: 0xfff3d5, village: 0xf0e8cb, landing: 0xe2c5a6, guru: 0xf2e9c9, ridge: 0xe0e4ce };
+      const pathKey = 't_' + (pathMaterial[m.id] ?? 'dirt');
+      const pathScale = pathKey === 't_dirt' ? 0.85 : 0.12;
+      if (tex(pathKey)) {
+        const d = this.keep(this.add.tileSprite(0, 0, W, H, pathKey).setOrigin(0).setDepth(-880).setTileScale(pathScale).setTint(pathTint[m.id] ?? 0xffffff));
+        d.setMask(this.maskFor((c) => c === ',', 0, 3));
+      }
       if (tex('t_water')) {
-        // shore: sand rim then water
-        const rim = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-875).setTileScale(0.85).setTint(0xe8d8a8));
-        rim.setMask(this.maskFor((c) => c === '~' || c === ','));
         const w = this.keep(this.add.tileSprite(0, 0, W, H, 't_water').setOrigin(0).setDepth(-870).setTileScale(1));
-        w.setMask(this.maskFor((c) => c === '~'));
+        w.setMask(this.maskFor((c) => c === '~', 0, 4));
         this.waterTile = w;
       }
     } else if (m.sky === 'ice') {
@@ -167,8 +183,9 @@ export class WorldScene extends Phaser.Scene {
         const rock = this.keep(this.add.tileSprite(0, 0, W, H, 't_ice_cliff').setOrigin(0).setDepth(-905).setTileScale(1)); rock.setMask(this.maskFor(solid, 20));
         const mid = this.keep(this.add.tileSprite(0, 0, W, H, 't_ice_cliff').setOrigin(0).setDepth(-904).setTileScale(1).setTint(0xcfd6ff)); mid.setMask(this.maskFor(solid, 10));
       }
-      if (tex('t_ice')) { const ice = this.keep(this.add.tileSprite(0, 0, W, H, 't_ice').setOrigin(0).setDepth(-900).setTileScale(0.9)); ice.setMask(this.maskFor((c) => c === 'i')); }
-      if (tex('t_water')) { const pool = this.keep(this.add.tileSprite(0, 0, W, H, 't_water').setOrigin(0).setDepth(-890).setTileScale(1).setTint(0xb9a6ff)); pool.setMask(this.maskFor((c) => c === '~')); this.waterTile = pool; }
+      const iceSurface = tex('t_cooler_ice_surface') ? 't_cooler_ice_surface' : 't_ice';
+      if (tex(iceSurface)) { const ice = this.keep(this.add.tileSprite(0, 0, W, H, iceSurface).setOrigin(0).setDepth(-900).setTileScale(iceSurface === 't_ice' ? 0.9 : 0.12)); ice.setMask(this.maskFor((c) => c === 'i', 0, 3)); }
+      if (tex('t_water')) { const pool = this.keep(this.add.tileSprite(0, 0, W, H, 't_water').setOrigin(0).setDepth(-890).setTileScale(1).setTint(0xb9a6ff)); pool.setMask(this.maskFor((c) => c === '~', 0, 3)); this.waterTile = pool; }
     } else if (m.sky === 'ship') {
       const g = this.keep(this.add.graphics().setDepth(-900));
       for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === 'm') {
@@ -177,7 +194,8 @@ export class WorldScene extends Phaser.Scene {
         if (x % 4 === 1 && y % 4 === 1) g.fillStyle(0x7fe8ff, 0.5).fillRect(x * TILE + 12, y * TILE + 12, 8, 8);
       }
     } else if (m.sky === 'cave') {
-      if (tex('t_dirt')) { const d = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-900).setTileScale(0.85).setTint(0x7a665a)); d.setMask(this.maskFor((c) => c === 'c')); }
+      const caveFloor = tex('t_namek_cave_stone') ? 't_namek_cave_stone' : 't_dirt';
+      if (tex(caveFloor)) { const d = this.keep(this.add.tileSprite(0, 0, W, H, caveFloor).setOrigin(0).setDepth(-900).setTileScale(caveFloor === 't_dirt' ? 0.85 : 0.12)); d.setMask(this.maskFor((c) => c === 'c', 0, 3)); }
       // Keep cave light anchored to the crystal formations instead of scattering broad,
       // disconnected circles over the walkable floor.
       const glow = this.keep(this.add.graphics().setDepth(-890));
@@ -189,15 +207,86 @@ export class WorldScene extends Phaser.Scene {
     } else if (m.sky === 'final') {
       const sky = this.keep(this.add.graphics().setDepth(-950)); sky.fillGradientStyle(0x2a0a18, 0x2a0a18, 0xff7a2a, 0xff7a2a, 1); sky.fillRect(0, 0, W, 4 * TILE + 8);
       sky.fillStyle(0xffd27a, 0.45).fillEllipse(W / 2, 4 * TILE, W * 0.8, 80);
-      if (tex('t_dirt')) { this.keep(this.add.tileSprite(0, 4 * TILE, W, H - 4 * TILE, 't_dirt').setOrigin(0).setDepth(-900).setTileScale(0.85).setTint(0x7a3a2a)); const d = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-880).setTileScale(0.85).setTint(0xc89a7a)); d.setMask(this.maskFor((c) => c === ',')); }
-      const cr = this.keep(this.add.graphics().setDepth(-870)); cr.lineStyle(3, 0xff7a2a, 0.9);
+      const cinder = tex('t_namek_cinder_rock') ? 't_namek_cinder_rock' : 't_dirt';
+      if (tex(cinder)) this.keep(this.add.tileSprite(0, 4 * TILE, W, H - 4 * TILE, cinder).setOrigin(0).setDepth(-900).setTileScale(cinder === 't_dirt' ? 0.85 : 0.12));
+      if (tex('t_dirt')) { const d = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-880).setTileScale(0.85).setTint(0xc89a7a)); d.setMask(this.maskFor((c) => c === ',', 0, 3)); }
+      const cr = this.keep(this.add.graphics().setDepth(-870)); cr.lineStyle(1.5, 0xff7a2a, 0.52);
       let seed = 7; const r = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-      for (let i = 0; i < 12; i++) { let x = r() * W, y = 4 * TILE + r() * (H - 4 * TILE); cr.beginPath(); cr.moveTo(x, y); for (let s = 0; s < 6; s++) { x += (r() - 0.45) * 80; y += (r() - 0.3) * 30; cr.lineTo(x, y); } cr.strokePath(); }
+      for (let i = 0; i < 5; i++) {
+        let x = r() * W, y = 4 * TILE + 12 + r() * Math.max(1, H - 4 * TILE - 24);
+        cr.beginPath().moveTo(x, y);
+        for (let s = 0; s < 3; s++) { x += (r() - 0.5) * 52; y += (r() - 0.5) * 28; cr.lineTo(x, y); }
+        cr.strokePath();
+      }
     }
+    this.paintTerrainTransitions();
     // generic shadowed edge for void cells
     const vg = this.keep(this.add.graphics().setDepth(-860));
     const voidFill = m.sky === 'ice' ? 0x1b1a52 : m.sky === 'cave' ? 0x111a30 : m.sky === 'ship' ? 0x15142b : 0x173740;
     for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === 'x' && m.sky !== 'final' && !this.voidWater) vg.fillStyle(voidFill, 1).fillRect(x * TILE, y * TILE, TILE, TILE);
+  }
+
+  /** Adds hand-shaped visual transitions over the grid without changing its gameplay cells. */
+  private paintTerrainTransitions() {
+    const m = this.map;
+    const g = this.keep(this.add.graphics().setDepth(-850));
+    let seed = [...m.id].reduce((n, c) => (n * 33 + c.charCodeAt(0)) >>> 0, 5381);
+    const rand = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 0x100000000; };
+    const edge = (x: number, y: number, horizontal: boolean, water: boolean) => {
+      const center = horizontal ? (y + 1) * TILE : (x + 1) * TILE;
+      const along = horizontal ? x * TILE : y * TILE;
+      // A few irregular glints soften water and ice edges without outlining every tile.
+      for (let i = 0; i < 2; i++) {
+        const a = along + 2 + rand() * (TILE - 10);
+        const len = 2 + rand() * 5;
+        const offset = (rand() - 0.5) * (water ? 10 : 6);
+        const color = rand() > 0.38 ? 0xb4f5e7 : 0xe2fff2;
+        g.lineStyle(water ? 1.5 : 1, color, water ? 0.38 : 0.2).beginPath();
+        if (horizontal) g.moveTo(a, center + offset).lineTo(a + len, center + offset + (rand() - 0.5) * 2);
+        else g.moveTo(center + offset, a).lineTo(center + offset + (rand() - 0.5) * 2, a + len);
+        g.strokePath();
+      }
+    };
+
+    for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) {
+      const here = this.cell(x, y);
+      const right = this.cell(x + 1, y), down = this.cell(x, y + 1);
+      if ((here === '~' && right !== '~' && right !== 'x') || (right === '~' && here !== 'x' && here !== '~')) edge(x, y, false, true);
+      if ((here === '~' && down !== '~' && down !== 'x') || (down === '~' && here !== 'x' && here !== '~')) edge(x, y, true, true);
+      if (m.sky === 'ice') {
+        if (((here === 'i' || here === '~') && right === 'x') || ((right === 'i' || right === '~') && here === 'x')) edge(x, y, false, true);
+        if (((here === 'i' || here === '~') && down === 'x') || ((down === 'i' || down === '~') && here === 'x')) edge(x, y, true, true);
+      }
+    }
+
+    // Biome-specific ground marks establish scale and material: beach foam, village-set stones,
+    // camp wheel ruts, cold glints, and restrained ship-floor seams.
+    if (m.id === 'shore') {
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === '~' && rand() < 0.11) {
+        g.fillStyle(0xe7fff5, 0.18).fillEllipse(x * TILE + 7 + rand() * 18, y * TILE + 7 + rand() * 18, 5 + rand() * 6, 0.8);
+      }
+    } else if (m.id === 'village' || m.id === 'guru') {
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === ',' && rand() < 0.08) {
+        const px = x * TILE + 6 + rand() * 20, py = y * TILE + 7 + rand() * 18;
+        g.fillStyle(m.id === 'guru' ? 0xbca985 : 0xb49a69, 0.28).fillRoundedRect(px, py, 3 + rand() * 4, 2 + rand() * 3, 1);
+        g.fillStyle(0xeadbb5, 0.18).fillRect(px + 1, py, 2, 1);
+      }
+    } else if (m.id === 'landing' || m.id === 'ridge') {
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === ',' && rand() < 0.11) {
+        const px = x * TILE + 5 + rand() * 19, py = y * TILE + 5 + rand() * 21;
+        g.fillStyle(m.id === 'landing' ? 0x754d34 : 0x777465, 0.2).fillEllipse(px, py, 3 + rand() * 5, 2 + rand() * 3);
+      }
+    } else if (m.sky === 'ice') {
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === 'i' && rand() < 0.17) {
+        const px = x * TILE + 5 + rand() * 21, py = y * TILE + 5 + rand() * 21;
+        g.lineStyle(1, 0xe2f9ff, 0.14 + rand() * 0.12).beginPath().moveTo(px, py).lineTo(px + 3 + rand() * 7, py + 2 + rand() * 5).strokePath();
+      }
+    } else if (m.sky === 'ship') {
+      for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === 'm' && (x + y) % 3 === 0) {
+        g.fillStyle(0xaaa9d0, 0.12).fillRect(x * TILE + 4, y * TILE + 4, 1, 1);
+        g.fillStyle(0x17162d, 0.22).fillRect(x * TILE + 4, y * TILE + 27, TILE - 8, 1);
+      }
+    }
   }
 
   private placeObjects() {

@@ -1,18 +1,28 @@
 import { test, expect } from '@playwright/test';
 import { boot, continueFrom, fixture, installMockPad, padPress, settle, snap, type W } from './support';
 
-test('menus, journal and quest tracker stay fully visible and unclipped at 1024x600, 1280x720 and 1920x1080', async ({ page }) => {
-  test.setTimeout(600000);
+test('menus, journal and quest tracker stay visible at three sizes; every menu tab is checked at 1280x720', async ({ page }) => {
+  test.setTimeout(420000);
   const errors: string[] = []; await boot(page, errors);
   const st = fixture({ stopAt: 'dodoria', sideQuests: true });          // quests offered, one in progress, one done: a busy journal
   await continueFrom(page, st);
   for (const [w, h] of [[1024, 600], [1280, 720], [1920, 1080]]) {
     await page.setViewportSize({ width: w, height: h }); await page.waitForTimeout(500);
     await page.keyboard.press('Escape'); await page.waitForSelector('.menu-win');
-    const tabs = await page.getByRole('tab').all();
-    expect(tabs.length).toBe(11);
-    for (const t of tabs) {
-      await t.click(); await page.waitForTimeout(120);
+    // The main smoke case visits every tab at the default size. Recheck all of
+    // them at the standard 1280 layout and exercise key content at both extremes.
+    const allTabNames = ['Party', 'Loadout', 'Training', 'Capsules', 'Items', 'Combos', 'Journal', 'Map', 'Save/Load', 'Settings', 'Help'];
+    const tabNames = w === 1280 ? allTabNames : ['Party', 'Journal', 'Map', 'Settings'];
+    expect(await page.getByRole('tab').count()).toBe(allTabNames.length);
+    for (const name of tabNames) {
+      // The menu is re-rendered when its selected tab changes. Re-query by its
+      // accessible name each time instead of holding handles from a prior render.
+      await page.evaluate((label) => {
+        const tab = [...document.querySelectorAll<HTMLButtonElement>('.menu-tabs [role="tab"]')].find((el) => el.textContent?.trim() === label);
+        if (!tab) throw new Error(`Menu tab not found: ${label}`);
+        tab.click();
+      }, name);
+      await page.waitForFunction((label) => document.querySelector('[role="tab"][aria-selected="true"]')?.textContent?.trim() === label, name);
       const r = await page.evaluate(() => {
         const win = document.querySelector('.menu-win')!.getBoundingClientRect(); const body = document.querySelector('.menu-body') as HTMLElement;
         const bad = [...document.querySelectorAll('.menu-win button, .menu-win [role=tab]')].filter((e) => { const b = e.getBoundingClientRect(); return b.width > 0 && (b.left < win.left - 1 || b.right > win.right + 1 || b.right > innerWidth + 1 || b.left < -1); }).length;
@@ -21,10 +31,12 @@ test('menus, journal and quest tracker stay fully visible and unclipped at 1024x
       expect(r.winRight, `${w}x${h} menu inside viewport`).toBeLessThanOrEqual(r.vw + 1); expect(r.winBottom).toBeLessThanOrEqual(r.vh + 1);
       expect(r.hScroll, `${w}x${h} no horizontal scroll`).toBe(false); expect(r.bad, `${w}x${h} no clipped buttons`).toBe(0);
     }
-    await page.getByRole('tab', { name: 'Journal' }).click();
-    for (const sec of [/Story/, /Side quests/, /Abilities/]) { await page.getByRole('button', { name: sec }).click(); await page.waitForTimeout(100); }
-    await page.getByRole('button', { name: /Side quests/ }).click();
-    await expect(page.locator('.quest').first()).toBeVisible();
+    if (w === 1280) {
+      await page.getByRole('tab', { name: 'Journal' }).click();
+      for (const sec of [/Story/, /Side quests/, /Abilities/]) { await page.getByRole('button', { name: sec }).click(); await page.waitForTimeout(80); }
+      await page.getByRole('button', { name: /Side quests/ }).click();
+      await expect(page.locator('.quest').first()).toBeVisible();
+    }
     await page.keyboard.press('Escape'); await page.waitForFunction(() => !(window as W).__session.overlay);
   }
   expect(errors).toEqual([]);

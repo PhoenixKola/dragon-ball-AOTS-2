@@ -13,6 +13,7 @@
     "pretest:e2e": "npm run build",
     "test:e2e": "playwright test",
     "audit:assets": "python -I tools/audit_assets.py",
+    "audit:runtime": "python -I tools/audit_runtime_assets.py",
     "art:buff": "python -I tools/make_buff_vfx.py",
     "art:frieza2-victory": "python -I tools/integrate_frieza2_victory.py && python -I tools/gen_sprite_manifest.py"
   },

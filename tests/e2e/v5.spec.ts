@@ -67,7 +67,8 @@ test('the new stages and sprites load without errors: Cooler on the frozen stage
   await page.waitForTimeout(2500);
   const info = await page.evaluate(() => { const b = (window as W).__battle; const c = (window as W).__ctl; return { enemy: b.debugActor(c.engine.enemies()[0].uid), goku: b.debugActor('a_goku') }; });
   expect(info.enemy.texture).toMatch(/^a_cooler_/); expect(info.enemy.flipX).toBe(true);        // drawn facing right, mirrored toward the party
-  expect(info.goku.texture).toMatch(/^a_ssj_goku_/); expect(info.goku.flipX).toBe(false);
+  // Super Saiyan Goku uses the packed `pw_goku_ssj_*` animation frames.
+  expect(info.goku.texture).toMatch(/^pw_goku_ssj_/); expect(info.goku.flipX).toBe(false);
   await page.screenshot({ path: 'evidence/v4/e2e_cooler_stage.png' });
   expect(errors).toEqual([]);
 });

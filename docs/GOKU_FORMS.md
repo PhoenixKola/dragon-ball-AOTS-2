@@ -2,13 +2,13 @@
 
 | Form | When it shows | Live art (all under `public/assets/reviewed/actors/`) | Source sheet |
 |---|---|---|---|
-| **Base Goku** | every battle before the SSJ unlock, title, world fallback | stills `goku_idle.png`, `goku_attack.png`, `goku_guard.png`, `goku_hurt.png`, `goku_charge.png`, `goku_special.png`, `goku_victory.png`, `goku_ko.png` (sprite id `goku`) | Beta 3 hero sheet (`art-sources/packs/...Visual_Master_Handoff_v1`, `goku_inspired_16_bit_battle_sprite_sheet.png`) |
+| **Base Goku** | every battle before the SSJ unlock, title, world fallback | approved stills `goku_<pose>.png` plus four authored melee frames `goku_attack_frame_01..04.png` (sprite id `goku`) | Beta 3 hero sheet for stills; native Codex imagegen strip `art-sources/production/goku/base_punch_source.png` for melee |
 | **Kaioken Goku** | only while the Kaioken status is active, or during the `kaioken` / `kaiokenassault` skills | `goku_kaioken_<state>_NN.png` (23 frames, set `goku_kaioken`) | `art-sources/goku-forms/kaioken_goku_pixel_sprite_sheet.png` |
 | **Super Saiyan Goku** | only after the story unlock (`ssj` flag set by the `{transform:'ssj'}` script step) | `goku_ssj_<state>_NN.png` (24 frames, set `goku_ssj`) | `art-sources/goku-forms/super_saiyan_goku_pixel_sprite_sheet.png` |
 
 Routing lives in one place: `gokuForm()` / `formSet()` in `src/engine/animation/gokuForms.ts`, applied by `BattleScene` (`setForm` for Kaioken, `ActorView.setSsjForm()` for SSJ, `setStillSprite('goku')` for base). SSJ wins over Kaioken. `formSet('base')` is `null`: there is no base frame set.
 
-`ssj_goku_*.png` stills still exist because the SSJ fighter keeps the sprite id `ssj_goku` (size reference, persistent gold flame trigger, world fallback). They are never drawn in battle.
+`ssj_goku_*.png` stills still exist because the SSJ fighter keeps the sprite id `ssj_goku` (size reference, persistent gold flame trigger, world fallback). They are never drawn in battle. Base Goku's authored punch frames are loaded separately from the Kaioken/SSJ form table and advance during melee clips.
 
 ## Regenerating
 `python -I tools/slice_goku_forms.py` rewrites every `goku_kaioken_*` / `goku_ssj_*` frame (deleting stale ones first), `src/data/powerupSprites.generated.ts` (animation tables and `refH` scale) and the review sheets in `evidence/powerups/`. The cell boxes and the pose tables are the two explicit dicts at the top of the script.

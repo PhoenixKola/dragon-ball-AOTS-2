@@ -6,6 +6,8 @@ Private, offline, single-player Dragon Ball Z JRPG (fan project, not for distrib
 
 Requirements: **Node.js 20 or newer** (https://nodejs.org). No internet is needed to play.
 
+The local review ZIP produced by `python -I tools/package_player.py` includes a licensed portable Node runtime, so players of that ZIP do not need a separate Node installation. Source checkouts still need Node for building and tests.
+
 1. Double-click `START_GAME.bat`. The first time it builds the game (needs `npm install` to have been run once in this folder while online; if `dist\index.html` already exists it just starts).
 2. A Chrome or Edge app window opens full screen on `http://127.0.0.1:5173` (other browsers open a normal tab; the game goes full screen on your first click or key press, and **F** toggles it any time). Keep the black server window open while you play; close it to quit.
 
@@ -41,8 +43,10 @@ Development: `npm run dev` (hot reload on 5173), `npm run typecheck`, `npm test`
 ## What is in the game
 Intro, 8 maps with collision, 16 story battles (Cui, Dodoria, Zarbon with transformation, Guldo, Recoome, Burter+Jeice, Ginyu, Frieza forms 1-5), the Super Saiyan cinematic, finale, credits. Per-fighter Rage, Rage Arts, Sparking and Sparking Combos, training points, capsules, shop, journal, map, three save slots plus autosave, import/export, v2 save migration. See `docs/GAME_DESIGN.md`.
 
+The title now has a dedicated Namek twilight landscape. All eight battle stage kinds use distinct reviewed local pixel-art backgrounds, including Frieza's collapsing Namek and Cooler's Frozen Ruins. All 24 battle actor/form identities have genuine four-drawing melee and idle sequences; the five core heroes also have charge and special-release animation. The larger world/UI/audio overhaul remains incomplete (see `docs/EXPERIENCE_OVERHAUL_FINAL_REPORT.md`).
+
 ## What is not finished (read this)
-- **No frame-by-frame animation exists for any character**: every character has one still per state. Choreography moves stills (dash, alternate poses, projectiles) and never fakes breathing. Overworld heroes have real 4-direction walk cycles; battle poses are still stills except Kaioken/Super Saiyan Goku. Full list and specs: `docs/REQUIRED_MISSING_ASSETS.md`.
+- **Battle animation is partial**: all 24 combat actor/form identities have four authored melee and idle drawings. The five core heroes also have authored charge and signature-release sequences. Guard, hurt, victory, KO, most enemy specials, and per-skill body animation remain incomplete. Kaioken/Super Saiyan Goku retain their existing form frame sets; overworld heroes have real 4-direction walk cycles. Exact installed coverage: `docs/ANIMATION_COVERAGE.csv`.
 - **Goku's forms** (see `docs/GOKU_FORMS.md`): base Goku = the `goku_<pose>.png` stills; Kaioken Goku = `goku_kaioken_*` and Super Saiyan Goku = `goku_ssj_*`, sliced from `art-sources/goku-forms/` by `tools/slice_goku_forms.py`. The sheets have no crossed-arms guard frame, so guard reuses the crouched ready stance. Ally/enemy poses drawn front-on cannot turn toward the other side without new art; the per-pose facing table is `src/data/poseFacing.ts`.
 - Music is a procedural original score, not studio quality.
 - The whole game has **not been played start to finish by a human**: verification is automated (see `docs/RELEASE_CHECKLIST.md` and `docs/BETA3_FINAL_ART_AND_RELEASE_REPORT.md`). Difficulty has been measured only by simulated players (`docs/NATURAL_PLAYTHROUGH.md`), never by a person, and fun is not verified. A physical gamepad, other GPUs/monitors, the Windows launcher on another PC and the audio have not been tested.

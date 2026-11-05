@@ -8,8 +8,9 @@ Offline private React/TypeScript/Phaser JRPG for Windows. Do **not** move to God
 - World: `src/data/maps.ts` + `src/data/scripts.ts` drive everything; entities are gated by flags. Add content there, not in UI code.
 - Saves: `src/systems/save.ts` (strict validation, backups, v2 migration). Bump `SAVE_VERSION` and write a migration if you change the shape.
 - Folders: `public/` is the only art the game loads; every art pack, archive and verification-only file lives under `art-sources/` (packs in `art-sources/packs/`, briefs in `docs/briefs/`; tools read from there). Briefs are in `docs/briefs/`.
-- Goku forms: base = `goku_<pose>.png` stills; Kaioken/SSJ = frame sets sliced by `tools/slice_goku_forms.py` from `art-sources/goku-forms/`. Routing, pose mapping and limitations: `docs/GOKU_FORMS.md`. Never re-slice from archived sheets.
-- Art is AI-derived stills, not animation. Do not fake motion; add missing frames to `docs/REQUIRED_MISSING_ASSETS.md`. Never claim art is verified; inspect images.
+- Battle animation: `src/data/battleAnimationFrames.ts` registers four authored melee and idle drawings for all 24 combat actor/form identities, plus charge and special-release sequences for the five core heroes. `tools/integrate_strike_contact.py` rebuilds generated sheets from `art-sources/production/`.
+- Goku forms: base uses `goku_<pose>.png` stills plus authored melee/idle/charge/special frames; Kaioken/SSJ use independent frame sets sliced by `tools/slice_goku_forms.py` from `art-sources/goku-forms/`. Routing and remaining limitations: `docs/GOKU_FORMS.md`. Never re-slice from archived sheets.
+- Battle art mixes existing approved pose stills with native-generated multi-frame sequences. Do not fake additional motion. See `docs/ANIMATION_COVERAGE.csv` for exact pose coverage and inspect images before claiming art is verified.
 
 ## Before changing things
 For game-development tasks, consult `.claude/skills/router/SKILL.md` and only the relevant installed skills. Treat them as supplemental references; this project's rules, Phaser 3.90 APIs, and existing behavior take precedence.

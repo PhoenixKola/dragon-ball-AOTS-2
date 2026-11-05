@@ -49,14 +49,15 @@ const shake = (t: number, amp: number, dur = 120): O => ({ t, op: 'shake', amp, 
 const proj = (t: number, vfx: string, dur: number, h?: number, extra: Partial<Extract<ClipOp, { op: 'proj' }>> = {}, by?: number): O => ({ t, op: 'proj', vfx, dur, hit: h, by, ...extra });
 
 /** Melee flurry: dash in, alternate attack/idle poses with a lunge on each blow, dash home. */
-function melee(id: string, gaps: number[], opt: { dash?: number; wind?: number; vfx?: string; sfxId?: string; heavy?: boolean } = {}): ClipDef {
+function melee(id: string, gaps: number[], opt: { dash?: number; wind?: number; vfx?: string; sfxId?: string; heavy?: boolean; authoredAttack?: boolean } = {}): ClipDef {
   const dash = opt.dash ?? 170, wind = opt.wind ?? 120;
   const ops: O[] = [pose(0, 'charge'), sfx(0, 'dash'), move(wind, 'strike', dash), pose(wind + dash - 20, 'attack')];
   let t = wind + dash + 40;
   gaps.forEach((g, i) => {
     t += i === 0 ? 0 : g;
+    if (opt.authoredAttack && i > 0) ops.push(pose(t - 70, 'attack'));
     ops.push(hit(t, i, opt.vfx ?? 'impact'), sfx(t - 10, opt.sfxId ?? 'hit'), move(t - 70, 'lunge', 70));
-    ops.push(pose(t, i % 2 === 0 ? 'attack' : 'idle'));
+    if (!opt.authoredAttack) ops.push(pose(t, i % 2 === 0 ? 'attack' : 'idle'));
     if (i === gaps.length - 1) ops.push(shake(t, opt.heavy ? 5 : 3, opt.heavy ? 200 : 110));
   });
   ops.push(pose(t + 160, 'idle'), move(t + 220, 'home', 240));
@@ -94,17 +95,17 @@ const reg = (...clips: ClipDef[]) => clips.forEach((c) => { C[c.id] = c; });
 
 // ---------- Hero basic attacks: each fighter has their own rhythm ----------
 reg(
-  melee('gohan_combo', [0, 170, 200], { dash: 190, wind: 150 }),
-  melee('krillin_combo', [0, 150], { dash: 140, wind: 90 }),
-  melee('vegeta_combo', [0, 190, 230], { dash: 160, wind: 130, heavy: true }),
-  melee('goku_combo', [0, 120, 120, 200], { dash: 130, wind: 90, heavy: true }),
-  melee('piccolo_combo', [0, 260], { dash: 200, wind: 170, heavy: true }),
+  melee('gohan_combo', [0, 170, 200], { dash: 190, wind: 150, authoredAttack: true }),
+  melee('krillin_combo', [0, 150], { dash: 140, wind: 90, authoredAttack: true }),
+  melee('vegeta_combo', [0, 190, 230], { dash: 160, wind: 130, heavy: true, authoredAttack: true }),
+  melee('goku_combo', [0, 120, 120, 200], { dash: 130, wind: 90, heavy: true, authoredAttack: true }),
+  melee('piccolo_combo', [0, 260], { dash: 200, wind: 170, heavy: true, authoredAttack: true }),
 );
 
 // ---------- Gohan ----------
 reg(
   beam('masenko', { charge: 520, travel: 280, vfx: 'masenko', zoom: false, flash: 0.25 }),
-  melee('gohan_barrage', [0, 110, 110, 110, 160], { dash: 170, wind: 120 }),
+  melee('gohan_barrage', [0, 110, 110, 110, 160], { dash: 170, wind: 120, authoredAttack: true }),
   buildClip('gohan_rage', [
     { t: 0, op: 'darken', on: true }, pose(0, 'charge'), aura(0, true, 'gold'), sfx(0, 'charge'), { t: 100, op: 'zoom', to: 1.15, dur: 500 },
     shake(300, 3, 600), { t: 800, op: 'flash', color: 0xffee88, dur: 220, alpha: 0.6 }, aura(800, true, 'white'),
@@ -168,7 +169,7 @@ reg(
     pose(0, 'charge'), aura(0, true, 'red'), sfx(0, 'kaioken'), shake(80, 2, 500),
     { t: 560, op: 'flash', color: 0xff3a2a, dur: 220, alpha: 0.55 }, hit(620, 0, 'buff', 0), pose(1100, 'idle'), aura(1100, false),
   ], 100),
-  melee('goku_assault', [0, 90, 90, 100, 130], { dash: 110, wind: 90, vfx: 'impact_red', heavy: true }),
+  melee('goku_assault', [0, 90, 90, 100, 130], { dash: 110, wind: 90, vfx: 'impact_red', heavy: true, authoredAttack: true }),
   buildClip('spiritbomb', [
     { t: 0, op: 'darken', on: true }, pose(0, 'victory'), sfx(0, 'charge'), { t: 100, op: 'zoom', to: 1.08, dur: 800 },
     { t: 200, op: 'charge', vfx: 'spiritbomb', dur: 1700, from: 'sky', scale: 2.4 }, shake(400, 2, 1400),
@@ -308,14 +309,14 @@ reg(
   buildClip('e_beam', [pose(0, 'charge'), aura(0, true, 'purple'), sfx(0, 'charge'), aura(480, false), pose(500, 'attack'), sfx(500, 'beam'), proj(520, 'bullet_p', 340, 0, { scale: 1.2 }), shake(860, 4, 180), pose(1200, 'idle')], 100),
   buildClip('e_beam_big', [pose(0, 'charge'), aura(0, true, 'red'), sfx(0, 'charge'), { t: 100, op: 'charge', vfx: 'eraser', dur: 500, from: 'hand', scale: 1 }, aura(650, false), pose(650, 'attack'), sfx(650, 'beam'), proj(680, 'eraser', 420, 0, { scale: 1.8 }), shake(1100, 8, 320), pose(1500, 'idle')], 100),
   buildClip('e_beam_all', [pose(0, 'charge'), aura(0, true, 'purple'), sfx(0, 'charge'), { t: 100, op: 'zoom', to: 1.06, dur: 400 }, aura(600, false), pose(620, 'attack'), sfx(620, 'beam'), proj(640, 'deathbeam', 380, 0, { scale: 1.8 }), shake(1020, 8, 300), pose(1400, 'idle'), { t: 1300, op: 'zoom', to: 1, dur: 300 }], 100),
-  melee('e_melee1', [0], { dash: 170, wind: 200 }),
-  melee('e_melee2', [0, 220], { dash: 170, wind: 220 }),
-  melee('e_melee3', [0, 170, 220], { dash: 180, wind: 240, heavy: true }),
-  melee('e_melee4', [0, 120, 120, 200], { dash: 160, wind: 240, heavy: true }),
-  melee('e_melee5', [0, 100, 100, 100, 160], { dash: 90, wind: 160 }),
+  melee('e_melee1', [0], { dash: 170, wind: 200, authoredAttack: true }),
+  melee('e_melee2', [0, 220], { dash: 170, wind: 220, authoredAttack: true }),
+  melee('e_melee3', [0, 170, 220], { dash: 180, wind: 240, heavy: true, authoredAttack: true }),
+  melee('e_melee4', [0, 120, 120, 200], { dash: 160, wind: 240, heavy: true, authoredAttack: true }),
+  melee('e_melee5', [0, 100, 100, 100, 160], { dash: 90, wind: 160, authoredAttack: true }),
   buildClip('e_freeze', [pose(0, 'charge'), aura(0, true, 'green'), sfx(0, 'charge'), { t: 400, op: 'flash', color: 0x9dffb4, dur: 400, alpha: 0.4 }, hit(450, 0, 'freeze'), pose(1000, 'idle'), aura(1000, false)], 100),
-  buildClip('e_rush_all', [pose(0, 'charge'), sfx(0, 'dash'), move(200, 'mid', 120), pose(300, 'attack'), hit(360, 0, 'impact'), hit(500, 1, 'impact'), hit(660, 2, 'impact_big'), shake(660, 6, 220), pose(880, 'idle'), move(900, 'home', 260)], 100),
-  buildClip('e_pincer', [pose(0, 'charge'), sfx(0, 'dash'), move(160, 'mid', 120), pose(280, 'attack'), hit(340, 0, 'impact'), shake(340, 4, 120), hit(560, 1, 'impact_big'), shake(560, 8, 260), pose(820, 'idle'), move(840, 'home', 260)], 100),
+  buildClip('e_rush_all', [pose(0, 'charge'), sfx(0, 'dash'), move(200, 'mid', 120), pose(300, 'attack'), hit(360, 0, 'impact'), pose(430, 'attack'), hit(500, 1, 'impact'), pose(590, 'attack'), hit(660, 2, 'impact_big'), shake(660, 6, 220), pose(880, 'idle'), move(900, 'home', 260)], 100),
+  buildClip('e_pincer', [pose(0, 'charge'), sfx(0, 'dash'), move(160, 'mid', 120), pose(280, 'attack'), hit(340, 0, 'impact'), shake(340, 4, 120), pose(490, 'attack'), hit(560, 1, 'impact_big'), shake(560, 8, 260), pose(820, 'idle'), move(840, 'home', 260)], 100),
   buildClip('e_bodychange', [pose(0, 'charge'), aura(0, true, 'purple'), sfx(0, 'charge'), { t: 300, op: 'flash', color: 0xaa66ff, dur: 400, alpha: 0.5 }, proj(500, 'bodychange', 420, 0, { scale: 1.2 }), pose(1100, 'idle'), aura(1100, false)], 100),
   buildClip('e_deathbeam', [pose(0, 'charge'), sfx(0, 'charge'), pose(260, 'attack'), sfx(260, 'beam'), proj(270, 'deathbeam', 150, 0, { scale: 0.9 }), shake(420, 4, 140), pose(800, 'idle')], 80),
   buildClip('e_storm', [

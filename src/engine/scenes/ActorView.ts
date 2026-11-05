@@ -7,6 +7,7 @@ import { AuraRiseFx, riseFamilyFor, riseKey } from '../animation/vfxSprites';
 import { getSettings } from '../../systems/settings';
 import { POWERUP_CANVAS, POWERUP_SETS, type PowerupSetId } from '../../data/powerupSprites.generated';
 import { formAnim, frameTexKey, hasBakedAura } from '../animation/gokuForms';
+import { ANIMATION_PROFILE, ATTACK_FRAMES, IDLE_FRAMES, POSE_FRAMES } from '../../data/battleAnimationFrames';
 import { nativeFacing, shouldFlip, POWERUP_FACING } from '../../data/poseFacing';
 import type { Vfx } from '../animation/vfx';
 
@@ -52,6 +53,7 @@ export class ActorView {
   private flameT = 0;
   private animFrames: string[] = [];
   private animFps = 0;
+  private animLoop = false;
   private animT = 0;
   private attackCount = 0;
   private lastAttackAt = -9999;
@@ -71,6 +73,7 @@ export class ActorView {
     this.shadow = scene.add.ellipse(0, 0, sz.w * this.scaleK * 0.85, 16, 0x06140f, 0.42).setDepth(1);
     this.img = scene.add.image(0, 0, texKey(f.sprite, 'idle')).setOrigin(ANCHOR_X, ANCHOR_Y).setScale(this.scaleK);
     this.img.setFlipX(shouldFlip(nativeFacing(f.sprite, 'idle'), f.side));
+    this.setPose('idle');
     this.pips = scene.add.graphics();
     if (showBar) {
       this.hpBg = scene.add.rectangle(0, 0, 62, 11, 0x0b1022, 0.95).setStrokeStyle(2, 0xcfe3ff, 1).setOrigin(0.5);
@@ -122,7 +125,7 @@ export class ActorView {
     const set = this.formSet!;
     if (p === 'attack') { this.attackCount++; this.lastAttackAt = this.clock; }
     const a = formAnim(set, p, { attackIdx: Math.max(0, this.attackCount - 1), holdMs });
-    this.animFrames = a.frames; this.animFps = a.fps; this.animT = 0;
+    this.animFrames = a.frames; this.animFps = a.fps; this.animLoop = a.loop; this.animT = 0;
     if (a.frames.length) this.img.setTexture(frameTexKey(a.frames[0]));
   }
   get height() { return this.heightPx; }
@@ -138,6 +141,19 @@ export class ActorView {
     this.pose = p;
     this.poseHold = holdMs; this.holdMs = holdMs;
     if (this.formSet) { this.applyFormPose(p, holdMs); this.img.setFlipX(shouldFlip(POWERUP_FACING, this.f.side)); return; }
+    const frames = p === 'attack' ? ATTACK_FRAMES[this.sprite]
+      : p === 'idle' ? IDLE_FRAMES[this.sprite]
+      : p === 'charge' || p === 'special' ? POSE_FRAMES[this.sprite]?.[p]
+      : undefined;
+    if (frames) {
+      // The selected pose's authored timeline advances independently of damage and VFX.
+      const profile = ANIMATION_PROFILE[p as keyof typeof ANIMATION_PROFILE];
+      this.animFrames = [...frames]; this.animFps = profile.fps; this.animLoop = profile.loop; this.animT = 0;
+      this.img.setTexture(frameTexKey(this.animFrames[0]));
+      this.img.setFlipX(shouldFlip(nativeFacing(this.sprite, p), this.f.side));
+      return;
+    }
+    this.animFrames = []; this.animFps = 0; this.animLoop = false; this.animT = 0;
     const r = resolvePose(this.sprite, p);
     this.img.setTexture(texKey(this.sprite, r));
     this.img.setFlipX(shouldFlip(nativeFacing(this.sprite, r), this.f.side));
@@ -193,7 +209,11 @@ export class ActorView {
       this.ssjFlame.setTexture(riseKey('gold', i)).setPosition(f.x, f.y + 2).setScale((this.heightPx * (strong ? 1.45 : 1.15)) / 105).setDepth(f.y - 0.6).setVisible(!this.downed).setAlpha(this.alpha * (strong ? 1 : calm));
     }
     if (this.pendingIdleAt >= 0 && this.clock >= this.pendingIdleAt) { this.pendingIdleAt = -1; this.setPose('idle'); }
-    if (this.formSet && this.animFrames.length > 1 && this.animFps > 0) { this.animT += dt; this.img.setTexture(frameTexKey(this.animFrames[Math.floor((this.animT / 1000) * this.animFps) % this.animFrames.length])); }
+    if (this.animFrames.length > 1 && this.animFps > 0) {
+      this.animT += dt;
+      const idx = Math.floor((this.animT / 1000) * this.animFps);
+      this.img.setTexture(frameTexKey(this.animFrames[this.animLoop ? idx % this.animFrames.length : Math.min(idx, this.animFrames.length - 1)]));
+    }
     if (this.motion) {
       const m = this.motion; m.t += dt;
       const u = Math.min(1, m.t / m.dur), e = ease[m.ease](u);

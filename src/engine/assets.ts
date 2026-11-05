@@ -2,11 +2,11 @@ import { SPRITE_BOXES, type Box } from '../data/spriteManifest.generated';
 import type { Pose } from './animation/clips';
 
 export const ACTOR_DIR = 'assets/reviewed/actors';
-export const CANVAS = 176;          // legacy actor crops are 176x176; v4 sprites (HIRES_SPRITES) use a 352x352 canvas with the same relative anchor
+export const CANVAS = 176;          // origin-ratio reference; approved actor PNG canvases vary by character
 export const ANCHOR_X = 88 / CANVAS;
 export const ANCHOR_Y = 172 / CANVAS; // feet baseline (all poses verified bottom-centre registered)
 
-/** Every battle sprite is authored on a 448x448 canvas (anchor (224,438): the same fractions as the old 176 canvas). */
+/** Reviewed high-resolution battle art; actual canvas sizes vary by actor (see sprite manifest). */
 export const HIRES_SPRITES = new Set(['dende', 'nail', 'zarbon2', 'soldier', 'gohan', 'krillin', 'piccolo', 'vegeta', 'goku', 'ssj_goku', 'cui', 'dodoria', 'zarbon', 'guldo', 'recoome', 'burter', 'jeice', 'ginyu', 'frieza1', 'frieza2', 'frieza3', 'frieza4', 'frieza5', 'cooler', 'trunks', 'trunks_ssj']);
 /** Sprites whose 'charge' crop is a clean body pose (no baked aura rectangle), so it may play. */
 const CLEAN_CHARGE = new Set(HIRES_SPRITES);

@@ -5,6 +5,7 @@ import { WORLD_OBJECTS, WORLD_TEXTURES } from '../world/worldAssets';
 import { overworldTextures } from '../world/overworld';
 import { vfxTextures, registerBeamFrames, auraRiseTextures } from '../animation/vfxSprites';
 import { frameTexKey, powerupFrameNames } from '../animation/gokuForms';
+import { STAGE_KINDS, stageTextureKey } from './stageBackgrounds';
 
 export interface BootReport { ok: boolean; missing: string[] }
 
@@ -21,11 +22,14 @@ export class BootScene extends Phaser.Scene {
     for (const [key, url] of vfxTextures()) this.load.image(key, url);
     for (const [key, url] of auraRiseTextures()) this.load.image(key, url);
     for (const n of powerupFrameNames()) this.load.image(frameTexKey(n), `${ACTOR_DIR}/${n}.png`);
+    this.load.image('bg_title_namek', 'assets/backgrounds/title_namek.png');
+    for (const kind of STAGE_KINDS) this.load.image(stageTextureKey(kind), `assets/backgrounds/${kind}_namek.png`);
     this.load.on('progress', (v: number) => this.game.events.emit('boot-progress', v));
   }
   create() {
     // hard pixel art must never be smoothed: nearest filtering for overworld frames and VFX sprites
     for (const [key] of [...overworldTextures(), ...vfxTextures()]) this.textures.get(key).setFilter(Phaser.Textures.FilterMode.NEAREST);
+    for (const key of ['bg_title_namek', ...STAGE_KINDS.map(stageTextureKey)]) this.textures.get(key).setFilter(Phaser.Textures.FilterMode.NEAREST);
     registerBeamFrames(this.textures);
     const report: BootReport = { ok: this.missing.length === 0, missing: this.missing };
     this.game.events.emit('boot-done', report);

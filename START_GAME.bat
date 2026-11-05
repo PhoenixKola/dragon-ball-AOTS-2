@@ -2,12 +2,15 @@
 setlocal
 cd /d "%~dp0"
 title Attack of the Saiyans II - Namek Saga
-where node >nul 2>nul
-if errorlevel 1 (
-  echo Node.js is required to run the local game server.
-  echo Install Node.js 20 or newer from https://nodejs.org/  then run this file again.
-  pause
-  exit /b 1
+set "AOTS_NODE=node"
+if exist "runtime\node.exe" set "AOTS_NODE=%~dp0runtime\node.exe"
+if not exist "runtime\node.exe" (
+  where node >nul 2>nul
+  if errorlevel 1 (
+    echo Node.js 20 or newer is required when the portable runtime is absent.
+    pause
+    exit /b 1
+  )
 )
 if not exist "dist\index.html" (
   echo First run: building the game once. This needs "npm install" to have been run.
@@ -30,5 +33,5 @@ goto serve
 :plainbrowser
 start "" /min powershell -NoProfile -WindowStyle Hidden -Command "Start-Sleep 2; Start-Process '%AOTS_URL%'"
 :serve
-node tools\serve-dist.mjs
+"%AOTS_NODE%" tools\serve-dist.mjs
 pause

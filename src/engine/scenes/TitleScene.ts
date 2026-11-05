@@ -1,25 +1,20 @@
 import Phaser from 'phaser';
-import { buildStage, type BuiltStage } from './stageBackgrounds';
 import { ActorView } from './ActorView';
 import { Vfx } from '../animation/vfx';
 import { HEROES } from '../../data/heroes';
 import { GAME_SCALE } from '../gameScale';
 import type { Fighter } from '../../types';
 
-/**
- * Title backdrop: the real battle stage with the five heroes lined up on one feet baseline.
- * All five use their reviewed still idle pose at the shared battle scale. The only motion is a procedural
- * breathing bob (a sub-pixel-snapped vertical offset per actor, out of phase); there are no extra animation frames.
- */
+/** Title composition uses its own reviewed Namek landscape and the five heroes. */
 export class TitleScene extends Phaser.Scene {
-  private bg!: BuiltStage;
+  private bg!: Phaser.GameObjects.Image;
   private vfx!: Vfx;
   private views: ActorView[] = [];
   private t = 0;
   constructor() { super('title'); }
   create() {
     const k = GAME_SCALE.k;
-    this.bg = buildStage(this, 'plain');
+    this.bg = this.add.image(0, 0, 'bg_title_namek').setOrigin(0, 0).setDepth(-100);
     this.vfx = new Vfx(this);
     const line: (keyof typeof HEROES)[] = ['piccolo', 'vegeta', 'goku', 'gohan', 'krillin'];
     const xs = [215, 362, 490, 612, 738];
@@ -35,7 +30,7 @@ export class TitleScene extends Phaser.Scene {
     const d = Math.min(dt, 50);
     this.t += d;
     this.cameras.main.setZoom(GAME_SCALE.k).centerOn(480, 270);
-    this.bg.update(d); this.vfx.update(d);
+    this.vfx.update(d);
     this.views.forEach((v, i) => {
       const bob = Math.round(Math.sin(this.t / 520 + i * 1.3) * 1.5);
       v.pos = { x: v.home.x, y: v.home.y + bob };

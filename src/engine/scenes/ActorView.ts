@@ -7,7 +7,7 @@ import { AuraRiseFx, riseFamilyFor, riseKey } from '../animation/vfxSprites';
 import { getSettings } from '../../systems/settings';
 import { POWERUP_CANVAS, POWERUP_SETS, type PowerupSetId } from '../../data/powerupSprites.generated';
 import { formAnim, frameTexKey, hasBakedAura } from '../animation/gokuForms';
-import { ANIMATION_PROFILE, ATTACK_FRAMES, IDLE_FRAMES, POSE_FRAMES } from '../../data/battleAnimationFrames';
+import { ANIMATION_PROFILE, ATTACK_FRAMES, HURT_FRAMES, IDLE_FRAMES, POSE_FRAMES } from '../../data/battleAnimationFrames';
 import { nativeFacing, shouldFlip, POWERUP_FACING } from '../../data/poseFacing';
 import type { Vfx } from '../animation/vfx';
 
@@ -143,6 +143,7 @@ export class ActorView {
     if (this.formSet) { this.applyFormPose(p, holdMs); this.img.setFlipX(shouldFlip(POWERUP_FACING, this.f.side)); return; }
     const frames = p === 'attack' ? ATTACK_FRAMES[this.sprite]
       : p === 'idle' ? IDLE_FRAMES[this.sprite]
+      : p === 'hurt' ? HURT_FRAMES[this.sprite]
       : p === 'charge' || p === 'special' ? POSE_FRAMES[this.sprite]?.[p]
       : undefined;
     if (frames) {

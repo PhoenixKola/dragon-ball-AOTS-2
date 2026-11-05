@@ -199,7 +199,13 @@ export class BattleScene extends Phaser.Scene implements Stage {
   }
   transform(uid: string, toSprite: string, name: string) {
     const v = this.v(uid); if (!v) return;
+    const revealAt = { x: v.chest.x, y: v.chest.y - v.heightPx * 0.12 };
+    // Use the authored transformation burst at the old form's silhouette before the immediate model swap.
+    // The battle director supplies the short screen cue; this keeps the change readable at character scale.
+    this.vfx.impact('impact_gold', revealAt, true);
     const def = v.f; v.transform(toSprite, def.heightPx);
+    v.setAura(true, toSprite === 'zarbon2' ? 'green' : 'purple');
+    this.time.delayedCall(900, () => v.setAura(false, ''));
     this.floatText(uid, name.toUpperCase(), 'warn'); audio.sfx('transform');
   }
   resetPositions() { this.views.forEach((v) => { v.moveTo(v.home, 160, 'inout'); }); this.zoom(1, 300); }

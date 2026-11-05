@@ -86,6 +86,7 @@ export const SCRIPTS: Record<string, Step[]> = {
     { shop: 'village' },
   ],
   village_enter: [
+    { cutscene: 'village_rescue' },
     { say: [['Scout', 'Come out, little green freak! Where is the Dragon Ball? We will burn this village down!'], ['Dende', 'Please… I cannot let you have it.'], ['Gohan', 'Leave him alone!']] },
     { battle: { foes: ['scout', 'guard'], title: 'Defend Dende', allowFlee: false, party: ['gohan', 'krillin'] }, win: [
       { set: 'dende_met' },
@@ -205,7 +206,7 @@ export const SCRIPTS: Record<string, Step[]> = {
   ginyu_fight: [
     { say: [['Ginyu', 'Stop. You are better than any of my underlings. Such power deserves a superior body!'], ['Vegeta', 'What is he talking about?'], ['Goku', 'Be careful! He wants to swap bodies with someone.']] },
     { battle: { foes: ['ginyu'], title: 'Captain Ginyu', party: ['goku', 'vegeta', 'gohan'], theme: 'ginyu', intro: 'At half health Ginyu will steal a fighter’s body: possessed fighters attack their own friends for 3 turns.' }, win: [
-      { set: ['ginyu_done'] },
+      { set: ['ginyu_done'] }, { cutscene: 'ginyu_frog' },
       { say: [['Ginyu', 'N-no! If I cannot have your body, Goku, I will take… the frog!'], ['Narrator', 'In a flash of light, the Captain of the Ginyu Force swaps with a passing frog, and Goku is saved.'], ['Vegeta', 'Pathetic. The Captain, reduced to a frog.'], ['Goku', 'Come on. Let us get back to the Guru. Something big is on its way.']] },
       { toast: 'The Ginyu Force is finished' },
     ] },
@@ -229,12 +230,12 @@ export const SCRIPTS: Record<string, Step[]> = {
     { chapter: 6 },
     { say: [['Frieza', 'You have been a thorn in my side long enough, little insects.'], ['Vegeta', 'Your reign ends today, Frieza.'], ['Goku', 'We have to stop him here. Everyone, together!']] },
     { battle: { foes: ['frieza1'], title: 'Frieza · First Form', party: ['goku', 'vegeta', 'gohan'], scriptedEnd: { defId: 'frieza1', hpFrac: 0.5 }, theme: 'frieza', intro: 'Frieza is still toying with you.' }, win: [
-      { say: [['Frieza', 'Hmph. Perhaps I should take you seriously. Second form!']] },
+      { say: [['Frieza', 'Hmph. Perhaps I should take you seriously. Second form!']] }, { cutscene: 'frieza_second' },
       { say: [['Dende', 'Hold on, everyone! I can mend some of it!']] }, { restore: 0.5 }, { toast: 'Dende mends half of the party’s wounds.' },
-      { battle: { foes: ['frieza2'], title: 'Frieza · Second Form', party: ['goku', 'vegeta', 'piccolo'], scriptedEnd: { defId: 'frieza2', hpFrac: 0.5 }, theme: 'frieza' }, win: [
-        { say: [['Frieza', 'Third form, then. You will beg for mercy.'], ['Vegeta', 'Never!']] },
+      { battle: { foes: ['frieza2'], title: 'Frieza · Second Form', party: ['goku', 'vegeta', 'piccolo'], scriptedEnd: { defId: 'frieza2', hpFrac: 0.5 }, theme: 'frieza', intro: 'The horn charge lands in three blows. Guard the rush; watch for Supernova Spark as his strength fades.' }, win: [
+        { say: [['Frieza', 'Third form, then. You will beg for mercy.'], ['Vegeta', 'Never!']] }, { cutscene: 'frieza_third' },
         { say: [['Dende', 'Again! Stay with me!']] }, { restore: 0.5 }, { toast: 'Dende mends half of the party’s wounds.' },
-        { battle: { foes: ['frieza3'], title: 'Frieza · Third Form', party: ['vegeta', 'piccolo', 'gohan'], scriptedEnd: { defId: 'frieza3', hpFrac: 0.55 }, theme: 'frieza' }, win: [
+        { battle: { foes: ['frieza3'], title: 'Frieza · Third Form', party: ['vegeta', 'piccolo', 'gohan'], scriptedEnd: { defId: 'frieza3', hpFrac: 0.55 }, theme: 'frieza', intro: 'Death Storm sweeps the whole party in six hits. Guard together, then punish the opening.' }, win: [
           { say: [['Vegeta', 'I… will not be… beaten by this clown!'], ['Narrator', 'Vegeta, exhausted, is brought down by a final blow.'], ['Krillin', 'Vegeta! Hang on!'], ['Vegeta', 'Kakarot… do not… let him…'], ['Narrator', 'Dende carries Vegeta away to safety.']] },
           { leave: 'vegeta' }, { set: ['frieza3_done', 'vegeta_down'] },
           { say: [['Frieza', 'You really did think you could defeat me? My final form will make you regret ever being born.'], ['Krillin', 'This is it. Everyone, hold the line!']] },
@@ -244,6 +245,7 @@ export const SCRIPTS: Record<string, Step[]> = {
   ],
   frieza_final_form: [
     { ask: { text: 'Vegeta has fallen and Frieza is taking his final form. After this fight Namek’s last ground has no way back. Restock and save at the altar if you want to. Continue?', yes: 'Continue', no: 'Prepare first', onNo: [{ warp: { map: 'landing', x: 26, y: 21.5 } }] } },
+    { cutscene: 'frieza_final' },
     { battle: { foes: ['frieza4'], title: 'Frieza · Final Form', party: ['gohan', 'krillin', 'piccolo'], scriptedEnd: { defId: 'frieza4', hpFrac: 0.6 }, theme: 'frieza', intro: 'Frieza’s final form is fast and precise.' }, win: [
       { say: [['Frieza', 'How tedious. I will end your little friend here, so you stop hoping.'], ['Krillin', 'No-'], ['Narrator', 'A single beam of light. Krillin falls.'], ['Gohan', 'KRILLIN!'], ['Piccolo', 'Gohan, no! Do not lose control!']] },
       { leave: 'krillin' }, { set: ['krillin_dead'] }, { chapter: 7 },
@@ -289,6 +291,7 @@ export const SCRIPTS: Record<string, Step[]> = {
   ],
   cooler_fight: [
     { say: [['Narrator', 'The tall figure waiting in the arena turns: white armour, a violet body, a long tail. The cold deepens.'], ['Cooler', 'So. The monkeys who humbled my little brother wander into MY ruins.']] },
+    { cutscene: 'cooler_reveal' },
     { ask: { text: '{warn} Face Cooler?', yes: 'Fight', no: 'Not yet', onNo: [{ say: [['Cooler', 'Run along, then. I will wait.']] }, { warp: { map: 'cooler_ruins', x: 31, y: 14 } }] } },
     { battle: { foes: ['cooler'], title: 'Cooler', stage: 'frozen', theme: 'cooler', allowFlee: false, tag: 'cooler', hp: 1, atk: 1, intro: 'Cooler fights in three phases. Frost Armor reflects physical hits: use Ki. Break the Supernova charges or perfect-guard them.' }, win: [
       { set: 'cooler_defeated' },

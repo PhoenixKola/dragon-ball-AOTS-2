@@ -9,6 +9,7 @@ import { Portrait, Icon } from './ui';
 import { audio } from '../engine/audio/audio';
 import { host } from '../engine/host';
 import { music } from '../engine/audio/music';
+import { getSettings, updateSettings, subscribeSettings, type Settings } from '../systems/settings';
 
 export const useSession = () => { useSyncExternalStore((cb) => session.subscribe(cb), () => session.version); return session; };
 
@@ -230,7 +231,6 @@ export function ConfirmScreen({ text, yes, no, yesLabel = 'Yes', noLabel = 'No' 
 }
 
 // ============================== SETTINGS ==============================
-import { getSettings, updateSettings, subscribeSettings, type Settings } from '../systems/settings';
 export function SettingsPanel() {
   const st = useSyncExternalStore(subscribeSettings, getSettings);
   const set = (p: Partial<Settings>) => updateSettings(p);
@@ -285,27 +285,88 @@ export function Credits() {
 // ============================== INTRO CUTSCENE ==============================
 const INTRO: [string, string][] = [
   ['Narrator', 'Earth, one year after the Saiyan invasion. The Dragon Balls that could have restored the fallen are gone.'],
-  ['Bulma', 'Kami’s Dragon Balls turned to stone when he died. But Kami came from somewhere: a planet called Namek.'],
+  ['Bulma', 'Kami?s Dragon Balls turned to stone when he died. But Kami came from somewhere: a planet called Namek.'],
   ['Gohan', 'Namek has its own Dragon Balls! They could bring everyone back, even Piccolo!'],
   ['Krillin', 'A spaceship, a long trip and a planet full of strangers. What could go wrong?'],
   ['Narrator', 'Far across the galaxy, an emperor named Frieza hunts the very same wishes.'],
-  ['Narrator', 'The ship crosses an ocean of stars. A blue and green world rises ahead.'],
+  ['Narrator', 'Namek fills the window: blue water, green shores and twin moons.'],
+  ['Narrator', 'The capsule settles on an unfamiliar shore. The race for Namek?s Dragon Balls begins.'],
 ];
 export function IntroCutscene({ done }: { done: () => void }) {
   const [i, setI] = useState(0);
+  const [arrived, setArrived] = useState(false);
   const cv = useRef<HTMLCanvasElement>(null);
-  useEffect(() => { void music.play('epilogue', 1500); }, []);
+  useEffect(() => { void music.play('namek_day', 900); }, []);
+  useEffect(() => { const timer = window.setTimeout(() => setArrived(true), 9800); return () => window.clearTimeout(timer); }, []);
   useEffect(() => {
-    const c = cv.current; if (!c) return; const g = c.getContext('2d')!; let raf = 0; const stars = Array.from({ length: 140 }, () => ({ x: Math.random() * 960, y: Math.random() * 540, z: 0.3 + Math.random() }));
-    const img = new Image(); img.src = 'assets/world/obj/lander.png'; const t0 = performance.now();
-    const loop = (t: number) => { g.fillStyle = '#04061a'; g.fillRect(0, 0, 960, 540); for (const s of stars) { s.x -= s.z * 1.6; if (s.x < 0) { s.x = 960; s.y = Math.random() * 540; } g.fillStyle = `rgba(255,255,255,${0.4 + s.z * 0.5})`; g.fillRect(Math.round(s.x), Math.round(s.y), s.z > 1 ? 2 : 1, 1); }
-      const p = Math.min(1, (t - t0) / 40000); const px = 140 + p * 560;
-      g.fillStyle = `rgba(80,200,150,${0.2 + p * 0.5})`; g.beginPath(); g.arc(860, 150, 20 + p * 140, 0, Math.PI * 2); g.fill();
-      g.fillStyle = `rgba(40,150,230,${0.25 + p * 0.5})`; g.beginPath(); g.arc(850, 160, 14 + p * 110, 0, Math.PI * 2); g.fill();
-      if (img.complete) g.drawImage(img, px, 230, 125 * 0.8, 145 * 0.8); raf = requestAnimationFrame(loop); };
-    raf = requestAnimationFrame(loop); return () => cancelAnimationFrame(raf);
+    const c = cv.current; if (!c) return;
+    const g = c.getContext('2d'); if (!g) return;
+    g.imageSmoothingEnabled = false;
+    const orbit = new Image(); orbit.src = '/assets/backgrounds/voyage_namek.png';
+    const shore = new Image(); shore.src = '/assets/backgrounds/landing_namek.png';
+    const ship = new Image(); ship.src = '/assets/world/obj/lander.png';
+    const t0 = performance.now(); let raf = 0; let alive = true;
+    const clamp = (n: number) => Math.max(0, Math.min(1, n));
+    const ease = (n: number) => { const p = clamp(n); return p * p * (3 - 2 * p); };
+    const loop = (now: number) => {
+      if (!alive) return;
+      const ms = Math.min(now - t0, 9800); const sec = ms / 1000;
+      g.clearRect(0, 0, 960, 540);
+      if (orbit.complete && orbit.naturalWidth) g.drawImage(orbit, 0, 0, 960, 540);
+      else { g.fillStyle = '#07162c'; g.fillRect(0, 0, 960, 540); }
+
+      const shoreMix = ease((ms - 2900) / 1050);
+      if (shoreMix > 0 && shore.complete && shore.naturalWidth) {
+        g.globalAlpha = shoreMix; g.drawImage(shore, 0, 0, 960, 540); g.globalAlpha = 1;
+      }
+
+      // The capsule crosses the orbital shot, then brakes over the open shore.
+      let x: number, y: number, scale: number;
+      if (ms < 4300) {
+        const p = ease(ms / 4300); x = 130 + p * 335; y = 105 + p * 155; scale = 0.68 + p * 0.58;
+      } else {
+        const p = ease((ms - 4300) / 4700); x = 465 + Math.sin(sec * 2.2) * (1 - p) * 8; y = 245 + p * 68; scale = 1.26 + p * 0.48;
+      }
+      const sw = ship.naturalWidth || 42, sh = ship.naturalHeight || 48;
+      const dw = sw * scale, dh = sh * scale;
+      const landed = ms >= 7900;
+      const reduced = getSettings().reducedFlash;
+      if (shoreMix > 0.8) {
+        g.fillStyle = `rgba(15,24,34,${0.12 + shoreMix * 0.12})`;
+        g.beginPath(); g.ellipse(465, 366, 19 + scale * 8, 4 + scale * 2, 0, 0, Math.PI * 2); g.fill();
+      }
+      if (ship.complete && ship.naturalWidth && !landed) {
+        const flame = reduced ? 0.42 : 0.72 + Math.sin(sec * 19) * 0.15;
+        g.globalAlpha = flame; g.fillStyle = '#ffb74e';
+        g.beginPath(); g.moveTo(x - dw * 0.12, y + dh * 0.27); g.lineTo(x, y + dh * 0.65 + Math.sin(sec * 17) * 4); g.lineTo(x + dw * 0.12, y + dh * 0.27); g.closePath(); g.fill();
+        g.fillStyle = '#fff0a3'; g.beginPath(); g.moveTo(x - dw * 0.055, y + dh * 0.26); g.lineTo(x, y + dh * 0.49); g.lineTo(x + dw * 0.055, y + dh * 0.26); g.closePath(); g.fill(); g.globalAlpha = 1;
+      }
+      if (ship.complete && ship.naturalWidth) {
+        g.save(); g.translate(x, y); g.rotate(ms < 4300 ? -0.12 + ease(ms / 4300) * 0.12 : Math.sin(sec * 2) * (landed ? 0 : 0.018));
+        g.drawImage(ship, -dw / 2, -dh / 2, dw, dh); g.restore();
+      }
+
+      if (shoreMix > 0.9 && landed && !reduced) {
+        const dust = (sec * 1.6) % 1;
+        for (let n = 0; n < 7; n++) {
+          const p = (dust + n / 7) % 1; const side = n % 2 ? 1 : -1;
+          g.fillStyle = `rgba(220,190,125,${(1 - p) * 0.16})`;
+          g.beginPath(); g.ellipse(465 + side * (12 + p * 62), 357 - p * 18, 3 + p * 9, 2 + p * 4, 0, 0, Math.PI * 2); g.fill();
+        }
+      }
+
+      if (ms > 7700) {
+        const a = clamp((ms - 7700) / 800);
+        g.globalAlpha = a; g.fillStyle = '#061a34'; g.fillRect(20, 28, 188, 37);
+        g.strokeStyle = '#b6e4e6'; g.lineWidth = 2; g.strokeRect(20, 28, 188, 37);
+        g.font = '9px "Press Start 2P", monospace'; g.textAlign = 'left'; g.fillStyle = '#8dffd2'; g.fillText('NAMEK  /  SHORE', 32, 52); g.globalAlpha = 1;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => { alive = false; cancelAnimationFrame(raf); };
   }, []);
-  const next = () => { if (i >= INTRO.length - 1) done(); else setI(i + 1); };
+  const next = () => { if (i < INTRO.length - 1) setI(i + 1); else if (arrived) done(); };
   useEffect(() => { const onKey = (e: KeyboardEvent) => { if (['Enter', ' ', 'z'].includes(e.key)) { e.preventDefault(); next(); } if (isBackKey(e) || e.key === 'k') { e.preventDefault(); done(); } }; window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey); });
   const [who, text] = INTRO[i];
   return (
@@ -314,10 +375,104 @@ export function IntroCutscene({ done }: { done: () => void }) {
       <div className="win dlg-box narr" style={{ position: 'absolute', left: 80, right: 80, bottom: 40 }}>
         {who !== 'Narrator' && <div className="dlg-name px">{who.toUpperCase()}</div>}
         <div className="dlg-text">{text}</div>
-        <div className="dlg-foot"><span className="blink">▼ Enter</span><button className="btn small skipbtn" onClick={(e) => { e.stopPropagation(); done(); }}>Skip intro</button></div>
+        <div className="dlg-foot"><span className={i === INTRO.length - 1 && !arrived ? '' : 'blink'}>{i === INTRO.length - 1 && !arrived ? 'Landing in progress?' : arrived && i === INTRO.length - 1 ? '? Enter Namek' : '? Enter'}</span><button className="btn small skipbtn" onClick={(e) => { e.stopPropagation(); done(); }}>Skip intro</button></div>
       </div>
     </div>
   );
+}
+
+/** A short, skippable field-scale staging beat before the scripted rescue dialogue and fight. */
+export function DendeRescueCutscene({ done }: { done: () => void }) {
+  const cv = useRef<HTMLCanvasElement>(null);
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    const timers = [window.setTimeout(() => setPhase(1), 2200), window.setTimeout(() => setPhase(2), 4400), window.setTimeout(done, 6600)];
+    const onKey = (e: KeyboardEvent) => { if (isBackKey(e) || e.key.toLowerCase() === 'k') { e.preventDefault(); done(); } };
+    window.addEventListener('keydown', onKey);
+    return () => { timers.forEach(window.clearTimeout); window.removeEventListener('keydown', onKey); };
+  }, [done]);
+  useEffect(() => {
+    const c = cv.current; if (!c) return;
+    const g = c.getContext('2d'); if (!g) return;
+    g.imageSmoothingEnabled = false;
+    const bg = new Image(); bg.src = '/assets/backgrounds/village_namek.png';
+    const directions = ['down', 'left', 'right'];
+    const entities = ['gohan_namek', 'krillin', 'dende', 'soldier'];
+    const walkFrames: Record<string, number> = { gohan_namek: 3, krillin: 3, dende: 2, soldier: 2 };
+    const images = new Map<string, HTMLImageElement>();
+    for (const entity of entities) for (const dir of directions) for (const frame of ['idle_000', ...Array.from({ length: walkFrames[entity] }, (_, i) => `walk_${String(i).padStart(3, '0')}`)]) {
+      const image = new Image(); image.src = `/assets/reviewed/overworld/${entity}/${dir}/${frame}.png`; images.set(`${entity}_${dir}_${frame}`, image);
+    }
+    const t0 = performance.now(); let raf = 0; let alive = true;
+    const clamp = (n: number) => Math.max(0, Math.min(1, n));
+    const ease = (n: number) => { const p = clamp(n); return p * p * (3 - 2 * p); };
+    const sprite = (entity: string, dir: string, walking: boolean, sec: number, x: number, foot: number) => {
+      const frame = walking ? `walk_${String(Math.floor(sec * 8) % walkFrames[entity]).padStart(3, '0')}` : 'idle_000';
+      const image = images.get(`${entity}_${dir}_${frame}`); if (!image?.complete || !image.naturalWidth) return;
+      g.fillStyle = 'rgba(7,20,35,.28)'; g.beginPath(); g.ellipse(x, foot - 2, 22, 5, 0, 0, Math.PI * 2); g.fill();
+      g.drawImage(image, x - 72, foot - 140, 144, 144);
+    };
+    const loop = (now: number) => {
+      if (!alive) return;
+      const sec = Math.min(6.6, (now - t0) / 1000);
+      if (bg.complete && bg.naturalWidth) g.drawImage(bg, 0, 0, 960, 540); else { g.fillStyle = '#173f55'; g.fillRect(0, 0, 960, 540); }
+      // The field has a subtle settling drift; it stops when reduced motion is enabled.
+      if (!getSettings().reducedFlash) {
+        g.fillStyle = `rgba(229,255,199,${0.035 + (Math.sin(sec * 2) + 1) * 0.02})`;
+        g.fillRect(0, 204, 960, 116);
+      }
+      g.fillStyle = 'rgba(5,18,38,.82)'; g.fillRect(20, 24, 248, 38);
+      g.strokeStyle = '#cdeaff'; g.lineWidth = 2; g.strokeRect(20, 24, 248, 38);
+      g.font = '8px "Press Start 2P", monospace'; g.textAlign = 'left'; g.fillStyle = '#ffd34a'; g.fillText('AOJAN VILLAGE', 34, 48);
+
+      const approach = ease((sec - 0.55) / 1.65);
+      let gohanX = 138 + approach * 134, krillinX = 82 + approach * 142;
+      if (sec > 2.35) { const dash = ease((sec - 2.35) / 0.85); gohanX += dash * 236; krillinX += dash * 94; }
+      const retreat = ease((sec - 3.25) / 0.8);
+      const soldierAX = 568 + retreat * 42, soldierBX = 746 + retreat * 34;
+      const dendeX = 655 - ease((sec - 3.7) / 1.0) * 78;
+      const running = sec > 0.35 && sec < 3.3;
+
+      // Dry grass kicks up behind the two short, grounded runs.
+      if (running && !getSettings().reducedFlash) {
+        for (let n = 0; n < 5; n++) {
+          const a = (sec * 2.1 + n / 5) % 1; const x = gohanX - 18 - a * 36;
+          g.fillStyle = `rgba(255,229,151,${(1 - a) * 0.32})`; g.fillRect(Math.round(x), Math.round(346 - a * 18), 4, 2);
+        }
+      }
+      // Draw in foot-depth order so actors overlap naturally as they meet.
+      const cast = [
+        { id: 'gohan_namek', dir: running ? 'right' : 'down', walk: running, x: gohanX, y: 356 },
+        { id: 'krillin', dir: running ? 'right' : 'down', walk: running, x: krillinX, y: 365 },
+        { id: 'soldier', dir: 'left', walk: retreat > 0.05, x: soldierAX, y: 360 },
+        { id: 'dende', dir: 'left', walk: sec > 4.2 && sec < 5.2, x: dendeX, y: 360 },
+        { id: 'soldier', dir: 'right', walk: retreat > 0.05, x: soldierBX, y: 365 },
+      ].sort((a, b) => a.y - b.y);
+      for (const actor of cast) sprite(actor.id, actor.dir, actor.walk, sec, actor.x, actor.y);
+
+      // A compact ki-spark impact accent marks the interception without hiding the characters.
+      if (sec > 3.05 && sec < 3.75) {
+        const p = (sec - 3.05) / 0.7, alpha = getSettings().reducedFlash ? 0.25 : Math.sin(p * Math.PI) * 0.9;
+        const cx = 542, cy = 302, radius = 8 + p * 24;
+        g.globalAlpha = alpha; g.fillStyle = '#fff1a1'; g.beginPath(); g.moveTo(cx, cy - radius); g.lineTo(cx + radius * 0.35, cy - 4); g.lineTo(cx + radius, cy); g.lineTo(cx + 3, cy + 5); g.lineTo(cx, cy + radius); g.lineTo(cx - 4, cy + 5); g.lineTo(cx - radius, cy); g.lineTo(cx - 4, cy - 4); g.closePath(); g.fill(); g.globalAlpha = 1;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => { alive = false; cancelAnimationFrame(raf); };
+  }, []);
+  const captions = [
+    'Frieza’s soldiers have cornered Dende in the village square.',
+    'Gohan and Krillin rush in to put themselves between Dende and the soldiers.',
+    'The soldiers regroup. A fight is unavoidable.',
+  ];
+  return <div className="screen" style={{ background: '#07162c' }}>
+    <canvas ref={cv} width={960} height={540} style={{ position: 'absolute', inset: 0 }} />
+    <div className="win dlg-box narr" style={{ position: 'absolute', left: 80, right: 80, bottom: 40 }}>
+      <div className="dlg-text">{captions[phase]}</div>
+      <div className="dlg-foot"><span className="dim">Confrontation begins…</span><button className="btn small skipbtn" onClick={done}>Skip scene</button></div>
+    </div>
+  </div>;
 }
 
 export function SsjCutscene({ done }: { done: () => void }) {

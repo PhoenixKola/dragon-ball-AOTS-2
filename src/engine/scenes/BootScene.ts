@@ -25,6 +25,9 @@ export class BootScene extends Phaser.Scene {
     for (const n of powerupFrameNames()) this.load.image(frameTexKey(n), `${ACTOR_DIR}/${n}.png`);
     for (const n of battleAnimationFrameNames()) this.load.image(frameTexKey(n), `${ACTOR_DIR}/${n}.png`);
     this.load.image('bg_title_namek', 'assets/backgrounds/title_namek.png');
+    this.load.image('bg_awakening_namek', 'assets/backgrounds/awakening_namek.png');
+    this.load.image('bg_voyage_namek', 'assets/backgrounds/voyage_namek.png');
+    this.load.image('bg_landing_namek', 'assets/backgrounds/landing_namek.png');
     for (const kind of STAGE_KINDS) this.load.image(stageTextureKey(kind), `assets/backgrounds/${kind}_namek.png`);
     this.load.on('progress', (v: number) => this.game.events.emit('boot-progress', v));
   }
@@ -32,7 +35,7 @@ export class BootScene extends Phaser.Scene {
     // hard pixel art must never be smoothed: nearest filtering for overworld frames and VFX sprites
     for (const [key] of [...overworldTextures(), ...vfxTextures()]) this.textures.get(key).setFilter(Phaser.Textures.FilterMode.NEAREST);
     for (const n of battleAnimationFrameNames()) this.textures.get(frameTexKey(n)).setFilter(Phaser.Textures.FilterMode.NEAREST);
-    for (const key of ['bg_title_namek', ...STAGE_KINDS.map(stageTextureKey)]) this.textures.get(key).setFilter(Phaser.Textures.FilterMode.NEAREST);
+    for (const key of ['bg_title_namek', 'bg_awakening_namek', 'bg_voyage_namek', 'bg_landing_namek', ...STAGE_KINDS.map(stageTextureKey)]) this.textures.get(key).setFilter(Phaser.Textures.FilterMode.NEAREST);
     registerBeamFrames(this.textures);
     const report: BootReport = { ok: this.missing.length === 0, missing: this.missing };
     this.game.events.emit('boot-done', report);

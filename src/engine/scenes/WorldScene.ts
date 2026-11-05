@@ -8,15 +8,18 @@ import { ANCHOR_X, ANCHOR_Y, idleSize, resolvePose, texKey } from '../assets';
 import { audio } from '../audio/audio';
 import { GAME_SCALE, LOGICAL_H, LOGICAL_W } from '../gameScale';
 import { blockedAt } from '../world/collision';
-import { OVERWORLD } from '../../data/artManifest.generated';
-import { OW_SCALE, dirFromVector, dirToward, owFrame, owKey, type Dir } from '../world/overworld';
+import { OVERWORLD, OW_SCALE, dirFromVector, dirToward, owFrame, owKey, type Dir } from '../world/overworld';
+import { firstPad } from '../../systems/gamepad';
+import { getSettings } from '../../systems/settings';
 
 const FONT = '"Press Start 2P", monospace';
 const AVATAR_H = 66;
 const INTERACTABLE = new Set(['npc', 'chest', 'save', 'heal', 'ball', 'sign', 'shop']);
 
-interface EntView { ent: Ent; img?: Phaser.GameObjects.Image; x: number; y: number; extra: (Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Transform)[]; patrolIdx: number; baseY: number; solid?: Rect }
+interface EntView { ent: Ent; img?: Phaser.GameObjects.Image; x: number; y: number; extra: (Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Transform)[]; patrolIdx: number; baseY: number; facing: Dir; moving: boolean; walkClock: number; idlePhaseMs: number; solid?: Rect }
 interface Rect { x: number; y: number; w: number; h: number }
+interface Ambient { x: number; y: number; phase: number; speed: number; size: number }
+interface PropMotion { image: Phaser.GameObjects.Image; aura?: Phaser.GameObjects.Ellipse; phase: number; tree: boolean; crystal: boolean }
 
 export class WorldScene extends Phaser.Scene {
   ctx!: WorldContext;
@@ -38,6 +41,12 @@ export class WorldScene extends Phaser.Scene {
   private promptText!: Phaser.GameObjects.Text;
   private labelText!: Phaser.GameObjects.Text;
   private fxG!: Phaser.GameObjects.Graphics;
+  private ambientG!: Phaser.GameObjects.Graphics;
+  private riftG!: Phaser.GameObjects.Graphics;
+  private ambient: Ambient[] = [];
+  private propMotion: PropMotion[] = [];
+  private ambientFrameAcc = 0;
+  private ambientCalm: boolean | undefined;
   private t = 0;
   private lastVersion = -1;
   private graceUntil = 0;
@@ -53,7 +62,7 @@ export class WorldScene extends Phaser.Scene {
 
   create() {
     const ctx = this.ctx; this.map = ctx.map; const m = this.map;
-    this.noEncounters = false; this.solids = []; this.ents = []; this.staticObjs = []; this.waterTile = null; this.voidWater = null; this.yielded = false; this.inZone.clear(); this.t = 0; this.lastVersion = -1;
+    this.noEncounters = false; this.solids = []; this.ents = []; this.staticObjs = []; this.propMotion = []; this.waterTile = null; this.voidWater = null; this.yielded = false; this.inZone.clear(); this.t = 0; this.lastVersion = -1;
     const W = m.w * TILE, H = m.h * TILE;
     this.cameras.main.setBackgroundColor(0x000000).setBounds(W >= LOGICAL_W ? 0 : -(LOGICAL_W - W) / 2, H >= LOGICAL_H ? 0 : -(LOGICAL_H - H) / 2, Math.max(W, LOGICAL_W), Math.max(H, LOGICAL_H));
     this.paintTerrain();
@@ -65,7 +74,10 @@ export class WorldScene extends Phaser.Scene {
     this.player = this.add.image(0, 0, texKey(this.leadSprite, 'idle')).setOrigin(ANCHOR_X, ANCHOR_Y);
     this.moving = false; this.walkClock = 0; this.lastWalkIdx = -1;
     this.applyAvatar();
+    this.makeAmbient();
     this.fxG = this.add.graphics().setDepth(5000);
+    this.ambientG = this.add.graphics().setDepth(0);
+    this.riftG = this.add.graphics().setDepth(0);
     this.promptText = this.add.text(0, 0, 'E', { fontFamily: FONT, fontSize: '10px', color: '#101a40', backgroundColor: '#ffe14a', padding: { x: 4, y: 3 } }).setOrigin(0.5).setDepth(5100).setVisible(false);
     this.labelText = this.add.text(0, 0, '', { fontFamily: FONT, fontSize: '8px', color: '#ffffff', stroke: '#101a40', strokeThickness: 4 }).setOrigin(0.5).setDepth(5100).setVisible(false);
     this.encThreshold = this.rollThreshold();
@@ -73,7 +85,7 @@ export class WorldScene extends Phaser.Scene {
     this.rebuildEntities();
     this.cameraSnap();
     (window as unknown as { __world?: WorldScene }).__world = this;
-    this.events.once('shutdown', () => { this.staticObjs.forEach((o) => o.destroy()); this.ents.forEach((e) => this.destroyEnt(e)); this.ents = []; this.waterTile = null; this.voidWater = null; this.yielded = false; });
+    this.events.once('shutdown', () => { this.staticObjs.forEach((o) => o.destroy()); this.ents.forEach((e) => this.destroyEnt(e)); this.ents = []; this.riftG?.destroy(); this.waterTile = null; this.voidWater = null; this.yielded = false; });
   }
 
   // ---------------- terrain ----------------
@@ -83,14 +95,21 @@ export class WorldScene extends Phaser.Scene {
   private maskFor(pred: (c: string) => boolean, dy = 0): Phaser.Display.Masks.GeometryMask {
     const g = this.make.graphics({}, false);
     g.fillStyle(0xffffff, 1);
-    const m = this.map, r = TILE * 0.78;
-    for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) {
-      if (!pred(this.cell(x, y))) continue;
-      const cx = x * TILE + TILE / 2, cy = y * TILE + TILE / 2 + dy;
-      g.fillCircle(cx, cy, r);
-      if (x + 1 < m.w && pred(this.cell(x + 1, y))) g.fillRect(cx, cy - r, TILE, r * 2);
-      if (y + 1 < m.h && pred(this.cell(x, y + 1))) g.fillRect(cx - r, cy, r * 2, TILE);
-      if (x + 1 < m.w && y + 1 < m.h && pred(this.cell(x + 1, y)) && pred(this.cell(x, y + 1)) && pred(this.cell(x + 1, y + 1))) g.fillRect(cx, cy, TILE, TILE);
+    const m = this.map;
+    for (let y = 0; y < m.h; y++) {
+      let start = -1;
+      const span = (end: number) => {
+        if (start < 0) return;
+        // Merge each row into horizontal spans: the authored grid retains its crisp
+        // tile contour while the mask uses far fewer draw commands at runtime.
+        g.fillRect(start * TILE, y * TILE + dy, (end - start) * TILE + 0.5, TILE + 0.5);
+        start = -1;
+      };
+      for (let x = 0; x < m.w; x++) {
+        if (pred(this.cell(x, y))) { if (start < 0) start = x; }
+        else span(x);
+      }
+      span(m.w);
     }
     return g.createGeometryMask();
   }
@@ -98,9 +117,36 @@ export class WorldScene extends Phaser.Scene {
   private paintTerrain() {
     const m = this.map, W = m.w * TILE, H = m.h * TILE;
     const tex = (k: string) => this.textures.exists(k);
-    const bg = this.add.rectangle(0, 0, W, H, 0x050912).setOrigin(0).setDepth(-1000); this.staticObjs.push(bg);
+    const voidTone = m.sky === 'cave' ? 0x111a30 : m.sky === 'ship' ? 0x15142b : m.sky === 'ice' ? 0x1b1a52 : m.sky === 'final' ? 0x170c16 : 0x173740;
+    const bg = this.add.rectangle(0, 0, W, H, voidTone).setOrigin(0).setDepth(-1000); this.staticObjs.push(bg);
     if (m.sky === 'day') {
-      if (tex('t_grass')) this.keep(this.add.tileSprite(0, 0, W, H, 't_grass').setOrigin(0).setDepth(-900).setTileScale(0.9));
+      const grass = tex('t_grass_namek_v2') ? 't_grass_namek_v2' : 't_grass';
+      if (tex(grass)) {
+        const tileSize = this.textures.get(grass).getSourceImage().width;
+        const grassScale = grass === 't_grass_namek_v2' ? (TILE * 3.6) / tileSize : 0.9;
+        const base = grass !== 't_grass' && tex('t_grass') ? 't_grass' : grass;
+        this.keep(this.add.tileSprite(0, 0, W, H, base).setOrigin(0).setDepth(-900).setTileScale(base === 't_grass' ? 0.9 : grassScale));
+        if (grass !== base) {
+          // Overscan the second grass texture so its slower camera travel never exposes a seam
+          // at the map bounds. The tiny speed difference gives Namek's broad fields depth while
+          // keeping the walkable grid, collision and all foreground props locked to the camera.
+          const overscan = 96;
+          this.keep(this.add.tileSprite(-overscan, -overscan, W + overscan * 2, H + overscan * 2, grass)
+            .setOrigin(0).setDepth(-899.5).setTileScale(grassScale).setTint(0x9bbd98).setAlpha(0.3).setScrollFactor(0.94, 0.94));
+        }
+        // Low-contrast blade marks break up the repeated grass tile without competing with props.
+        const detail = this.keep(this.add.graphics().setDepth(-899));
+        let seed = m.w * 233 + m.h * 811 + 19; const rand = () => { seed = (seed * 48271) % 2147483647; return seed / 2147483647; };
+        const marks = Math.round(m.w * m.h * 0.18);
+        for (let i = 0; i < marks; i++) {
+          const x = Math.floor(rand() * m.w), y = Math.floor(rand() * m.h);
+          if (this.cell(x, y) !== '.') continue;
+          const px = x * TILE + 3 + rand() * (TILE - 6), py = y * TILE + 4 + rand() * (TILE - 8);
+          detail.lineStyle(1, rand() > 0.5 ? 0x83c969 : 0x398957, 0.18 + rand() * 0.12);
+          detail.beginPath().moveTo(px, py + 2); detail.lineTo(px + 1 + rand() * 3, py - 1); detail.strokePath();
+          if (i % 5 === 0) detail.fillStyle(0xb3da70, 0.18).fillCircle(px + 4, py + 3, 0.8);
+        }
+      }
       if (tex('t_dirt')) { const d = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-880).setTileScale(0.85)); d.setMask(this.maskFor((c) => c === ',')); }
       if (tex('t_water')) {
         // shore: sand rim then water
@@ -132,7 +178,14 @@ export class WorldScene extends Phaser.Scene {
       }
     } else if (m.sky === 'cave') {
       if (tex('t_dirt')) { const d = this.keep(this.add.tileSprite(0, 0, W, H, 't_dirt').setOrigin(0).setDepth(-900).setTileScale(0.85).setTint(0x7a665a)); d.setMask(this.maskFor((c) => c === 'c')); }
-      const glow = this.keep(this.add.graphics().setDepth(-890)); glow.fillStyle(0x5ad2ff, 0.05); for (let i = 0; i < 6; i++) glow.fillCircle(150 + i * 180, 300 + (i % 2) * 120, 150);
+      // Keep cave light anchored to the crystal formations instead of scattering broad,
+      // disconnected circles over the walkable floor.
+      const glow = this.keep(this.add.graphics().setDepth(-890));
+      for (const crystal of m.objs.filter((o) => o.o.includes('crystal') || o.o === 'crystals')) {
+        const x = crystal.x * TILE, y = crystal.y * TILE - 16;
+        glow.fillStyle(0x4ebdff, 0.025).fillCircle(x, y, 72);
+        glow.fillStyle(0x70d9ff, 0.035).fillCircle(x, y, 36);
+      }
     } else if (m.sky === 'final') {
       const sky = this.keep(this.add.graphics().setDepth(-950)); sky.fillGradientStyle(0x2a0a18, 0x2a0a18, 0xff7a2a, 0xff7a2a, 1); sky.fillRect(0, 0, W, 4 * TILE + 8);
       sky.fillStyle(0xffd27a, 0.45).fillEllipse(W / 2, 4 * TILE, W * 0.8, 80);
@@ -143,7 +196,8 @@ export class WorldScene extends Phaser.Scene {
     }
     // generic shadowed edge for void cells
     const vg = this.keep(this.add.graphics().setDepth(-860));
-    for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === 'x' && m.sky !== 'final' && !this.voidWater) vg.fillStyle(m.sky === 'ice' ? 0x1b1a52 : 0x03050c, 1).fillRect(x * TILE, y * TILE, TILE, TILE);
+    const voidFill = m.sky === 'ice' ? 0x1b1a52 : m.sky === 'cave' ? 0x111a30 : m.sky === 'ship' ? 0x15142b : 0x173740;
+    for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) if (this.cell(x, y) === 'x' && m.sky !== 'final' && !this.voidWater) vg.fillStyle(voidFill, 1).fillRect(x * TILE, y * TILE, TILE, TILE);
   }
 
   private placeObjects() {
@@ -151,8 +205,27 @@ export class WorldScene extends Phaser.Scene {
       const key = 'o_' + o.o; if (!this.textures.exists(key)) continue;
       const im = this.keep(this.add.image(o.x * TILE, o.y * TILE, key).setOrigin(0.5, 1).setScale(o.s).setFlipX(!!o.flip).setDepth(o.y * TILE + (o.depthBias ?? 0)));
       if (o.tint !== undefined) im.setTint(o.tint);
+      const tree = o.o.includes('tree'), crystal = o.o.includes('crystal') || o.o === 'crystals';
+      if (tree || crystal) {
+        const phase = ((o.x * 127 + o.y * 311 + o.o.length * 29) % 628) / 100;
+        let aura: Phaser.GameObjects.Ellipse | undefined;
+        if (crystal) {
+          const ice = this.map.sky === 'ice';
+          aura = this.keep(this.add.ellipse(o.x * TILE, o.y * TILE - im.displayHeight * 0.34, Math.max(18, im.displayWidth * 0.56), Math.max(8, im.displayHeight * 0.22), ice ? 0x9cefff : 0x6deaff, 0.075)
+            .setBlendMode(Phaser.BlendModes.ADD).setDepth(im.depth - 0.5));
+        }
+        this.propMotion.push({ image: im, aura, phase, tree, crystal });
+      }
       if (o.solid) this.solids.push({ x: o.x * TILE - (o.solid[0] * TILE) / 2, y: o.y * TILE - o.solid[1] * TILE, w: o.solid[0] * TILE, h: o.solid[1] * TILE });
     }
+  }
+
+  /** Small biome-specific motion keeps the field alive without changing map geometry or collision. */
+  private makeAmbient() {
+    let seed = this.map.w * 92821 + this.map.h * 68917 + this.map.id.length * 104729;
+    const rand = () => { seed = (seed * 48271) % 2147483647; return seed / 2147483647; };
+    const count = Math.max(14, Math.min(24, Math.round(this.map.w * this.map.h / 48)));
+    this.ambient = Array.from({ length: count }, () => ({ x: rand() * this.map.w * TILE, y: rand() * this.map.h * TILE, phase: rand() * Math.PI * 2, speed: 5 + rand() * 15, size: 0.7 + rand() * 1.5 }));
   }
 
   // ---------------- entities ----------------
@@ -164,7 +237,8 @@ export class WorldScene extends Phaser.Scene {
     for (const ent of this.map.ents) {
       if (!condMet(s, ent.when)) continue;
       if (ent.kind === 'foe' && s.flags['foe:' + ent.id]) continue;
-      const ev: EntView = { ent, x: ent.x * TILE, y: ent.y * TILE, extra: [], patrolIdx: 0, baseY: ent.y * TILE };
+      const idlePhaseMs = [...ent.id].reduce((n, ch) => n + ch.charCodeAt(0), 0) % 6800;
+      const ev: EntView = { ent, x: ent.x * TILE, y: ent.y * TILE, extra: [], patrolIdx: 0, baseY: ent.y * TILE, facing: 'down', moving: false, walkClock: 0, idlePhaseMs };
       if (ent.ow && OVERWORLD[ent.ow]) {
         const o = OVERWORLD[ent.ow];
         ev.img = this.add.image(ev.x, ev.y, owKey(ent.ow, 'down', o.dirs.down.idle[0])).setOrigin(o.anchor[0] / o.canvas[0], o.anchor[1] / o.canvas[1]).setScale(o.scale ?? OW_SCALE).setDepth(ev.y);
@@ -281,17 +355,34 @@ export class WorldScene extends Phaser.Scene {
     if (locked) return;
     for (const e of this.ents) {
       if (e.ent.kind !== 'foe') continue;
+      e.moving = false;
       const p = e.ent.foe?.patrol;
       if (p && p.length > 1 && e.img) {
         const tgt = p[(e.patrolIdx + 1) % p.length]; const tx = tgt[0] * TILE, ty = tgt[1] * TILE;
         const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
-        if (d < 2) e.patrolIdx = (e.patrolIdx + 1) % p.length; else { e.x += (dx / d) * 38 * dt; e.y += (dy / d) * 38 * dt; e.img.setFlipX(dx < 0); }
+        if (d < 2) e.patrolIdx = (e.patrolIdx + 1) % p.length;
+        else {
+          const stride = Math.min(d, 38 * dt); e.x += (dx / d) * stride; e.y += (dy / d) * stride;
+          e.facing = dirFromVector(dx, dy, e.facing); e.moving = stride > 0.01; e.walkClock = e.moving ? e.walkClock + dt * 1000 : 0;
+        }
+      } else if (e.img && e.ent.ow && Math.hypot(this.px - e.x, this.py - e.y) < 120) {
+        e.facing = dirToward(this.px - e.x, this.py - e.y);
       }
       if (this.graceUntil <= 0 && Math.hypot(e.x - this.px, (e.y - this.py) * 1.4) < 34) { this.ctx.onFoe(e.ent); this.yielded = true; return; }
     }
   }
 
   private cameraSnap() { const c = this.cameras.main; c.setZoom(GAME_SCALE.k); c.centerOn(this.px, this.py - 20); }
+
+  /** Keep small world HUD labels readable when an exit or interactable sits at a screen edge. */
+  private placeHudText(text: Phaser.GameObjects.Text, x: number, y: number, margin = 8) {
+    const view = this.cameras.main.worldView;
+    const halfW = text.displayWidth * 0.5, halfH = text.displayHeight * 0.5;
+    text.setPosition(
+      Phaser.Math.Clamp(x, view.x + halfW + margin, view.right - halfW - margin),
+      Phaser.Math.Clamp(y, view.y + halfH + margin, view.bottom - halfH - margin),
+    );
+  }
 
   private draw(dt: number) {
     if (this.waterTile) { this.waterTile.tilePositionX += 0.15; this.waterTile.tilePositionY += 0.05; }
@@ -311,15 +402,30 @@ export class WorldScene extends Phaser.Scene {
     this.shadow.setPosition(this.px, this.py - 2).setDepth(this.py - 0.5);
     const g = this.fxG; g.clear();
     const t = this.t / 1000;
+    const reducedMotion = getSettings().reducedFlash;
+    for (const prop of this.propMotion) {
+      prop.image.setAngle(prop.tree && !reducedMotion ? Math.sin(t * 0.7 + prop.phase) * 0.32 : 0);
+      if (prop.crystal) prop.aura?.setAlpha(reducedMotion ? 0.06 : 0.045 + (Math.sin(t * 1.5 + prop.phase) + 1) * 0.027);
+    }
+    this.drawAmbient(dt, t);
+    this.drawRift(t);
     for (const e of this.ents) {
       const k = e.ent.kind;
       if (e.img) {
         e.img.setPosition(e.x, e.y).setDepth(e.y);
         if (k === 'ball') { e.img.y = e.y - 6 - Math.sin(t * 2.2) * 3; e.extra[0]?.setPosition(e.x, e.y - 20 - Math.sin(t * 2.2) * 3); }
         if (e.ent.ow && OVERWORLD[e.ent.ow]) {
-          const dx = this.px - e.x, dy = this.py - e.y; const near = Math.hypot(dx, dy) < 120;
-          const o = OVERWORLD[e.ent.ow]; const dir = near ? dirToward(dx, dy) : 'down';
-          e.img.setTexture(owKey(e.ent.ow, dir, o.dirs[dir].idle[0]));
+          const o = OVERWORLD[e.ent.ow];
+          if (k === 'foe' && e.ent.foe?.patrol?.length) {
+            const fr = owFrame(e.ent.ow, e.facing, e.moving, e.walkClock); e.img.setTexture(fr.key).setFlipX(false);
+          } else {
+            const dx = this.px - e.x, dy = this.py - e.y; const near = Math.hypot(dx, dy) < 120;
+            const dir = near ? dirToward(dx, dy) : 'down';
+            const cycle = (t * 1000 + e.idlePhaseMs) % 6800;
+            const fidget = (k === 'npc' || k === 'shop' || k === 'heal') && o.dirs[dir].walk.length > 0 && cycle >= 4500 && cycle < 5300;
+            const key = fidget ? owFrame(e.ent.ow, dir, true, cycle - 4500).key : owKey(e.ent.ow, dir, o.dirs[dir].idle[0]);
+            e.img.setTexture(key).setFlipX(false);
+          }
         } else if ((k === 'npc' || k === 'heal' || k === 'shop') && e.ent.dirs) {
           const dx = this.px - e.x, dy = this.py - e.y; const near = Math.hypot(dx, dy) < 120;
           const key = near ? (Math.abs(dx) > Math.abs(dy) * 1.2 ? e.ent.dirs.side : dy > 0 ? e.ent.dirs.down : e.ent.dirs.up) : e.ent.dirs.down;
@@ -331,16 +437,70 @@ export class WorldScene extends Phaser.Scene {
       }
       if (k === 'exit') {
         const d = Math.hypot(e.x - this.px, e.y - this.py);
-        if (d < 130) { const dirx = e.x < this.map.w * TILE / 2 ? -1 : 1; g.fillStyle(0xffe14a, 0.9); const ax = e.x - dirx * 8, ay = e.y; if (Math.abs(e.ent.w ?? 1) <= 1 || true) { const horiz = (e.ent.w ?? 1) <= (e.ent.h ?? 1); if (horiz) g.fillTriangle(ax + dirx * 10, ay, ax - dirx * 6, ay - 8, ax - dirx * 6, ay + 8); else { const up = e.y < this.map.h * TILE / 2 ? -1 : 1; g.fillTriangle(e.x, e.y + up * 10, e.x - 8, e.y - up * 6, e.x + 8, e.y - up * 6); } } }
+        if (d < 130) { const dirx = e.x < this.map.w * TILE / 2 ? -1 : 1; g.fillStyle(0xffe14a, 0.72 + Math.sin(t * 4) * 0.18); const ax = e.x - dirx * 8, ay = e.y; const horiz = (e.ent.w ?? 1) <= (e.ent.h ?? 1); if (horiz) g.fillTriangle(ax + dirx * 10, ay, ax - dirx * 6, ay - 8, ax - dirx * 6, ay + 8); else { const up = e.y < this.map.h * TILE / 2 ? -1 : 1; g.fillTriangle(e.x, e.y + up * 10, e.x - 8, e.y - up * 6, e.x + 8, e.y - up * 6); } }
       }
       if (e.ent.kind === 'foe') e.img?.setDepth(e.y);
     }
     const near = this.ctx.locked() ? null : this.nearestInteractable();
     if (near) {
-      this.promptText.setPosition(near.x, near.y - (near.img?.displayHeight ?? 40) - 14 + Math.sin(t * 6) * 2).setVisible(true);
-      this.labelText.setText(near.ent.label ?? '').setPosition(near.x, near.y + 12).setVisible(!!near.ent.label);
+      this.promptText.setText(firstPad() ? 'E / A' : 'E');
+      this.placeHudText(this.promptText, near.x, near.y - (near.img?.displayHeight ?? 40) - 14 + Math.sin(t * 6) * 2);
+      this.promptText.setVisible(true);
+      this.labelText.setText(near.ent.label ?? ''); this.placeHudText(this.labelText, near.x, near.y + 12); this.labelText.setVisible(!!near.ent.label);
     } else { this.promptText.setVisible(false); this.labelText.setVisible(false); }
     // exit labels
-    for (const e of this.ents) if (e.ent.kind === 'exit' && e.ent.label && Math.hypot(e.x - this.px, e.y - this.py) < 110) { this.labelText.setText(e.ent.label).setPosition(e.x, e.y - 22).setVisible(true); }
+    for (const e of this.ents) if (e.ent.kind === 'exit' && e.ent.label && Math.hypot(e.x - this.px, e.y - this.py) < 110) { this.labelText.setText(e.ent.label); this.placeHudText(this.labelText, e.x, e.y - 78); this.labelText.setVisible(true); }
+  }
+
+  private drawAmbient(dt: number, t: number) {
+    const calm = getSettings().reducedFlash;
+    this.ambientFrameAcc += dt;
+    const modeChanged = calm !== this.ambientCalm;
+    if (!modeChanged && (calm || this.ambientFrameAcc < 0.05)) return;
+    const stepDt = Math.min(this.ambientFrameAcc, 0.1); this.ambientFrameAcc = 0; this.ambientCalm = calm;
+    const g = this.ambientG; g.clear();
+    const W = this.map.w * TILE, H = this.map.h * TILE;
+    const palette = this.map.sky === 'final' ? [0xff783f, 0xffc66b] : this.map.sky === 'ice' ? [0xc7edff, 0xf4fbff] : this.map.sky === 'cave' ? [0x61eaff, 0x9ffff2] : this.map.sky === 'ship' ? [0x77cfff, 0xd9f6ff] : [0xeaffcd, 0xb9f4eb];
+    const snow = this.map.sky === 'ice', embers = this.map.sky === 'final';
+    for (let i = 0; i < this.ambient.length; i++) {
+      const p = this.ambient[i]; const drift = Math.sin(t * 0.7 + p.phase) * 5;
+      if (!calm) {
+        p.y += (snow ? p.speed : embers ? -p.speed * 0.75 : Math.sin(t + p.phase) * 1.2) * stepDt;
+        p.x += (snow ? Math.sin(t * 0.9 + p.phase) * 8 : embers ? Math.sin(t * 1.7 + p.phase) * 4 : p.speed * 0.28) * stepDt;
+      }
+      if (p.y < -4) p.y = H + 4; if (p.y > H + 4) p.y = -4;
+      if (p.x < -4) p.x = W + 4; if (p.x > W + 4) p.x = -4;
+      const a = calm ? 0.2 : 0.14 + (Math.sin(t * (embers ? 5 : 2) + p.phase) + 1) * (embers ? 0.17 : 0.09);
+      g.fillStyle(palette[i % palette.length], a).fillCircle(p.x + (calm ? 0 : drift), p.y, p.size * (snow ? 1.1 : 1));
+    }
+  }
+
+  /** The postgame rift is a real map event: its cold fracture lights up as soon as the route flag is set. */
+  private drawRift(t: number) {
+    const g = this.riftG; g.clear();
+    if (this.map.id !== 'ridge' || !this.ctx.getState().flags.cooler_trail_open) return;
+    const marker = this.ents.find((e) => e.ent.id === 'ridge_rift'); if (!marker) return;
+    const calm = getSettings().reducedFlash, pulse = calm ? 0.66 : 0.6 + (Math.sin(t * 1.7) + 1) * 0.1;
+    const x = marker.x, y = marker.y - 35;
+    // Keep the tear behind actors and the crystal, but large enough to frame the landmark.
+    g.setDepth(marker.y - 0.5);
+    g.fillStyle(0x873fff, pulse * 0.15).fillEllipse(x, y - 74, 128, 238);
+    g.fillStyle(0x4ceaff, pulse * 0.18).fillEllipse(x, y - 76, 74, 214);
+    // Layered angular seams create a readable frozen-glass fracture at game scale.
+    g.lineStyle(8, 0x7547e8, pulse * 0.7);
+    g.beginPath(); g.moveTo(x - 3, y + 24); g.lineTo(x + 7, y + 5); g.lineTo(x - 6, y - 16); g.lineTo(x + 12, y - 38); g.lineTo(x - 4, y - 61); g.lineTo(x + 12, y - 83); g.lineTo(x - 7, y - 105); g.lineTo(x + 5, y - 128); g.lineTo(x - 8, y - 151); g.strokePath();
+    g.lineStyle(4, 0x43dfff, pulse * 0.95);
+    g.beginPath(); g.moveTo(x - 3, y + 24); g.lineTo(x + 7, y + 5); g.lineTo(x - 6, y - 16); g.lineTo(x + 12, y - 38); g.lineTo(x - 4, y - 61); g.lineTo(x + 12, y - 83); g.lineTo(x - 7, y - 105); g.lineTo(x + 5, y - 128); g.lineTo(x - 8, y - 151); g.strokePath();
+    g.lineStyle(2, 0xe6fcff, calm ? 0.66 : 0.6 + (Math.sin(t * 2.4) + 1) * 0.2);
+    g.beginPath(); g.moveTo(x, y + 22); g.lineTo(x + 3, y + 2); g.lineTo(x - 2, y - 18); g.lineTo(x + 6, y - 39); g.lineTo(x - 1, y - 62); g.lineTo(x + 5, y - 84); g.lineTo(x - 3, y - 106); g.lineTo(x + 3, y - 129); g.lineTo(x - 4, y - 150); g.strokePath();
+    g.lineStyle(3, 0x8fefff, pulse * 0.9);
+    g.beginPath(); g.moveTo(x + 2, y - 25); g.lineTo(x + 24, y - 37); g.lineTo(x + 35, y - 60); g.moveTo(x - 4, y - 75); g.lineTo(x - 28, y - 88); g.lineTo(x - 38, y - 111); g.moveTo(x + 3, y - 124); g.lineTo(x + 23, y - 137); g.strokePath();
+    g.lineStyle(3, 0x70eaff, pulse * 0.66).strokeEllipse(x, y + 14, 132, 23);
+    g.lineStyle(1, 0xe7fcff, pulse * 0.7).strokeEllipse(x, y + 14, 94, 12);
+    for (let i = 0; i < 8; i++) {
+      const phase = calm ? i * Math.PI / 4 : t * 1.3 + i * Math.PI / 4;
+      const sx = x + Math.cos(phase) * (44 + i % 2 * 13), sy = y - 76 + Math.sin(phase) * (75 + i % 2 * 14);
+      g.fillStyle(i % 2 ? 0xc8f7ff : 0x6de6ff, calm ? 0.64 : 0.58 + Math.sin(phase) * 0.22).fillRect(Math.round(sx), Math.round(sy), 4, 4);
+    }
   }
 }

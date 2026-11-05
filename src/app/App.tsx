@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { StageFrame } from '../components/StageFrame';
 import { BattleHUD } from '../components/BattleHUD';
-import { TitleScreen, Dialogue, ResultsScreen, DefeatScreen, ShopScreen, AltarScreen, ConfirmScreen, Credits, IntroCutscene, SsjCutscene, useSession, SettingsPanel } from '../components/screens';
+import { TitleScreen, Dialogue, ResultsScreen, DefeatScreen, ShopScreen, AltarScreen, ConfirmScreen, Credits, IntroCutscene, DendeRescueCutscene, SsjCutscene, useSession, SettingsPanel } from '../components/screens';
 import { MenuScreen } from '../components/menu';
+import { GinyuFrogCutscene } from '../components/GinyuFrogCutscene';
+import { FriezaTransformationCutscene } from '../components/FriezaTransformationCutscene';
+import { CoolerRevealCutscene } from '../components/CoolerRevealCutscene';
 import { PorungaScreen } from '../components/PorungaScreen';
 import { session, objectiveOf, chapterName } from './session';
 import { host } from '../engine/host';
@@ -28,7 +31,7 @@ function devBattle(): BattleController {
   const allies = party.map((id, i) => { const m = newMember(id, lv); if (id === 'goku' && q.get('ssj')) m.ssj = true; const a = buildAlly(m, i); if (q.get('rage')) a.rage = Number(q.get('rage')); if (q.get('first') === id) a.stats.spd = 999; if (q.get('kaioken') && id === 'goku') a.statuses.push({ kind: 'kaioken', turns: 5, power: 0.4 }); return a; });
   const enemies = foes.map((id, i) => buildEnemy(id, i));
   return new BattleController({ allies, enemies, seed: Number(q.get('seed') ?? 7), inventory: { medkit: 3, kicapsule: 2, senzu: 1 }, unlockedCombos: ['gohan_krillin', 'goku_vegeta', 'z_trio', 'piccolo_gohan', 'vegeta_krillin'] },
-    { stageKind: (q.get('stage') ?? 'plain') as StageKind, onFinish: () => {} });
+    { stageKind: (q.get('stage') ?? 'plain') as StageKind, title: q.get('title') ?? undefined, intro: q.get('intro') ?? undefined, onFinish: () => {} });
 }
 
 export function App() {
@@ -126,6 +129,12 @@ export function App() {
       {o?.kind === 'confirm' && <ConfirmScreen text={o.text} yes={o.yes} no={o.no} yesLabel={o.yesLabel} noLabel={o.noLabel} />}
       {o?.kind === 'credits' && <Credits />}
       {o?.kind === 'cutscene' && o.id === 'intro' && <IntroCutscene done={o.done} />}
+      {o?.kind === 'cutscene' && o.id === 'village_rescue' && <DendeRescueCutscene done={o.done} />}
+      {o?.kind === 'cutscene' && o.id === 'ginyu_frog' && <GinyuFrogCutscene done={o.done} />}
+      {o?.kind === 'cutscene' && o.id === 'frieza_second' && <FriezaTransformationCutscene done={o.done} form="frieza2" />}
+      {o?.kind === 'cutscene' && o.id === 'frieza_third' && <FriezaTransformationCutscene done={o.done} form="frieza3" />}
+      {o?.kind === 'cutscene' && o.id === 'frieza_final' && <FriezaTransformationCutscene done={o.done} form="frieza4" />}
+      {o?.kind === 'cutscene' && o.id === 'cooler_reveal' && <CoolerRevealCutscene done={o.done} />}
       {o?.kind === 'cutscene' && o.id === 'ssj' && <SsjCutscene done={o.done} />}
       {s.toastOverlay && <div className="toast win">{s.toastOverlay.text}</div>}
       {s.mapTitle && s.mode === 'world' && <div className="maptitle win no-pointer"><div className="px">{s.mapTitle.name.toUpperCase()}</div><div className="dim">{s.mapTitle.sub}</div></div>}

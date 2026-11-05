@@ -1,8 +1,73 @@
 {
-  "active_battle_files": 485,
+  "active_battle_files": 505,
   "missing": [],
   "invalid": [],
   "duplicate_drawings": [],
-  "background_files": 9,
-  "scope": "battle stills, Goku form frames, all 24 actor melee strike and idle sets, core-party charge and signature poses, all title/battle backgrounds"
+  "background_files": 12,
+  "overworld_npcs": {
+    "namek_trader": {
+      "directions": 4,
+      "walk_drawings_per_direction": 3,
+      "canvas": [
+        144,
+        144
+      ],
+      "unique_drawings": 16
+    },
+    "namek_elder": {
+      "directions": 4,
+      "walk_drawings_per_direction": 3,
+      "canvas": [
+        144,
+        144
+      ],
+      "unique_drawings": 16
+    },
+    "namek_child": {
+      "directions": 4,
+      "walk_drawings_per_direction": 3,
+      "canvas": [
+        144,
+        144
+      ],
+      "unique_drawings": 16
+    },
+    "namek_villager": {
+      "directions": 4,
+      "walk_drawings_per_direction": 3,
+      "canvas": [
+        144,
+        144
+      ],
+      "unique_drawings": 16
+    }
+  },
+  "overworld_field_cycles": {
+    "dende": {
+      "directions": 4,
+      "walk_drawings_per_direction": 2,
+      "canvas": [
+        144,
+        144
+      ]
+    },
+    "soldier": {
+      "directions": 4,
+      "walk_drawings_per_direction": 2,
+      "canvas": [
+        144,
+        144
+      ]
+    }
+  },
+  "namek_frog": {
+    "frames": 1,
+    "canvas": [
+      144,
+      144
+    ],
+    "visible_height_px": 56,
+    "anchor_y": 140
+  },
+  "scope": "battle art, core-party hurt/charge/special frames, 24 actor melee/idle sets, all battle/title/cinematic backgrounds, seven overworld animation assets including two-frame Dende/soldier walk cycles and the Ginyu story frog"
 }

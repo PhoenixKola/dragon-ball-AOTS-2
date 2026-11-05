@@ -18,6 +18,17 @@ function useCtl(ctl: BattleController) {
 export function BattleHUD({ ctl, onPauseRequest }: { ctl: BattleController; onPauseRequest: () => void }) {
   useCtl(ctl);
   useBattleKeys(ctl, onPauseRequest);
+  const [showEncounterIntro, setShowEncounterIntro] = useState(false);
+  useEffect(() => {
+    if (!ctl.opts.intro || ctl.introShown) return;
+    ctl.introShown = true;
+    setShowEncounterIntro(true);
+  }, [ctl]);
+  useEffect(() => {
+    if (!showEncounterIntro) return;
+    const timer = window.setTimeout(() => setShowEncounterIntro(false), 6800);
+    return () => window.clearTimeout(timer);
+  }, [showEncounterIntro]);
   const engine = ctl.engine;
   const allies = engine.fighters.filter((f) => f.side === 'ally').sort((a, b) => a.slot - b.slot);
   const boss = engine.enemies().find((e) => e.boss) ?? null;
@@ -33,6 +44,12 @@ export function BattleHUD({ ctl, onPauseRequest }: { ctl: BattleController; onPa
       <div className="win flat top-log no-pointer" aria-live="polite">
         {log.length === 0 ? <div className="dim">Battle start!</div> : log.map((l, i) => <div key={engine.log.length - log.length + i} className={l.tone === 'warn' ? 'warn' : l.tone === 'bad' ? 'bad' : l.tone === 'good' ? 'good' : ''}>{l.text}</div>)}
       </div>
+      {showEncounterIntro && ctl.opts.intro && <section className="win encounter-intro" role="status" aria-live="polite">
+        <button className="encounter-dismiss" type="button" onClick={() => setShowEncounterIntro(false)} aria-label="Dismiss encounter briefing">×</button>
+        <div className="encounter-kicker">ENCOUNTER BRIEFING</div>
+        <div className="encounter-title">{(ctl.opts.title || boss?.name || 'ENEMY').toUpperCase()}</div>
+        <div className="encounter-copy">{ctl.opts.intro}</div>
+      </section>}
       {boss && <div className="win flat boss-bar no-pointer"><div className="bn">{boss.name.toUpperCase()}</div><div className="bar hp" style={{ height: 13 }}><i style={{ width: `${Math.max(0, boss.hp / boss.stats.hp) * 100}%` }} /></div></div>}
       <div className="win flat turn-chip no-pointer">ROUND {Math.max(1, engine.round)}</div>
       {fast && <div className="win flat speed-pill no-pointer">FAST x{getSettings().battleSpeed}</div>}

@@ -1,8 +1,10 @@
 import type { HeroId } from '../../types';
-import { OVERWORLD } from '../../data/artManifest.generated';
+import { OVERWORLD as PACK_OVERWORLD } from '../../data/artManifest.generated';
+import { OVERWORLD_NPC_ART } from '../../data/overworldNpcArt.generated';
 
 export type Dir = 'down' | 'up' | 'left' | 'right';
 export const OW_SCALE = 2; // frames are authored at display size, so they render 1:1
+export const OVERWORLD = { ...PACK_OVERWORLD, ...OVERWORLD_NPC_ART };
 
 const stem = (f: string) => f.replace(/\.png$/, '');
 export const owKey = (entity: string, dir: Dir, file: string) => `ow_${entity}_${dir}_${stem(file)}`;

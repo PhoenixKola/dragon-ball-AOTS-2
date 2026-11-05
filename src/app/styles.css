@@ -69,6 +69,15 @@ button { font: inherit; color: inherit; }
 
 .top-log { left: 8px; top: 8px; width: 340px; padding: 6px 9px; font-size: 13px; min-height: 40px; }
 .top-log div { color: var(--ink); } .top-log .warn { color: #ffe27a; } .top-log .bad { color: #ff9a8a; } .top-log .good { color: #9dffb4; } .top-log .dim { color: var(--ink-dim); }
+.encounter-intro { z-index: 4; left: 50%; top: 58px; transform: translateX(-50%); width: min(620px, calc(100% - 28px)); padding: 11px 38px 12px 16px; text-align: center; background: linear-gradient(135deg, rgba(14,30,75,.97), rgba(30,54,111,.96)); border-color: #f2d16a; box-shadow: inset 0 0 0 2px #735a28, 0 8px 26px rgba(0,0,0,.55); animation: encounter-arrive .42s cubic-bezier(.2,.8,.2,1) both; }
+.encounter-kicker { font-family: var(--font-px); font-size: 7px; letter-spacing: 1px; color: #83d9ff; }
+.encounter-title { margin: 6px 0 4px; font-family: var(--font-px); font-size: 11px; color: var(--gold); }
+.encounter-copy { font-size: 14px; line-height: 1.25; color: #f1f6ff; }
+.encounter-dismiss { position: absolute; top: 2px; right: 4px; width: 26px; height: 26px; padding: 0; border: 1px solid rgba(207,227,255,.5); border-radius: 3px; background: rgba(4,10,36,.6); color: var(--ink); font-size: 19px; line-height: 1; cursor: pointer; }
+.encounter-dismiss:hover, .encounter-dismiss:focus-visible { border-color: var(--gold); color: var(--gold); }
+@keyframes encounter-arrive { from { opacity: 0; transform: translate(-50%, -12px) scale(.97); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .encounter-intro { animation: none; } }
+.reduced-motion .encounter-intro { animation: none; }
 .boss-bar { left: 50%; top: 8px; transform: translateX(-50%); width: 360px; padding: 6px 10px 8px; text-align: center; }
 .boss-bar .bn { font-family: var(--font-px); font-size: 9px; margin-bottom: 4px; color: var(--gold); }
 .hint { left: 50%; bottom: 142px; transform: translateX(-50%); padding: 5px 14px; font-size: 14px; }
@@ -214,3 +223,10 @@ input[type=range] { accent-color: #ffd34a; width: 190px; }
 .slotrow .grow .dim, .libscroll .grow .dim { font-size: 12px; line-height: 1.25; }
 .slotrow .grow, .libscroll .grow { min-width: 0; }
 .libscroll { max-height: 230px; } .libscroll.short { max-height: 96px; }
+
+/* Keep clipped game panels discoverably scrollable across Chromium and Firefox. */
+.menu-body, .shop-list, .libscroll { scrollbar-width: thin; scrollbar-color: #78a9f2 #081232; }
+.menu-body::-webkit-scrollbar, .shop-list::-webkit-scrollbar, .libscroll::-webkit-scrollbar { width: 9px; height: 9px; }
+.menu-body::-webkit-scrollbar-track, .shop-list::-webkit-scrollbar-track, .libscroll::-webkit-scrollbar-track { background: #081232; border-left: 1px solid rgba(207,227,255,.18); }
+.menu-body::-webkit-scrollbar-thumb, .shop-list::-webkit-scrollbar-thumb, .libscroll::-webkit-scrollbar-thumb { background: #78a9f2; border: 2px solid #081232; min-height: 24px; }
+.menu-body::-webkit-scrollbar-thumb:hover, .shop-list::-webkit-scrollbar-thumb:hover, .libscroll::-webkit-scrollbar-thumb:hover { background: #cfe3ff; }

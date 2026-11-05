@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
-import { ANIMATION_PROFILE, ATTACK_FRAMES, IDLE_FRAMES, POSE_FRAMES } from '../../src/data/battleAnimationFrames';
+import { ANIMATION_PROFILE, ATTACK_FRAMES, HURT_FRAMES, IDLE_FRAMES, POSE_FRAMES } from '../../src/data/battleAnimationFrames';
 import { getClip } from '../../src/engine/animation/clips';
 
 describe('authored melee strikes', () => {
@@ -11,6 +11,7 @@ describe('authored melee strikes', () => {
       ...Object.entries(ATTACK_FRAMES).map(([actor, frames]) => [actor, 'attack', frames] as [string, string, readonly string[]]),
       ...Object.entries(IDLE_FRAMES).map(([actor, frames]) => [actor, 'idle', frames] as [string, string, readonly string[]]),
       ...Object.entries(POSE_FRAMES).flatMap(([actor, poses]) => Object.entries(poses).map(([pose, frames]) => [actor, pose, frames!] as [string, string, readonly string[]])),
+      ...Object.entries(HURT_FRAMES).map(([actor, frames]) => [actor, 'hurt', frames] as [string, string, readonly string[]]),
     ];
     for (const [actor, pose, frames] of sets) {
       const stillPose = pose === 'attack' || pose === 'idle' ? 'idle' : pose;
@@ -30,7 +31,7 @@ describe('authored melee strikes', () => {
     const frames = IDLE_FRAMES.goku;
     expect(frames).toHaveLength(4);
     expect(new Set(frames).size).toBe(4);
-    expect(ANIMATION_PROFILE).toEqual({ attack: { fps: 40, loop: false }, idle: { fps: 5, loop: true }, charge: { fps: 8, loop: true }, special: { fps: 30, loop: false } });
+    expect(ANIMATION_PROFILE).toEqual({ attack: { fps: 40, loop: false }, idle: { fps: 5, loop: true }, charge: { fps: 8, loop: true }, special: { fps: 30, loop: false }, hurt: { fps: 16, loop: false } });
   });
 
   it('gives every core hero distinct charge and signature-release drawings', () => {

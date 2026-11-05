@@ -38,17 +38,24 @@ export const POSE_FRAMES: Readonly<Record<string, Readonly<Partial<Record<'charg
     special: frameSet(actor, 4, 'special'),
   }]));
 
+/** Authored recoil and recovery. Additional roster reactions can join this map as they pass review. */
+export const HURT_FRAMES: Readonly<Record<string, readonly string[]>> = {
+  ...Object.fromEntries(CORE_PARTY.map((actor) => [actor, frameSet(actor, 4, 'hurt')])),
+};
+
 export const ANIMATION_PROFILE = {
   attack: { fps: 40, loop: false },
   idle: { fps: 5, loop: true },
   charge: { fps: 8, loop: true },
   special: { fps: 30, loop: false },
+  hurt: { fps: 16, loop: false },
 } as const;
 
 export const battleAnimationFrameNames = (): string[] => [
   ...Object.values(ATTACK_FRAMES),
   ...Object.values(IDLE_FRAMES),
   ...Object.values(POSE_FRAMES).flatMap((poses) => Object.values(poses)),
+  ...Object.values(HURT_FRAMES),
 ].flat();
 
 

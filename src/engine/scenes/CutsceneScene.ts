@@ -26,7 +26,9 @@ export class CutsceneScene extends Phaser.Scene {
 
   create() {
     const k = GAME_SCALE.k;
-    this.bg = buildStage(this, 'final'); this.vfx = new Vfx(this);
+    // The awakening gets its own quiet, devastated shoreline so the transformation
+    // reads as a story moment rather than another pass through the boss arena.
+    this.bg = buildStage(this, 'final', 'bg_awakening_namek'); this.vfx = new Vfx(this);
     this.goku = new ActorView(this, mk('g', 'goku', 168, 'ally'), { x: 330, y: 392 }, this.vfx, false, k);
     this.frieza = new ActorView(this, mk('f', 'frieza4', 150, 'enemy'), { x: 640, y: 392 }, this.vfx, false, k);
     this.goku.setPose('guard');

@@ -100,7 +100,7 @@ export class ActorView {
     this.setPose(this.pose, this.holdMs);
     this.syncFlame(name);
   }
-  /** Super Saiyan Goku: the sharper reviewed v2 frames over the persistent gold flame. Idempotent, called every frame. */
+  /** Super Saiyan Goku: the reviewed form frames without a permanent aura. Idempotent, called every frame. */
   setSsjForm() {
     if (this.sprite === 'ssj_goku' && this.formSet === 'goku_ssj') return;
     this.sprite = 'ssj_goku';
@@ -108,10 +108,10 @@ export class ActorView {
     this.shadow.setSize(idleSize('ssj_goku').w * this.scaleK * 0.85, 16);
     this.syncFlame('ssj_goku');
   }
-  /** Sparking: a calmer golden flame behind the fighter for as long as the status lasts (Super Saiyan Goku already has his own, stronger one). */
+  /** Sparking: a golden flame behind the fighter for the duration of the status. */
   setSparkFlame(on: boolean) { this.sparkOn = on; this.syncFlame(this.sprite); }
   private syncFlame(name: string) {
-    const want = name === 'ssj_goku' || name === 'trunks_ssj' || this.sparkOn;
+    const want = name === 'trunks_ssj' || this.sparkOn;
     if (want && !this.ssjFlame && this.scene.textures.exists(riseKey('gold', 1))) this.ssjFlame = this.scene.add.image(0, 0, riseKey('gold', 1)).setOrigin(72 / 144, 140 / 144);
     else if (!want && this.ssjFlame) { this.ssjFlame.destroy(); this.ssjFlame = null; }
   }

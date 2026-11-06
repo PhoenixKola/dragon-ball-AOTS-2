@@ -4,9 +4,10 @@
 import { SPRITE_BOXES } from './spriteManifest.generated';
 export type Facing = 'L' | 'R' | 'F';
 
-// All battle art (new sheets) is drawn facing RIGHT, so allies are never mirrored and enemies always are.
+// Most battle art (new sheets) is drawn facing RIGHT. The soldier sheets face LEFT in their source art.
 const T: Record<string, Partial<Record<string, Facing>>> = {};
 for (const [c, poses] of Object.entries(SPRITE_BOXES)) T[c] = Object.fromEntries(Object.keys(poses).map((p) => [p, 'R' as Facing]));
+for (const pose of Object.keys(T.soldier ?? {})) T.soldier![pose] = 'L';
 
 export const nativeFacing = (sprite: string, pose: string): Facing => T[sprite]?.[pose] ?? 'F';
 export const wantedFacing = (side: 'ally' | 'enemy'): 'L' | 'R' => (side === 'ally' ? 'R' : 'L');

@@ -393,6 +393,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.graceUntil > 0) this.graceUntil -= dtMs;
     if (ctx.version() !== this.lastVersion) { this.rebuildEntities(); const nowOw = ctx.leadOverworld(); if ((nowOw?.entity ?? '') !== (this.ow?.entity ?? '') || (!nowOw && ctx.leadSprite() !== this.leadSprite)) this.applyAvatar(); }
     const locked = ctx.locked();
+    let crossedTile = false;
     this.moving = false;
     if (!locked) {
       if (mv.x || mv.y) {
@@ -405,7 +406,7 @@ export class WorldScene extends Phaser.Scene {
           this.facing = dirFromVector(mv.x, mv.y, this.facing); this.moving = true;
           this.stepAcc += moved; this.stepSnd += dt;
           if (!this.ow && this.stepSnd > 0.3) { this.stepSnd = 0; audio.sfx('step'); }
-          if (this.stepAcc >= TILE) { this.stepAcc -= TILE; ctx.onStep(); if (this.inEncounterZone()) { this.encSteps++; if (this.encSteps >= this.encThreshold) { this.encSteps = 0; this.encThreshold = this.rollThreshold(); ctx.onEncounter(); this.yielded = true; } } }
+          if (this.stepAcc >= TILE) { this.stepAcc -= TILE; crossedTile = true; if (this.inEncounterZone()) { this.encSteps++; if (this.encSteps >= this.encThreshold) { this.encSteps = 0; this.encThreshold = this.rollThreshold(); ctx.onEncounter(); this.yielded = true; } } }
         }
       }
       if (consume('e', 'E', 'Enter', ' ')) this.tryInteract();
@@ -413,6 +414,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.yielded) { this.yielded = false; return; }
     // persist transform into state (single source of truth)
     const s = ctx.getState(); s.x = this.px / TILE; s.y = this.py / TILE; s.facing = this.facing;
+    if (crossedTile) ctx.onStep();
     this.updateZones(locked);
     this.updateFoes(dt, locked);
     this.draw(dt);

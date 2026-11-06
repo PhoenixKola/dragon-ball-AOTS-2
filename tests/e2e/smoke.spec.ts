@@ -251,7 +251,7 @@ test('Goku forms in real battles: base before the unlock, Kaioken only when used
   // 1) base Goku, normal fight: never a power-up texture
   await run('party=goku,gohan,vegeta&foes=zarbon&first=goku&lv=15', () => {});
   let a = await actor('a_goku');
-  expect(a.form).toBeNull(); expect(a.texture).toMatch(/^a_goku_/); expect(a.side).toBe('ally'); expect(a.flipX).toBe(false);
+  expect(a.form).toBeNull(); expect(a.texture).toMatch(/^pw_goku_/); expect(a.side).toBe('ally'); expect(a.flipX).toBe(false);
   const z = await page.evaluate(() => { const c = (window as any).__ctl; const e = c.engine.enemies()[0]; return (window as any).__battle.debugActor(e.uid); });
   expect(z.side).toBe('enemy'); expect(z.flipX).toBe(true); // v4 art is drawn facing right: enemies are mirrored to face the party
   const seen = new Set<string>();

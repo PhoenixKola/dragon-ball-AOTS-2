@@ -199,13 +199,17 @@ export class BattleScene extends Phaser.Scene implements Stage {
   }
   transform(uid: string, toSprite: string, name: string) {
     const v = this.v(uid); if (!v) return;
+    const color = toSprite === 'zarbon2' ? 'green' : toSprite === 'ssj_goku' || toSprite === 'trunks_ssj' ? 'gold' : 'purple';
     const revealAt = { x: v.chest.x, y: v.chest.y - v.heightPx * 0.12 };
-    // Use the authored transformation burst at the old form's silhouette before the immediate model swap.
-    // The battle director supplies the short screen cue; this keeps the change readable at character scale.
-    this.vfx.impact('impact_gold', revealAt, true);
-    const def = v.f; v.transform(toSprite, def.heightPx);
-    v.setAura(true, toSprite === 'zarbon2' ? 'green' : 'purple');
-    this.time.delayedCall(900, () => v.setAura(false, ''));
+    // Let the old silhouette gather energy before revealing the new model; combat state still advances normally.
+    this.vfx.impact(color === 'gold' ? 'impact_gold' : 'impact_big', revealAt, true);
+    v.setPose('charge', 190); v.setAura(true, color);
+    this.time.delayedCall(190, () => {
+      if (this.views.get(uid) !== v) return;
+      const def = v.f; v.transform(toSprite, def.heightPx);
+      v.setAura(true, color);
+      this.time.delayedCall(720, () => { if (this.views.get(uid) === v) v.setAura(false, ''); });
+    });
     this.floatText(uid, name.toUpperCase(), 'warn'); audio.sfx('transform');
   }
   resetPositions() { this.views.forEach((v) => { v.moveTo(v.home, 160, 'inout'); }); this.zoom(1, 300); }
@@ -242,11 +246,23 @@ export class BattleScene extends Phaser.Scene implements Stage {
       if (f.side === 'ally') this.trackRage(f.uid, f.rage, f.alive);
       v.setSparkFlame(f.alive && f.statuses.some((s) => s.kind === 'sparking'));
       const curPlan = ctl.director?.currentPlan;
-      { const gf = f.defId === 'goku' ? gokuForm(f, curPlan && curPlan.actorId === f.uid ? curPlan.skillId : undefined) : 'base'; if (f.defId === 'trunks') v.setStillSprite(f.statuses.some((s) => s.kind === 'ssjform') ? 'trunks_ssj' : 'trunks'); else if (gf === 'ssj') v.setSsjForm(); else if (gf === 'kaioken') v.setForm(formSet(gf)); else if (f.defId === 'goku') v.setStillSprite('goku'); else v.setForm(null); }   // base Goku = stills; Kaioken / SSJ = their own frame sets (formSet), never each other's
+      {
+        const gf = f.defId === 'goku' ? gokuForm(f, curPlan && curPlan.actorId === f.uid ? curPlan.skillId : undefined) : 'base';
+        if (f.defId === 'trunks') v.setStillSprite(f.statuses.some((s) => s.kind === 'ssjform') ? 'trunks_ssj' : 'trunks');
+        else if (gf === 'ssj') v.setSsjForm();
+        else if (gf === 'kaioken') {
+          // Keep the Kaioken frame timeline alive: calling setStillSprite('goku') every tick
+          // would clear/reapply the form and restart its active pose on every scene update.
+          if (v.sprite !== 'goku') v.setStillSprite('goku');
+          v.setForm(formSet(gf));
+        }
+        else if (f.defId === 'goku') v.setStillSprite('goku');
+        else v.setForm(null);
+      } // base Goku = stills; Kaioken / SSJ are isolated form routes
       v.update(scaled);
       // the red Kaioken aura already says it for base Goku; a Super Saiyan shows a gold aura, so the status gets a pip there (honest UI)
       v.drawPips(f.statuses.map((s) => s.kind).filter((k) => !['sparking', 'kaioken'].includes(k) || f.side === 'enemy' || (k === 'kaioken' && v.formSet === 'goku_ssj')));
-      const passive = f.statuses.some((s) => s.kind === 'kaioken') ? 'red' : f.statuses.some((s) => s.kind === 'sparking') ? 'gold' : f.statuses.some((s) => s.kind === 'charging') ? 'red' : f.statuses.some((s) => s.kind === 'possessed') ? 'purple' : f.statuses.some((s) => s.kind === 'atkUp') ? 'orange' : null;
+      const passive = f.statuses.some((s) => s.kind === 'kaioken') || v.formSet === 'goku_kaioken' ? 'red' : f.statuses.some((s) => s.kind === 'sparking') ? 'gold' : f.statuses.some((s) => s.kind === 'charging') ? 'red' : f.statuses.some((s) => s.kind === 'possessed') ? 'purple' : f.statuses.some((s) => s.kind === 'atkUp') ? 'orange' : null;
       v.setPassiveAura(f.alive ? (hasBakedAura(v.formSet) ? (f.statuses.some((s) => s.kind === 'possessed') ? 'purple' : null) : passive) : null); // baked-aura forms never get a second procedural aura
     });
     this.applyCamera(dt);

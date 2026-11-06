@@ -69,7 +69,15 @@ export const OBJECTIVES: { when: (s: GameState) => boolean; text: string }[] = [
   { when: (s) => !s.flags.final_done, text: 'Walk to the centre of what remains of Namek.' },
   { when: () => true, text: 'Escape Namek.' },
 ];
-export const objectiveOf = (s: GameState) => (OBJECTIVES.find((o) => o.when(s)) ?? OBJECTIVES[OBJECTIVES.length - 1]).text;
+export const objectiveOf = (s: GameState) => {
+  if (isPostgame(s)) {
+    if (s.flags.cooler_defeated) return 'Cooler defeated. Explore the simulation.';
+    if (!s.flags.cooler_clue) return 'Ask Bulma at the Capsule Comm about the unknown signal.';
+    if (!s.flags.cooler_trail_open) return 'Inspect the frozen rift at the east end of the Namek Highlands.';
+    return 'Cross the Frozen Ruins and face Cooler.';
+  }
+  return (OBJECTIVES.find((o) => o.when(s)) ?? OBJECTIVES[OBJECTIVES.length - 1]).text;
+};
 
 const CHAPTER_NAMES = ['Prologue · The Voyage', 'Chapter 1 · Strangers on Namek', 'Chapter 2 · The Prince Returns', 'Chapter 3 · Secrets of the Eldest', 'Chapter 4 · The Ginyu Force', 'Chapter 5 · The Last Wish', 'Chapter 6 · The Tyrant of Namek', 'Final Chapter · The Legend Awakens'];
 export const chapterName = (n: number) => CHAPTER_NAMES[Math.max(0, Math.min(7, n))];
@@ -202,7 +210,9 @@ export class Session {
       onZone: (e) => self.zone(e),
       onFoe: (e) => self.foeTouch(e),
       onEncounter: () => self.randomEncounter(),
-      onStep: () => {},
+      // The React HUD subscribes to this signal for the world minimap marker. Emit once per tile,
+      // after WorldScene has copied its current position and facing into GameState.
+      onStep: () => self.emit(),
     };
   }
 

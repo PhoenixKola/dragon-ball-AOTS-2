@@ -101,7 +101,7 @@ describe('base Goku is the goku_<pose>.png stills only (no frame set)', () => {
   it('there is no base frame set, and the base form resolves to no set / no baked aura', () => {
     expect(Object.keys(POWERUP_SETS).sort()).toEqual(['goku_kaioken', 'goku_ssj']);
     expect(formSet('base')).toBeNull(); expect(formSet('kaioken')).toBe('goku_kaioken'); expect(formSet('ssj')).toBe('goku_ssj');
-    expect(hasBakedAura(null)).toBe(false); expect(hasBakedAura('goku_kaioken')).toBe(true); expect(hasBakedAura('goku_ssj')).toBe(true);
+    expect(hasBakedAura(null)).toBe(false); expect(hasBakedAura('goku_kaioken')).toBe(false); expect(hasBakedAura('goku_ssj')).toBe(true);
     expect(powerupFrameNames().some((n) => n.startsWith('goku_base_'))).toBe(false);
     expect(readdirSync(ACT).filter((f) => f.startsWith('goku_base_'))).toEqual([]);
   });

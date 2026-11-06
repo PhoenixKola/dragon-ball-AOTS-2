@@ -11,7 +11,7 @@ Approved battle sprites define continuity. [Base Goku's melee sheet](../evidence
 - **Facing:** `src/data/poseFacing.ts` owns mirroring. Generated sheets preserve each actor's approved direction and asymmetric costume details.
 - **Review:** use the contact sheets and Phaser captures at battle scale. Reject identity drift, clipping, floating feet, visible baked backgrounds, duplicate drawings, or distracting pixel-density changes.
 
-The batch completes melee and idle animation for all 24 battle identities and charge/special body animation for the five core heroes. Guard, hurt, victory, KO, enemy charge/special, and one-off per-skill body animation mostly remain still poses. Background art is static; environmental parallax and the wider master-prompt UI/audio/cinematic work remain open.
+The earlier roster pass completes melee and idle animation for all 24 battle identities and charge/special body animation for the five core heroes. The current animation pass adds authored guard motion for base Goku and both Goku forms, multi-frame SSJ hurt recovery, and a Kaioken rebuild that uses the approved base Goku proportions with a separately rendered red aura. Kaioken's idle, melee, guard, hurt, and Kamehameha body frames now follow that same identity reference, with a dedicated four-drawing charge sequence. Other roster victory/KO and enemy charge/special coverage is still tracked separately; this document does not claim that static poses have become animation.
 
 ## Namek environment language
 

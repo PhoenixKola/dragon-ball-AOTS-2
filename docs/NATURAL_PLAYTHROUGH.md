@@ -128,3 +128,12 @@ Training points spent: 180 · capsules worn: 10.0 · trader visits: 9.0 · Med K
 
 - critical path (no side quests, only the story Dragon Balls): Gohan 22, Goku 21, Piccolo 22 (seed 1)
 - everything (7 side quests, all Dragon Balls): Gohan 25, Goku 24, Piccolo 24 (seed 1)
+
+## Cooler after natural completion
+
+A postgame combat-engine simulation from each full-route Normal save above. The credits heal the actual earned party and unlock the roster; levels, training, equipment, and inventory carry over. This is still a simulation, not browser or human play.
+
+| Route seed | Party levels | Average guarder wins / attempt % | Rounds on wins | HP left on wins (mean) |
+|---:|---|---:|---:|---:|
+| 1 | 24/25/24 | 45 | 22.9 | 43 |
+| 2 | 24/25/24 | 65 | 22.5 | 67 |

@@ -50,6 +50,8 @@ for actor, states in sorted(stills.items()):
             names = [f'{actor}_{pose}_frame_{i:02}' for i in range(1, 5)]
             add(actor, 'base', pose, names, 8 if pose == 'charge' else 30, pose == 'charge',
                 'authored charge loop; existing skill VFX remain layered above' if pose == 'charge' else 'authored signature release sequence; frame 3 is projectile contact pose')
+        elif actor == 'goku' and pose == 'guard':
+            add(actor, 'base', pose, [f'goku_guard_frame_{i:02}' for i in range(1, 5)], 18, False, 'four-frame braced guard and recoil; feet stay anchored')
         elif pose == 'idle' and (ACTORS / f'{actor}_idle_frame_01.png').is_file():
             names = [f'{actor}_idle_frame_{i:02}' for i in range(1, 5)]
             add(actor, 'base', pose, names, 5, True, 'native-drawn breathing/stance loop; returns to frame 1; approved still retained as fallback')
@@ -60,11 +62,29 @@ for actor, states in sorted(stills.items()):
 tables = (ROOT / 'src/data/powerupSprites.generated.ts').read_text(encoding='utf-8')
 for form, encoded in re.findall(r'(goku_(?:kaioken|ssj)): \{ refH: [^,]+, anims: (\{.*?\}) \}', tables):
     anims = json.loads(encoded)
+    if form == 'goku_kaioken':
+        kaioken = {pose: [f'goku_kaioken_{pose}_frame_{i:02}' for i in range(1, 5)] for pose in ('idle', 'attack', 'charge', 'special', 'guard', 'hurt')}
+        kaioken.update(ko=['goku_kaioken_ko_frame_01'], victory=['goku_kaioken_victory_frame_01'])
+        for pose, names in kaioken.items():
+            fps = {'idle': 5, 'attack': 40, 'charge': 8, 'special': 30, 'guard': 18, 'hurt': 16}.get(pose, 0)
+            add('goku', form, pose, names, fps, pose in ('idle', 'charge'),
+                'base Goku body proportions; separately layered red Kaioken aura')
+        continue
     for key, names in anims.items():
         pose = {'powerup': 'charge', 'beam': 'special'}.get(key, key)
-        fps = 7 if pose == 'idle' else 10 if pose == 'charge' else 0
+        if pose == 'guard':
+            names, fps = [f'goku_ssj_guard_frame_{i:02}' for i in range(1, 5)], 18
+        elif pose == 'hurt':
+            names, fps = [f'goku_ssj_hurt_frame_{i:02}' for i in range(1, 5)], 16
+        elif pose == 'special':
+            fps = 24
+        else:
+            fps = 7 if pose == 'idle' else 10 if pose == 'charge' else 0
         note = 'continuous loop' if fps else 'discrete selected pose(s), not a continuous animation'
         add('goku', form, pose, names, fps, bool(fps), note)
+
+add('goku', 'goku_kaioken', 'aura', [f'goku_kaioken_aura_frame_{i:02}' for i in range(1, 5)], 11, True,
+    'transparent authored red flame ring, separately layered behind base-form Goku')
 
 out = ROOT / 'docs/ANIMATION_COVERAGE.csv'
 with out.open('w', newline='', encoding='utf-8') as f:

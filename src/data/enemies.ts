@@ -46,7 +46,7 @@ add(
     moves: [{ skill: 'e_energyshot', weight: 2 }, { skill: 'e_blasterbarrage', weight: 1 }, { skill: 'e_froststrike', weight: 1 }], drops: [{ item: 'kicapsule', chance: 0.2 }] },
   { id: 'frostelite', name: 'Frost Elite', sprite: 'soldier', stats: st(7000, 430, 72, 28), exp: 300, zeni: 220, heightPx: 164, role: 'Training foe, heavy hitter',
     moves: [{ skill: 'e_froststrike', weight: 2 }, { skill: 'e_blasterbarrage', weight: 2 }, { skill: 'e_iceslam', weight: 1 }], drops: [{ item: 'megakit', chance: 0.15 }] },
-  { id: 'cooler', name: 'Cooler', sprite: 'cooler', stats: st(20000, 600, 80, 44), exp: 2500, zeni: 3000, heightPx: 236, role: 'Armoured conqueror', boss: true, theme: 'cooler',
+  { id: 'cooler', name: 'Cooler', sprite: 'cooler', stats: st(17000, 540, 80, 44), exp: 2500, zeni: 3000, heightPx: 236, role: 'Armoured conqueror', boss: true, theme: 'cooler',
     intro: 'Cooler tests you in three phases. Watch for FROST ARMOR (physical hits are reflected: use Ki), the SUPERNOVA CASCADE telegraph, and the SUPERNOVA BOMB: break it or perfect-guard it!',
     phases: [
       { atHpFrac: 0.66, message: 'Cooler: "You amuse me. Let us stop playing." His armour glints as he quickens.', addStatus: { kind: 'spdUp', turns: 99, power: 0.3 } },

@@ -1,4 +1,5 @@
 import { POWERUP_SETS, type PowerupSetId } from '../../data/powerupSprites.generated';
+import { ANIMATION_PROFILE, FORM_GUARD_FRAMES, FORM_HURT_FRAMES, KAIOKEN_FORM_FRAMES } from '../../data/battleAnimationFrames';
 import type { Pose } from './clips';
 
 /**
@@ -19,8 +20,8 @@ export function gokuForm(f: FormInput, activeSkillId?: string): GokuForm {
   return 'base';
 }
 export const formSet = (form: GokuForm): PowerupSetId | null => (form === 'kaioken' ? 'goku_kaioken' : form === 'ssj' ? 'goku_ssj' : null);
-/** Kaioken and SSJ frames have their aura baked in; base Goku (stills) is aura-free so procedural auras (charge, Sparking) still apply. */
-export const hasBakedAura = (set: PowerupSetId | null) => set === 'goku_kaioken' || set === 'goku_ssj';
+/** SSJ keeps its authored gold flame; Kaioken's new body frames are clean and use a separate red aura. */
+export const hasBakedAura = (set: PowerupSetId | null) => set === 'goku_ssj';
 export const frameTexKey = (name: string) => `pw_${name}`;
 
 export interface FormAnim { frames: string[]; fps: number; loop: boolean }
@@ -35,6 +36,11 @@ export interface FormAnim { frames: string[]; fps: number; loop: boolean }
 export function formAnim(set: PowerupSetId, pose: Pose, o: { attackIdx?: number; holdMs?: number } = {}): FormAnim {
   const a = POWERUP_SETS[set].anims;
   const pick = (list: string[] | undefined, i: number) => (list && list.length ? [list[Math.min(i, list.length - 1)]] : []);
+  if (set === 'goku_kaioken') {
+    const frames = KAIOKEN_FORM_FRAMES[pose];
+    const profile = pose === 'ko' || pose === 'victory' ? { fps: 0, loop: false } : ANIMATION_PROFILE[pose];
+    return { frames: [...frames], fps: profile.fps, loop: profile.loop };
+  }
   switch (pose) {
     case 'idle': return { frames: a.idle, fps: 7, loop: true };
     case 'charge': return { frames: a.powerup, fps: 10, loop: true };
@@ -42,9 +48,9 @@ export function formAnim(set: PowerupSetId, pose: Pose, o: { attackIdx?: number;
       const seq = [1, 2, 3, 4, 2, 3]; // dash, punch, punch+crescent, kick+crescent, ...
       return { frames: pick(a.attack, seq[(o.attackIdx ?? 0) % seq.length]), fps: 0, loop: false };
     }
-    case 'special': return { frames: pick(a.beam, 2), fps: 0, loop: false };
-    case 'guard': return { frames: pick(a.guard, 0), fps: 0, loop: false };
-    case 'hurt': return { frames: pick(a.hurt, (o.holdMs ?? 0) >= 400 ? 1 : 0), fps: 0, loop: false };
+    case 'special': return { frames: a.beam, fps: 24, loop: false };
+    case 'guard': return { frames: set === 'goku_ssj' ? [...(FORM_GUARD_FRAMES[set] ?? pick(a.guard, 0))] : pick(a.guard, 0), fps: set === 'goku_ssj' ? ANIMATION_PROFILE.guard.fps : 0, loop: false };
+    case 'hurt': return { frames: set === 'goku_ssj' ? [...(FORM_HURT_FRAMES[set] ?? pick(a.hurt, 0))] : pick(a.hurt, (o.holdMs ?? 0) >= 400 ? 1 : 0), fps: set === 'goku_ssj' ? ANIMATION_PROFILE.hurt.fps : 0, loop: false };
     case 'ko': return { frames: pick(a.ko, 0), fps: 0, loop: false };
     case 'victory': return { frames: pick(a.victory, 0), fps: 0, loop: false };
   }

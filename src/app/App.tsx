@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { StageFrame } from '../components/StageFrame';
 import { BattleHUD } from '../components/BattleHUD';
 import { TitleScreen, Dialogue, ResultsScreen, DefeatScreen, ShopScreen, AltarScreen, ConfirmScreen, Credits, IntroCutscene, DendeRescueCutscene, SsjCutscene, useSession, SettingsPanel } from '../components/screens';
@@ -15,11 +15,13 @@ import type { BootReport } from '../engine/scenes/BootScene';
 import type { HeroId } from '../types';
 import type { StageKind } from '../engine/scenes/stageBackgrounds';
 import { audio } from '../engine/audio/audio';
+import { music } from '../engine/audio/music';
 import { LoadingScreen, toggleFullscreen } from '../components/loading';
 import { installInput, consume } from '../systems/input';
 import { firstPad, newPadMem, padKeys } from '../systems/gamepad';
 import { getSettings } from '../systems/settings';
 import { MAPS } from '../data/maps';
+import { condMet } from '../systems/gameState';
 
 installInput();
 
@@ -43,6 +45,7 @@ export function App() {
     if (r.ok && q.get('dev') === 'battle') { const c = devBattle(); setDev(c); host.startBattle(c); (window as unknown as { __ctl: BattleController }).__ctl = c; return; }
     (window as unknown as { __session: typeof session }).__session = session;
     (window as unknown as { __audio: typeof audio }).__audio = audio;
+    (window as unknown as { __music: typeof music }).__music = music;
     session.onBoot(r);
   }, []);
   useEffect(() => { dev?.setPaused(devPaused); }, [dev, devPaused]);
@@ -152,9 +155,34 @@ function WorldHud({ showObj }: { showObj: boolean }) {
       <div className="win flat hud-loc no-pointer"><b>{m.name}</b></div>
       <div className="win flat hud-money no-pointer">Zeni <b>{st.zeni}</b> · Balls <b>{st.balls}/7</b></div>
       {showObj && <div className="win flat hud-obj no-pointer"><span className="px" style={{ fontSize: 7, color: '#ffd34a' }}>{chapterName(st.chapter).toUpperCase()}</span><div>◆ {objectiveOf(st)}</div></div>}
+      <MiniMap map={m} state={st} />
       <div className="hud-hint px no-pointer">E interact · Esc menu · O objective</div>
       <button className="btn small hud-menu" onClick={() => session.openMenu()}>Menu</button>
     </>
+  );
+}
+
+function MiniMap({ map, state }: { map: (typeof MAPS)[keyof typeof MAPS]; state: ReturnType<typeof useSession>['state'] }) {
+  const unit = 4, width = map.w * unit, height = map.h * unit;
+  const terrain: Record<string, string> = { '.': '#47794f', ',': '#9c8051', '~': '#238e9c', m: '#666887', c: '#675781', r: '#9b6556', x: '#111a35' };
+  const markers = map.ents.filter((e) => condMet(state, e.when) && ['exit', 'save', 'heal', 'ball', 'foe', 'trigger'].includes(e.kind));
+  const color: Record<string, string> = { exit: '#67d9ff', save: '#7affad', heal: '#7affad', ball: '#ffd34a', foe: '#ff776d', trigger: '#e8d7ff' };
+  const cells = useMemo(() => map.ground.flatMap((row, y) => [...row].map((cell, x) => <rect key={`t${x},${y}`} x={x * unit} y={y * unit} width={unit} height={unit} fill={terrain[cell] ?? '#26375a'} stroke="#101c37" strokeWidth="0.35" />)), [map]);
+  const arrow = ({ down: '0,2 2,-2 -2,-2', up: '0,-2 2,2 -2,2', left: '-2,0 2,-2 2,2', right: '2,0 -2,-2 -2,2' } as const)[state.facing];
+  return (
+    <div className="win flat hud-minimap no-pointer" role="img" aria-label={`Minimap of ${map.name}; gold arrow marks your position and facing`}>
+      <div className="minimap-head"><span className="px">AREA</span><span className="minimap-you"><i />YOU</span></div>
+      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" aria-hidden="true">
+        <rect width={width} height={height} fill="#09142d" />
+        {cells}
+        {markers.map((e) => <circle key={e.id} cx={e.x * unit} cy={e.y * unit} r={e.kind === 'ball' ? 2.3 : 1.7} fill={color[e.kind]} stroke="#071127" strokeWidth="0.8" />)}
+        <g className="minimap-player" transform={`translate(${state.x * unit} ${state.y * unit})`}>
+          <circle className="minimap-player-ring" r="3.1" fill="#ffe27a" stroke="#fff" strokeWidth="1.2" />
+          <polygon points={arrow} fill="#10244d" stroke="#fff" strokeWidth="0.55" />
+        </g>
+      </svg>
+      <div className="minimap-legend"><span><i className="mk-exit" />route</span><span><i className="mk-foe" />foe</span><span><i className="mk-ball" />ball</span></div>
+    </div>
   );
 }
 

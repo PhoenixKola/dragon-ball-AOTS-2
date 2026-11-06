@@ -6,6 +6,7 @@ export type BusName = 'music' | 'sfx' | 'ui';
 class AudioEngine {
   ctx: AudioContext | null = null;
   private master!: GainNode;
+  private safety!: DynamicsCompressorNode;
   private buses!: Record<BusName, GainNode>;
   private musicDuck!: GainNode;
   volumes: Record<BusName, number> = { music: 0.55, sfx: 0.8, ui: 0.6 };
@@ -20,7 +21,13 @@ class AudioEngine {
         const C = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
         if (!C) return;
         this.ctx = new C();
-        this.master = this.ctx.createGain(); this.master.connect(this.ctx.destination);
+        // Keep summed impacts and one-shots below full scale. Track renders have their own
+        // compressor; this final stage protects overlaps between music, SFX and UI cues.
+        this.master = this.ctx.createGain(); this.master.gain.value = 0.82;
+        this.safety = this.ctx.createDynamicsCompressor();
+        this.safety.threshold.value = -3; this.safety.knee.value = 3; this.safety.ratio.value = 10;
+        this.safety.attack.value = 0.004; this.safety.release.value = 0.18;
+        this.master.connect(this.safety); this.safety.connect(this.ctx.destination);
         this.musicDuck = this.ctx.createGain(); this.musicDuck.connect(this.master);
         this.buses = { music: this.ctx.createGain(), sfx: this.ctx.createGain(), ui: this.ctx.createGain() };
         this.buses.music.connect(this.musicDuck); this.buses.sfx.connect(this.master); this.buses.ui.connect(this.master);

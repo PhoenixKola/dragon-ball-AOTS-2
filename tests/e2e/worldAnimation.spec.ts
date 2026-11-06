@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test';
 import { MAPS } from '../../src/data/maps';
 import { newGameState } from '../../src/systems/gameState';
-import { boot, continueFrom, fixture, settle, type W } from './support';
+import { boot, continueFrom, fixture, settle, snap, type W } from './support';
+
+test.use({ launchOptions: { args: ['--use-angle=d3d11', '--enable-webgl', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] } });
 
 test('Namek field ambience renders and patrols use directional walk cycles', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
@@ -12,6 +14,17 @@ test('Namek field ambience renders and patrols use directional walk cycles', asy
   state.mapId = 'shore'; state.x = 20; state.y = 13; state.flags.scouts1 = true; delete state.flags['foe:shore_foe1'];
   await continueFrom(page, state);
   await settle(page);
+  await expect(page.getByRole('img', { name: 'Minimap of Azure Shore; gold arrow marks your position and facing' })).toBeVisible();
+  const minimap = await page.locator('.hud-minimap').evaluate((el) => {
+    const player = el.querySelector<SVGGElement>('.minimap-player')!;
+    const [, x, y] = (player.getAttribute('transform') ?? '').match(/translate\(([-\d.]+)\s+([-\d.]+)\)/) ?? [];
+    const st = (window as W).__session.state;
+    return { terrainCells: el.querySelectorAll('svg rect').length, x: Number(x), y: Number(y), expectedX: st.x * 4, expectedY: st.y * 4 };
+  });
+  expect(minimap.terrainCells).toBeGreaterThan(100);
+  expect(Math.abs(minimap.x - minimap.expectedX)).toBeLessThan(0.02);
+  expect(Math.abs(minimap.y - minimap.expectedY)).toBeLessThan(0.02);
+  await page.screenshot({ path: 'evidence/overhaul/world/shore_minimap_1280.png' });
 
   const initial = await page.evaluate(() => {
     const w = (window as W).__world;
@@ -31,6 +44,13 @@ test('Namek field ambience renders and patrols use directional walk cycles', asy
   expect(Math.abs(after.x - initial.x)).toBeGreaterThan(10);
   expect(after.texture).toContain('ow_soldier_');
   expect(after.texture).not.toBe(initial.texture);
+  const beforeWalkX = (await snap(page)).x;
+  await page.evaluate(() => { const w = (window as W).__world; w.manual = true; w.debugWalk(1, 0, 500); });
+  await page.waitForFunction((oldX) => (window as W).__session.state.x !== oldX, beforeWalkX, { timeout: 5000 });
+  const markerAfterWalk = await page.locator('.minimap-player').getAttribute('transform');
+  const stateAfterWalk = await page.evaluate(() => ({ x: (window as W).__session.state.x, y: (window as W).__session.state.y }));
+  expect(markerAfterWalk).toContain(`${stateAfterWalk.x * 4} ${stateAfterWalk.y * 4}`);
+  await expect(page.locator('.minimap-player polygon')).toHaveAttribute('points', '2,0 -2,-2 -2,2');
   await page.waitForTimeout(1000);
   const fps = await page.evaluate(() => (window as W).__game.loop.actualFps);
   const rafFps = await page.evaluate(() => new Promise<number>((resolve) => {

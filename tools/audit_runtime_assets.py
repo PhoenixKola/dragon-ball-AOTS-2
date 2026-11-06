@@ -27,6 +27,13 @@ for actor in pose_actors:
 hurt_actors = ('goku', 'gohan', 'krillin', 'vegeta', 'piccolo')
 for actor in hurt_actors:
     expected.update(f'{actor}_hurt_frame_{i:02}' for i in range(1, 5))
+expected.update(f'goku_guard_frame_{i:02}' for i in range(1, 5))
+expected.update(f'goku_ssj_guard_frame_{i:02}' for i in range(1, 5))
+expected.update(f'goku_ssj_hurt_frame_{i:02}' for i in range(1, 5))
+for pose in ('idle', 'attack', 'charge', 'special', 'guard', 'hurt'):
+    expected.update(f'goku_kaioken_{pose}_frame_{i:02}' for i in range(1, 5))
+expected.update(('goku_kaioken_ko_frame_01', 'goku_kaioken_victory_frame_01'))
+expected.update(f'goku_kaioken_aura_frame_{i:02}' for i in range(1, 5))
 
 missing = sorted(name for name in expected if not (ACTORS / f'{name}.png').is_file())
 invalid = []
@@ -83,7 +90,56 @@ for actor in hurt_actors:
         if im.size != idle.size or im.getchannel('A').getbbox()[3] != foot:
             invalid.append(f'{name}: canvas or foot anchor differs from approved idle')
 
-duplicates = [v for v in hashes.values() if len(v) > 1]
+for actor, pose, reference in (
+    ('goku', 'guard', 'goku_guard.png'),
+    ('goku_ssj', 'guard', 'goku_ssj_guard_01.png'),
+    ('goku_ssj', 'hurt', 'goku_ssj_idle_01.png'),
+):
+    ref = Image.open(ACTORS / reference).convert('RGBA')
+    foot = ref.getchannel('A').getbbox()[3]
+    for i in range(1, 5):
+        name = f'{actor}_{pose}_frame_{i:02}'
+        if name in missing:
+            continue
+        im = Image.open(ACTORS / f'{name}.png').convert('RGBA')
+        if im.size != ref.size or im.getchannel('A').getbbox()[3] != foot:
+            invalid.append(f'{name}: form canvas or foot anchor differs from reference')
+
+kaioken_poses = ('idle', 'attack', 'charge', 'special', 'guard', 'hurt')
+for pose in (*kaioken_poses, 'ko', 'victory'):
+    count = 4 if pose in kaioken_poses else 1
+    names = [f'goku_kaioken_{pose}_frame_{i:02}' for i in range(1, count + 1)]
+    imgs = []
+    for name in names:
+        if name in missing:
+            continue
+        im = Image.open(ACTORS / f'{name}.png').convert('RGBA')
+        bbox = im.getchannel('A').getbbox()
+        if im.size != (288, 272) or not bbox or bbox[3] != 232 or not 72 <= bbox[3] - bbox[1] <= 205:
+            invalid.append(f'{name}: expected 288x272 canvas, stable-scale body and feet at y=232')
+        if im.getpixel((0, 0))[3] != 0 or im.getpixel((287, 271))[3] != 0:
+            invalid.append(f'{name}: background is not transparent')
+        imgs.append(im)
+    if count == 4 and len({hashlib.sha256(im.tobytes()).hexdigest() for im in imgs}) < 3:
+        invalid.append(f'goku_kaioken_{pose}: animation has fewer than 3 unique drawings')
+
+aura_frames = []
+for i in range(1, 5):
+    name = f'goku_kaioken_aura_frame_{i:02}'
+    if name in missing:
+        continue
+    im = Image.open(ACTORS / f'{name}.png').convert('RGBA')
+    bbox = im.getchannel('A').getbbox()
+    if im.size != (288, 272) or not bbox or bbox[1] < 12 or bbox[3] != 232:
+        invalid.append(f'{name}: expected transparent 288x272 aura canvas registered to feet at y=232')
+    if im.getpixel((144, 132))[3] != 0 or im.getpixel((0, 0))[3] != 0:
+        invalid.append(f'{name}: flame ring center or canvas corner must remain transparent')
+    aura_frames.append(im)
+if len(aura_frames) == 4 and len({hashlib.sha256(im.tobytes()).hexdigest() for im in aura_frames}) < 3:
+    invalid.append('goku_kaioken aura: loop has fewer than 3 distinct drawings')
+
+intentional_loops = [{'goku_ssj_guard_frame_01', 'goku_ssj_guard_frame_04'}]
+duplicates = [v for v in hashes.values() if len(v) > 1 and not any(set(v) == loop for loop in intentional_loops)]
 overworld_npcs = {}
 for entity in ('namek_trader', 'namek_elder', 'namek_child', 'namek_villager'):
     frame_hashes = set()
@@ -151,7 +207,7 @@ for kind in background_kinds:
     except Exception as exc:
         invalid.append(f'{kind} background: {exc}')
 out = dict(active_battle_files=len(expected), missing=missing, invalid=invalid,
-           duplicate_drawings=duplicates, background_files=len(background_kinds),
+           duplicate_drawings=duplicates, intentional_loop_closures=[sorted(loop) for loop in intentional_loops], background_files=len(background_kinds),
            overworld_npcs=overworld_npcs,
            overworld_field_cycles=field_cycles,
            namek_frog={'frames': 1, 'canvas': [144, 144], 'visible_height_px': 56, 'anchor_y': 140},

@@ -1,8 +1,14 @@
 {
-  "active_battle_files": 505,
+  "active_battle_files": 547,
   "missing": [],
   "invalid": [],
   "duplicate_drawings": [],
+  "intentional_loop_closures": [
+    [
+      "goku_ssj_guard_frame_01",
+      "goku_ssj_guard_frame_04"
+    ]
+  ],
   "background_files": 12,
   "overworld_npcs": {
     "namek_trader": {

@@ -1,35 +1,19 @@
-# Goku forms: which file is which
+# Goku forms and battle frames
 
-| Form | When it shows | Live art (all under `public/assets/reviewed/actors/`) | Source sheet |
+| Form | Routing | Body animation | Aura |
 |---|---|---|---|
-| **Base Goku** | every battle before the SSJ unlock, title, world fallback | approved stills `goku_<pose>.png` plus four authored melee frames `goku_attack_frame_01..04.png` (sprite id `goku`) | Beta 3 hero sheet for stills; native Codex imagegen strip `art-sources/production/goku/base_punch_source.png` for melee |
-| **Kaioken Goku** | only while the Kaioken status is active, or during the `kaioken` / `kaiokenassault` skills | `goku_kaioken_<state>_NN.png` (23 frames, set `goku_kaioken`) | `art-sources/goku-forms/kaioken_goku_pixel_sprite_sheet.png` |
-| **Super Saiyan Goku** | only after the story unlock (`ssj` flag set by the `{transform:'ssj'}` script step) | `goku_ssj_<state>_NN.png` (24 frames, set `goku_ssj`) | `art-sources/goku-forms/super_saiyan_goku_pixel_sprite_sheet.png` |
+| **Base** | Default until the story unlock; remains the world and title form. | Four-frame idle, four-frame melee, four-frame charge and signature release, four-frame guard and hurt, plus dedicated KO and victory poses. | Skill/status aura only. |
+| **Kaioken** | Active only while the Kaioken status or one of its two skills is active; SSJ still takes precedence. | Uses the approved base Goku face, costume and body proportions on the 288×272 power-up canvas. The four-frame idle, attack, guard, hurt and Kamehameha sequences are matched cuts from base Goku; power-up has its own four authored drawings. KO and victory use base Goku's approved poses. | A four-frame transparent red flame ring loops independently behind Goku, with an open center and reduced-flash alpha. It is not baked into body art or mixed with gold SSJ flames. |
+| **Super Saiyan** | Active only when the story's persistent `ssj` flag is set. Trunks has a separate `ssjform` route. | Four-frame idle and charge, six attack drawings, four-beat beam sequence, new four-frame guard and four-frame hurt/recovery, plus its own KO/victory art. | Gold flame stays independent from body frames and respects the reduced-flash setting. |
 
-Routing lives in one place: `gokuForm()` / `formSet()` in `src/engine/animation/gokuForms.ts`, applied by `BattleScene` (`setForm` for Kaioken, `ActorView.setSsjForm()` for SSJ, `setStillSprite('goku')` for base). SSJ wins over Kaioken. `formSet('base')` is `null`: there is no base frame set.
+`gokuForm()` and `formSet()` live in [gokuForms.ts](../src/engine/animation/gokuForms.ts). `BattleScene` applies the route after combat updates. `battleAnimationFrames.ts` registers and preloads every runtime frame; generated names use the `pw_` texture namespace so the form canvas and pivot remain consistent.
 
-`ssj_goku_*.png` stills still exist because the SSJ fighter keeps the sprite id `ssj_goku` (size reference, persistent gold flame trigger, world fallback). They are never drawn in battle. Base Goku's authored punch frames are loaded separately from the Kaioken/SSJ form table and advance during melee clips.
+## Kaioken production path
 
-## Regenerating
-`python -I tools/slice_goku_forms.py` rewrites every `goku_kaioken_*` / `goku_ssj_*` frame (deleting stale ones first), `src/data/powerupSprites.generated.ts` (animation tables and `refH` scale) and the review sheets in `evidence/powerups/`. The cell boxes and the pose tables are the two explicit dicts at the top of the script.
+The earlier Kaioken sheet did not hold the approved base Goku proportions. It is retained as source history, but its body poses are no longer drawn. `tools/build_kaioken_frames.py` rebuilds the form from approved base Goku frames and a dedicated generated charge strip. The latter is cut by `tools/slice_batch4_contact.py`, which removes the generated checker matte, rejects detached neighbor pixels, uses nearest-neighbor scaling and writes the fixed (144, 232) pivot canvas. The body frames and red aura can therefore animate independently.
 
-## Pose mapping (explicit)
-| Pose | Kaioken | Super Saiyan |
-|---|---|---|
-| idle (loops, 7 fps) | `idle_01, 02, 03, 02` (ping-pong) | `idle_01..04` |
-| charge | `powerup_01..04` (loops, 10 fps) | `powerup_01..04` |
-| attack | `attack_02..05` walk the flurry (dash, punch, punch+crescent, kick+crescent) | same |
-| special | `beam_03` (baked beam removed; engine beam VFX replaces it) | `beam_03` (same) |
-| guard | `attack_01` (crouched ready stance) | `guard_01` |
-| hurt | `hurt_01` / `hurt_02` (after 400 ms hold) | `hurt_01` |
-| ko | `ko_01` | `ko_01` |
-| victory | `victory_01` (fist raised) | `victory_01` |
+## Generated-frame acceptance
 
-## Known limitations
-- **Kaioken source cell 1 (top-left of the sheet) shows the wrong costume** (purple trousers, light top). It is never sliced, so it cannot be played. The idle loop therefore uses source cells 2-4 as a 1-2-3-2 ping-pong, which keeps the first and last frame of the loop identical and avoids a pop. A unit test (`tests/unit/art-v3.test.ts`) fails if any exported Kaioken frame contains that costume.
-- Neither new sheet has a crossed-arms guard frame; guard reuses the crouched ready stance (Kaioken `attack_01`, SSJ `guard_01`).
-- The new SSJ sheet has one hurt frame (the old one had three), so a long hit-stun shows the same frame; Kaioken has three.
-- Both sheets' baked aura / crescent / ring / burst props (bottom rows) are not exported: the engine draws its own VFX.
-- `goku_kaioken_powerup_04` and `goku_kaioken_victory_02` lose a few faint aura pixels at the top edge of the shared 288x272 canvas (solid body pixels are never cut; the slicer prints a note).
-- Kaioken `beam_04` keeps a little pink beam residue on its left edge. That frame is not used by any pose.
-- Scale: each set has its own `refH` (hair-to-boots height measured on its idle frame, scaled to base). Kaioken's drawn hair is taller than base, so it renders a touch larger. Check in a battle screenshot if you retune.
+The current contact sources are under the ignored `art-sources/production/batch4/` folder. Runtime cuts are reviewed under `public/assets/reviewed/actors/`. The slicer only accepts frames with a nonempty alpha bound, a stable canvas and baseline, one connected body silhouette, and no pale outline fringe. The SSJ hurt strip's second cell originally contained a boot from its neighbor; that cell was rejected and recut with detached-pixel filtering before it entered the runtime mapping. The replacement frames were checked individually: hurt frame 01 has two hands and both full boots; frame 02 has no neighboring boot, and every frame has transparent corners and the shared foot anchor. The aura is cut separately so its enclosed center is also transparent.
+
+`gokuForm()` keeps base, Kaioken and SSJ selection separate. The story unlock flag, Ki drain rules, save data and combat damage timing remain owned by the existing gameplay systems.

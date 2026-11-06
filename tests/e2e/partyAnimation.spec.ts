@@ -139,3 +139,52 @@ test('core-party charge loops and signature-release poses advance in Phaser', as
     }
   }
 });
+
+test('Goku base, Kaioken and SSJ use complete anchored guard and reaction sequences', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/?dev=battle&party=goku,gohan,vegeta&foes=zarbon&lv=22&ssj=1');
+  await page.waitForFunction(() => (window as any).__battle && (window as any).__ctl, null, { timeout: 60000 });
+  const ssj = await page.evaluate(() => {
+    const b = (window as any).__battle, c = (window as any).__ctl;
+    b.manual = true; c.engine.get('a_goku').ssj = true; b.debugStep(32);
+    const v = b.views.get('a_goku');
+    const ssjFormAtStart = b.debugActor('a_goku').form;
+    const stateAtStart = { formSet: v.formSet, sprite: v.sprite, pose: v.pose, downed: v.downed, hold: v.poseHold };
+    const sequence = (pose: string, hold: number, step: number) => {
+      v.downed = false; v.poseHold = 0; v.setPose('idle');
+      v.setPose(pose, hold);
+      const keys: string[] = [v.img.texture.key];
+      for (let i = 0; i < 5; i++) { v.update(step); keys.push(v.img.texture.key); }
+      return keys;
+    };
+    const guard = sequence('guard', 380, 56);
+    const ssjGuardFrames = [...v.animFrames];
+    const hurt = sequence('hurt', 420, 65);
+    const ssjHurtFrames = [...v.animFrames];
+    const actor = c.engine.get('a_goku'); actor.ssj = false;
+    c.engine.addStatus(actor, { kind: 'kaioken', turns: 5, power: 0.3 }); b.debugStep(160);
+    const liveIdle: string[] = [];
+    const liveAura: string[] = [];
+    for (let i = 0; i < 8; i++) {
+      b.debugStep(220);
+      liveIdle.push(v.img.texture.key);
+      liveAura.push(v.kaiokenFlame?.texture.key);
+    }
+    const charge = sequence('charge', 0, 125);
+    const idle = sequence('idle', 0, 200);
+    const auraFrames = [...liveAura, v.kaiokenFlame?.texture.key];
+    for (let i = 0; i < 5; i++) { v.update(100); auraFrames.push(v.kaiokenFlame?.texture.key); }
+    return { ssjFormAtStart, stateAtStart, form: b.debugActor('a_goku').form, guard, hurt, charge, idle, liveIdle, aura: !!v.kaiokenFlame, auraFrames, ssjGuardFrames, ssjHurtFrames };
+  });
+  expect(ssj.guard.filter((key: string) => key.startsWith('pw_goku_ssj_guard_frame_')).length, JSON.stringify(ssj)).toBeGreaterThanOrEqual(4);
+  expect(ssj.hurt.filter((key: string) => key.startsWith('pw_goku_ssj_hurt_frame_')).length).toBeGreaterThanOrEqual(4);
+  expect(ssj.form).toBe('goku_kaioken');
+  expect(ssj.charge.filter((key: string) => key.startsWith('pw_goku_kaioken_charge_frame_')).length).toBeGreaterThanOrEqual(4);
+  expect(new Set(ssj.idle.filter((key: string) => key.startsWith('pw_goku_kaioken_idle_frame_'))).size).toBe(4);
+  expect(new Set(ssj.liveIdle.filter((key: string) => key.startsWith('pw_goku_kaioken_idle_frame_'))).size).toBeGreaterThanOrEqual(3);
+  expect(ssj.aura).toBe(true);
+  expect(new Set(ssj.auraFrames.filter((key: string) => key?.startsWith('pw_goku_kaioken_aura_frame_'))).size).toBeGreaterThanOrEqual(3);
+  await page.screenshot({ path: 'evidence/overhaul/goku-kaioken-battle-frames-960x540.png' });
+  expect(errors).toEqual([]);
+});

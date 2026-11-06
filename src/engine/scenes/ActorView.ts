@@ -7,7 +7,7 @@ import { AuraRiseFx, riseFamilyFor, riseKey } from '../animation/vfxSprites';
 import { getSettings } from '../../systems/settings';
 import { POWERUP_CANVAS, POWERUP_SETS, type PowerupSetId } from '../../data/powerupSprites.generated';
 import { formAnim, frameTexKey, hasBakedAura } from '../animation/gokuForms';
-import { ANIMATION_PROFILE, ATTACK_FRAMES, HURT_FRAMES, IDLE_FRAMES, POSE_FRAMES } from '../../data/battleAnimationFrames';
+import { ANIMATION_PROFILE, ATTACK_FRAMES, GUARD_FRAMES, HURT_FRAMES, IDLE_FRAMES, KAIOKEN_AURA_FRAMES, POSE_FRAMES } from '../../data/battleAnimationFrames';
 import { nativeFacing, shouldFlip, POWERUP_FACING } from '../../data/poseFacing';
 import type { Vfx } from '../animation/vfx';
 
@@ -49,6 +49,8 @@ export class ActorView {
   formSet: PowerupSetId | null = null;
   /** Persistent golden flame behind Super Saiyan Goku (the SSJ frame set's own aura is too faint at rest). */
   private ssjFlame: Phaser.GameObjects.Image | null = null;
+  /** Authored looping red flame ring behind Kaioken Goku; independent of his body frames. */
+  private kaiokenFlame: Phaser.GameObjects.Image | null = null;
   private sparkOn = false;
   private flameT = 0;
   private animFrames: string[] = [];
@@ -60,6 +62,7 @@ export class ActorView {
   private clock = 0;
   private pendingIdleAt = -1;
   private holdMs = 0;
+  private formBurstMs = 0;
 
   constructor(private scene: Phaser.Scene, readonly f: Fighter, home: Pt, private vfx: Vfx, showBar: boolean, private k = 1) {
     this.facing = f.side === 'ally' ? 1 : -1;
@@ -118,6 +121,15 @@ export class ActorView {
     this.formSet = set; this.scaleK = this.computeScale(); this.img.setScale(this.scaleK);
     if (set) this.img.setOrigin(POWERUP_CANVAS.ax / POWERUP_CANVAS.w, POWERUP_CANVAS.ay / POWERUP_CANVAS.h); else this.img.setOrigin(ANCHOR_X, ANCHOR_Y);
     this.attackCount = 0; this.pendingIdleAt = -1;
+    if (set) { this.formBurstMs = 360; if (!getSettings().reducedFlash) this.flash(64); }
+    if (set === 'goku_kaioken') {
+      if (!this.kaiokenFlame && this.scene.textures.exists(frameTexKey(KAIOKEN_AURA_FRAMES[0]))) {
+        this.kaiokenFlame = this.scene.add.image(0, 0, frameTexKey(KAIOKEN_AURA_FRAMES[0]))
+          .setOrigin(POWERUP_CANVAS.ax / POWERUP_CANVAS.w, POWERUP_CANVAS.ay / POWERUP_CANVAS.h)
+          .setScale(this.scaleK);
+      }
+      this.persistentAura?.kill(); this.persistentAura = null;
+    } else if (this.kaiokenFlame) { this.kaiokenFlame.destroy(); this.kaiokenFlame = null; }
     this.setPose(this.pose, this.holdMs);
   }
 
@@ -136,6 +148,9 @@ export class ActorView {
   get sky(): Pt { return { x: this.feet.x + this.facing * 20, y: this.feet.y - this.heightPx - 130 }; }
 
   setPose(p: Pose, holdMs = 0) {
+    if (this.downed && p !== 'ko') return;
+    const priority: Record<Pose, number> = { idle: 0, charge: 1, attack: 2, special: 2, guard: 3, hurt: 4, victory: 5, ko: 6 };
+    if (this.poseHold > 0 && p !== this.pose && priority[p] < priority[this.pose]) return;
     if (this.formSet && p === 'idle' && this.pose === 'attack' && this.clock - this.lastAttackAt < 240) { this.pendingIdleAt = this.lastAttackAt + 240; return; } // keep the strike frame through a flurry
     this.pendingIdleAt = -1;
     this.pose = p;
@@ -144,6 +159,7 @@ export class ActorView {
     const frames = p === 'attack' ? ATTACK_FRAMES[this.sprite]
       : p === 'idle' ? IDLE_FRAMES[this.sprite]
       : p === 'hurt' ? HURT_FRAMES[this.sprite]
+      : p === 'guard' ? GUARD_FRAMES[this.sprite]
       : p === 'charge' || p === 'special' ? POSE_FRAMES[this.sprite]?.[p]
       : undefined;
     if (frames) {
@@ -169,6 +185,7 @@ export class ActorView {
   flash(ms: number) { this.flashLeft = ms; }
   knockBack(dx: number, dy = 0) { this.knock = { x: this.knock.x + dx, y: this.knock.y + dy }; }
   setAura(on: boolean, color: string) {
+    if (this.formSet === 'goku_kaioken') { if (on) this.setPassiveAura('red'); return; }
     if (!on || hasBakedAura(this.formSet)) { this.aura?.kill(); this.aura = null; return; }   // baked-aura forms: never stack a procedural aura
     if (this.aura) { this.aura.setColor(color); return; }
     this.aura = new AuraFx(this.scene, color, () => ({ x: this.feet.x, y: this.feet.y, h: this.heightPx * 0.95, w: this.width }));
@@ -178,6 +195,7 @@ export class ActorView {
   /** Status-driven passive aura (Kaioken / Sparking / ATK up). Kept separate from clip auras. */
   setPassiveAura(color: string | null) {
     if (!color) { this.persistentAura?.kill(); this.persistentAura = null; return; }
+    if (this.formSet === 'goku_kaioken' && this.kaiokenFlame) return;
     if (this.persistentAura) { this.persistentAura.setColor(color); return; }
     this.persistentAura = new AuraFx(this.scene, color, () => ({ x: this.feet.x, y: this.feet.y, h: this.heightPx * 0.8, w: this.width }));
     this.vfx.add(this.persistentAura);
@@ -199,7 +217,7 @@ export class ActorView {
   }
   setHp(frac: number) { this.lastHpFrac = frac; }
   fadeOut(ms: number) { this.fading = ms; this.downed = true; }
-  setDowned() { this.downed = true; this.setPose('ko'); this.img.setTint(0x777788); }
+  setDowned() { this.poseHold = 0; this.downed = true; this.setPose('ko'); this.img.setTint(0x777788); }
   revive() { this.downed = false; this.alpha = 1; this.fading = 0; this.img.clearTint(); this.setPose('idle'); }
 
   update(dt: number) {
@@ -209,12 +227,30 @@ export class ActorView {
       const strong = this.sprite === 'ssj_goku' || this.sprite === 'trunks_ssj', calm = getSettings().reducedFlash ? 0.35 : 0.62;
       this.ssjFlame.setTexture(riseKey('gold', i)).setPosition(f.x, f.y + 2).setScale((this.heightPx * (strong ? 1.45 : 1.15)) / 105).setDepth(f.y - 0.6).setVisible(!this.downed).setAlpha(this.alpha * (strong ? 1 : calm));
     }
+    if (this.kaiokenFlame) {
+      this.flameT += dt;
+      const frame = Math.floor(this.flameT / 90) % KAIOKEN_AURA_FRAMES.length;
+      const f = this.feet, settings = getSettings();
+      this.kaiokenFlame
+        .setTexture(frameTexKey(KAIOKEN_AURA_FRAMES[frame]))
+        .setPosition(Math.round(f.x * this.k) / this.k, Math.round(f.y * this.k) / this.k)
+        .setScale(this.scaleK)
+        .setDepth(f.y - 0.25)
+        .setVisible(this.formSet === 'goku_kaioken' && !this.downed)
+        .setAlpha(this.alpha * (settings.reducedFlash ? 0.68 : 0.92));
+    }
     if (this.pendingIdleAt >= 0 && this.clock >= this.pendingIdleAt) { this.pendingIdleAt = -1; this.setPose('idle'); }
     if (this.animFrames.length > 1 && this.animFps > 0) {
       this.animT += dt;
       const idx = Math.floor((this.animT / 1000) * this.animFps);
       this.img.setTexture(frameTexKey(this.animFrames[this.animLoop ? idx % this.animFrames.length : Math.min(idx, this.animFrames.length - 1)]));
     }
+    if (this.formBurstMs > 0) {
+      this.formBurstMs = Math.max(0, this.formBurstMs - dt);
+      const u = 1 - this.formBurstMs / 360, envelope = Math.sin(Math.PI * u);
+      const strength = getSettings().reducedFlash ? 0.025 : 0.055;
+      this.img.setScale(this.scaleK * (1 + strength * envelope));
+    } else this.img.setScale(this.scaleK);
     if (this.motion) {
       const m = this.motion; m.t += dt;
       const u = Math.min(1, m.t / m.dur), e = ease[m.ease](u);
@@ -258,6 +294,7 @@ export class ActorView {
   destroy() {
     this.clearAuras();
     this.ssjFlame?.destroy(); this.ssjFlame = null;
+    this.kaiokenFlame?.destroy(); this.kaiokenFlame = null;
     [this.img, this.shadow, this.hpBg, this.hpFill, this.hpTrail, this.pips].forEach((o) => o?.destroy());
   }
 }

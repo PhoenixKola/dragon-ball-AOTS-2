@@ -9,7 +9,7 @@ export interface Settings {
   sfxVolume: number;
   muted: boolean;
   integerScale: boolean;
-  /** Request browser full screen on the first key/click (F toggles it at any time). */
+  /** Current browser full screen state; it never auto-enters on launch or first input. */
   fullscreen: boolean;
   difficulty: 'normal' | 'easy';
   showDiagnostics: boolean;
@@ -23,7 +23,7 @@ export interface Settings {
 }
 export const DEFAULT_SETTINGS: Settings = {
   guardPreset: 'standard', battleSpeed: 1, screenShake: true, reducedFlash: false, musicVolume: 0.55, sfxVolume: 0.8,
-  muted: false, integerScale: false, fullscreen: true, difficulty: 'normal', showDiagnostics: false, provisionalArt: true, vfxStyle: 'sprites', rageTipSeen: false, fsTipSeen: false,
+  muted: false, integerScale: false, fullscreen: false, difficulty: 'normal', showDiagnostics: false, provisionalArt: true, vfxStyle: 'sprites', rageTipSeen: false, fsTipSeen: false,
 };
 const KEY = 'aots2.settings.v1';
 type Listener = () => void;
@@ -37,6 +37,7 @@ function load(): Settings {
       const v = JSON.parse(raw) as Partial<Settings>;
       const out = { ...DEFAULT_SETTINGS };
       (Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]).forEach((k) => { if (typeof v[k] === typeof DEFAULT_SETTINGS[k]) (out as Record<string, unknown>)[k] = v[k]; });
+      out.fullscreen = false; // browsers do not persist full screen between launches; never auto-enter
       if (!['standard', 'relaxed', 'assist'].includes(out.guardPreset)) out.guardPreset = 'standard';
       if (out.battleSpeed !== 1 && out.battleSpeed !== 1.6) out.battleSpeed = 1;
       if (out.vfxStyle !== 'sprites' && out.vfxStyle !== 'procedural') out.vfxStyle = 'sprites';

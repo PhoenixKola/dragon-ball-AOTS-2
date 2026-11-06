@@ -84,16 +84,15 @@ export function App() {
     };
     window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey);
   }, []);
-  // full screen: first key/click enters it (when enabled in settings); F toggles at any time (not while typing)
+  // Full screen is always an explicit user action: F toggles it, or use Settings.
   useEffect(() => {
-    let tried = false;
-    const first = () => { if (tried) return; tried = true; if (getSettings().fullscreen && !document.fullscreenElement) toggleFullscreen(true); };
     const onKey = (e: KeyboardEvent) => {
-      if ((e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey && !e.altKey && !(e.target instanceof HTMLInputElement)) { tried = true; toggleFullscreen(); return; }
-      first();
+      const target = e.target;
+      const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || (target instanceof HTMLElement && target.isContentEditable);
+      if ((e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey && !e.altKey && !typing) { toggleFullscreen(); }
     };
-    window.addEventListener('pointerdown', first); window.addEventListener('keydown', onKey);
-    return () => { window.removeEventListener('pointerdown', first); window.removeEventListener('keydown', onKey); };
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('keydown', onKey); };
   }, []);
 
   // world-level keys: Esc / Tab / M open the menu

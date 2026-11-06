@@ -34,4 +34,4 @@ for index, name in enumerate(NAMES):
     x = round(AX - sprite.width / 2)
     y = FEET - BODY_H
     canvas.alpha_composite(sprite, (x, y))
-    canvas.save(OUT / f'goku_ssj_v2_{name}.png', optimize=True)
+    canvas.save(OUT / f'goku_ssj_v3_{name}.png', optimize=True)

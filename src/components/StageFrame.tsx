@@ -26,6 +26,7 @@ export function StageFrame({ children, onBoot }: { children: ReactNode; onBoot: 
     const refit = () => setFit(fitStage(window.innerWidth, window.innerHeight, getSettings().integerScale, window.devicePixelRatio, window.screen?.width ?? 0));
     const onFs = () => {
       const now = !!document.fullscreenElement;
+      updateSettings({ fullscreen: now });
       refit(); window.setTimeout(refit, 120); window.setTimeout(refit, 500);
       if (was && !now) session.toast('Left full screen. Press F to return. Open menus stay as they are: close them with X / Backspace.', 3800);
       else if (!was && now && !getSettings().fsTipSeen) { updateSettings({ fsTipSeen: true }); session.toast('Tip: the browser may use Esc to leave full screen. In menus, go back with X, Backspace or gamepad B.', 4600); }

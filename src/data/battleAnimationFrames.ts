@@ -50,10 +50,10 @@ export const GUARD_FRAMES: Readonly<Record<string, readonly string[]>> = {
   goku: frameSet('goku', 4, 'guard'),
 };
 export const FORM_GUARD_FRAMES: Readonly<Partial<Record<PowerupSetId, readonly string[]>>> = {
-  goku_ssj: frameSet('goku_ssj', 4, 'guard'),
+  goku_ssj: ['goku_ssj_v2_guard_01'],
 };
 export const FORM_HURT_FRAMES: Readonly<Partial<Record<PowerupSetId, readonly string[]>>> = {
-  goku_ssj: frameSet('goku_ssj', 4, 'hurt'),
+  goku_ssj: ['goku_ssj_v2_guard_01'],
 };
 export const KAIOKEN_FORM_FRAMES: Readonly<Record<'idle' | 'attack' | 'charge' | 'special' | 'guard' | 'hurt' | 'ko' | 'victory', readonly string[]>> = {
   idle: frameSet('goku_kaioken', 4, 'idle'),

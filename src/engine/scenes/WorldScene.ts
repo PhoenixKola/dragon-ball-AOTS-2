@@ -449,12 +449,17 @@ export class WorldScene extends Phaser.Scene {
       e.moving = false;
       const p = e.ent.foe?.patrol;
       if (p && p.length > 1 && e.img) {
-        const tgt = p[(e.patrolIdx + 1) % p.length]; const tx = tgt[0] * TILE, ty = tgt[1] * TILE;
-        const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
-        if (d < 2) e.patrolIdx = (e.patrolIdx + 1) % p.length;
-        else {
-          const stride = Math.min(d, 38 * dt); e.x += (dx / d) * stride; e.y += (dy / d) * stride;
-          e.facing = dirFromVector(dx, dy, e.facing); e.moving = stride > 0.01; e.walkClock = e.moving ? e.walkClock + dt * 1000 : 0;
+        const toPlayerX = this.px - e.x, toPlayerY = this.py - e.y;
+        if (Math.hypot(toPlayerX, toPlayerY) < 120) {
+          e.facing = dirToward(toPlayerX, toPlayerY); e.walkClock = 0;
+        } else {
+          const tgt = p[(e.patrolIdx + 1) % p.length]; const tx = tgt[0] * TILE, ty = tgt[1] * TILE;
+          const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+          if (d < 2) e.patrolIdx = (e.patrolIdx + 1) % p.length;
+          else {
+            const stride = Math.min(d, 38 * dt); e.x += (dx / d) * stride; e.y += (dy / d) * stride;
+            e.facing = dirFromVector(dx, dy, e.facing); e.moving = stride > 0.01; e.walkClock = e.moving ? e.walkClock + dt * 1000 : 0;
+          }
         }
       } else if (e.img && e.ent.ow && Math.hypot(this.px - e.x, this.py - e.y) < 120) {
         e.facing = dirToward(this.px - e.x, this.py - e.y);
@@ -511,7 +516,7 @@ export class WorldScene extends Phaser.Scene {
             const fr = owFrame(e.ent.ow, e.facing, e.moving, e.walkClock); e.img.setTexture(fr.key).setFlipX(false);
           } else {
             const dx = this.px - e.x, dy = this.py - e.y; const near = Math.hypot(dx, dy) < 120;
-            const dir = near ? dirToward(dx, dy) : 'down';
+            const dir = near ? dirToward(dx, dy) : e.ent.ow === 'cooler' ? 'left' : 'down';
             const cycle = (t * 1000 + e.idlePhaseMs) % 6800;
             const fidget = (k === 'npc' || k === 'shop' || k === 'heal') && o.dirs[dir].walk.length > 0 && cycle >= 4500 && cycle < 5300;
             const key = fidget ? owFrame(e.ent.ow, dir, true, cycle - 4500).key : owKey(e.ent.ow, dir, o.dirs[dir].idle[0]);

@@ -100,7 +100,7 @@ export class ActorView {
     this.setPose(this.pose, this.holdMs);
     this.syncFlame(name);
   }
-  /** Super Saiyan Goku: the SSJ frame set (art-sources/goku-forms) over the persistent gold flame. Idempotent, called every frame. */
+  /** Super Saiyan Goku: the sharper reviewed v2 frames over the persistent gold flame. Idempotent, called every frame. */
   setSsjForm() {
     if (this.sprite === 'ssj_goku' && this.formSet === 'goku_ssj') return;
     this.sprite = 'ssj_goku';
